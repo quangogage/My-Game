@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/quangogage/My-Game/issues"
   },
-  "homepage": "https://github.com/quangogage/My-Game#readme"
+  "homepage": "https://github.com/quangogage/My-Game#readme",
+  "dependencies": {
+    "phaser": "^3.10.1"
+  }
 }
