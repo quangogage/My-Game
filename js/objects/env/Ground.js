@@ -54,9 +54,12 @@ export default class Ground {
   update(player) {
     var pos = player.getPos();
     var dim = player.getDim();
+
+    // Handling the player landing on the ground.
     if (pos.y + dim.height / 2 > this.groundY) {
       player.setPos(null, this.groundY - dim.height / 2);
       player.yvel = 0;
+      player.grounded = true;
     }
   }
 }

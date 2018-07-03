@@ -1,5 +1,6 @@
 import { Scene } from 'phaser';
 import Background from '../objects/env/Background';
+import WeaponHandler from '../handlers/WeaponHandler';
 import Player from '../objects/Player';
 import Ground from '../objects/env/Ground';
 
@@ -21,6 +22,10 @@ export default class PlayScene extends Scene {
     // The ground
     this.ground = new Ground(this);
     this.ground.preload();
+
+    // The weapon handler
+    this.weaponHandler = new WeaponHandler(this);
+    this.weaponHandler.preload();
   }
   create() {
     this.background.create();
@@ -30,5 +35,6 @@ export default class PlayScene extends Scene {
   update() {
     this.player.update();
     this.ground.update(this.player);
+    this.weaponHandler.update();
   }
 }

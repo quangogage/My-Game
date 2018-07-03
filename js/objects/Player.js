@@ -1,6 +1,7 @@
 var SPEED = 1;
 var FRICTION = 0.785;
 var GRAVITY = 0.4;
+var JUMP_HEIGHT = 8.5;
 
 export default class Player {
   constructor(scene) {
@@ -53,11 +54,19 @@ export default class Player {
       frameRate: 10,
       repeat: -1
     });
+    scene.anims.create({
+      key: 'jump',
+      frames: scene.anims.generateFrameNumbers('player', { start: 3, end: 3 }),
+      frameRate: 10,
+      repeat: -1
+    });
   }
   update() {
     var scene = this.scene;
     this.physics();
     this.move();
+    this.boundary();
+    this.jump();
   }
 
   // Get the player's position
@@ -112,6 +121,32 @@ export default class Player {
       this.xvel -= this.speed;
     } else {
       this.sprite.anims.play('idle', true);
+    }
+  }
+
+  // Staying on the screen
+  boundary() {
+    var sceneWidth = this.scene.sys.canvas.width;
+    if (this.sprite.x - this.width / 2 < 0) {
+      this.sprite.x = this.width / 2;
+      this.xvel = 0;
+    } else if (this.sprite.x + this.width / 2 > sceneWidth) {
+      this.sprite.x = sceneWidth - this.width / 2;
+      this.xvel = 0;
+    }
+  }
+
+  // Jumping
+  jump() {
+    // Inacting a jump
+    if (this.grounded && this.cursors.up.isDown) {
+      this.yvel = -JUMP_HEIGHT;
+      this.grounded = false;
+    }
+
+    // Running the 'jump' animation
+    if (!this.grounded) {
+      this.sprite.anims.play('jump', true);
     }
   }
 }
