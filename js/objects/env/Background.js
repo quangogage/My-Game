@@ -1,3 +1,6 @@
 import Phaser from 'phaser';
 
-export default class Background {}
+export default class Background {
+  constructor() {
+    super();
+  }
