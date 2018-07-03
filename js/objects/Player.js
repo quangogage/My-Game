@@ -1,5 +1,6 @@
 var SPEED = 1;
 var FRICTION = 0.785;
+var GRAVITY = 0.4;
 
 export default class Player {
   constructor(scene) {
@@ -20,14 +21,14 @@ export default class Player {
     this.cursors = scene.input.keyboard.createCursorKeys();
   }
 
-  /* ** Phaser Functions ** */
+  /* ** Public Functions ** */
   preload() {
     var scene = this.scene;
 
     // Load the spritesheet
     scene.load.spritesheet('player', 'images/player/spritesheet.png', {
       frameWidth: 19,
-      frameHeight: 19
+      frameHeight: 18
     });
   }
   create() {
@@ -59,12 +60,34 @@ export default class Player {
     this.move();
   }
 
+  // Get the player's position
+  getPos() {
+    return { x: this.sprite.x, y: this.sprite.y };
+  }
+
+  // Get the dimensions of the player
+  getDim() {
+    return {
+      width: this.width,
+      height: this.height
+    };
+  }
+
+  // Set the player's position
+  setPos(x, y) {
+    var x = x || this.sprite.x;
+    var y = y || this.sprite.y;
+    this.sprite.x = x;
+    this.sprite.y = y;
+  }
+
   /* ** Private Functions ** */
   // Basic physics
   physics() {
     this.sprite.x += this.xvel;
     this.sprite.y += this.yvel;
     this.xvel *= this.friction;
+    this.yvel += GRAVITY;
   }
 
   // Movement
