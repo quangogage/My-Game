@@ -1,11 +1,11 @@
 import Phaser from 'phaser';
-import PlayState from './states/Play';
+import PlayScene from './scenes/Play';
 
 let config = {
   type: Phaser.AUTO,
   width: 800,
   height: 600,
-  scene: new PlayState(),
+  scene: new PlayScene(),
   pixelArt: true
 };
 
