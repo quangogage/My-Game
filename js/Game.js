@@ -5,7 +5,8 @@ let config = {
   type: Phaser.AUTO,
   width: 800,
   height: 600,
-  scene: new PlayState()
+  scene: new PlayState(),
+  pixelArt: true
 };
 
 export default class Game {

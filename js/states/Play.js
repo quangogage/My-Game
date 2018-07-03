@@ -7,9 +7,13 @@ export default class PlayState extends Scene {
       key: 'play'
     });
   }
-  create() {
+  preload() {
     // The background
-    this.background = new Background();
+    this.background = new Background(this);
+    this.background.preload(this);
+  }
+  create() {
+    this.background.create();
   }
   update() {}
 }
