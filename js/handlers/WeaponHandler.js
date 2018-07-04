@@ -23,8 +23,8 @@ export default class WeaponHandler {
         imageFile: 'pistol',
         width: 27,
         height: 18,
-        x: 16,
-        y: 18
+        x: 14,
+        y: 20
       }
     ];
 
