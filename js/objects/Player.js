@@ -67,6 +67,7 @@ export default class Player {
     this.move();
     this.boundary();
     this.jump();
+    this.attachGun();
   }
 
   // Get the player's position
@@ -147,6 +148,45 @@ export default class Player {
     // Running the 'jump' animation
     if (!this.grounded) {
       this.sprite.anims.play('jump', true);
+    }
+  }
+
+  // Equipping a weapon
+  equip(weapon) {
+    console.log(weapon);
+    // Store the weapons info
+    this.equipped = {
+      x: weapon.x || 0,
+      y: weapon.y || 0,
+      name: weapon.name,
+      width: weapon.width,
+      height: weapon.height
+    };
+
+    // Create the image
+    this.equipped.image = this.scene.add.image(
+      this.sprite.x + this.equipped.x,
+      this.sprite.y + this.equipped.y,
+      this.equipped.name
+    );
+
+    // Size the image
+    this.equipped.image.setDisplaySize(
+      this.equipped.width,
+      this.equipped.height
+    );
+  }
+
+  // Keep the gun attached to the player
+  attachGun() {
+    var scaleX = this.sprite.flipX ? -1 : 1;
+    if (this.equipped) {
+      // Positioning
+      this.equipped.image.x = this.sprite.x + this.equipped.x * scaleX;
+      this.equipped.image.y = this.sprite.y + this.equipped.y;
+
+      // Flip it as well if the player is flipped
+      this.equipped.image.flipX = this.sprite.flipX;
     }
   }
 }

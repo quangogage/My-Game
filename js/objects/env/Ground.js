@@ -51,15 +51,25 @@ export default class Ground {
       }
     }
   }
-  update(player) {
+  update(player, weapons) {
+    // Handling the player landing on the ground.
     var pos = player.getPos();
     var dim = player.getDim();
-
-    // Handling the player landing on the ground.
     if (pos.y + dim.height / 2 > this.groundY) {
       player.setPos(null, this.groundY - dim.height / 2);
       player.yvel = 0;
       player.grounded = true;
+    }
+
+    // Handling weapons landing on the ground.
+    for (var i = 0; i < weapons.length; i++) {
+      var weapon = weapons[i];
+      var pos = weapon.getPos();
+      var dim = weapon.getDim();
+      if (pos.y + dim.height / 2 > this.groundY) {
+        pos.y = this.groundY - dim.height / 2;
+        weapon.yvel = 0;
+      }
     }
   }
 }

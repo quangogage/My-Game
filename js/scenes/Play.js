@@ -19,22 +19,25 @@ export default class PlayScene extends Scene {
     this.player = new Player(this);
     this.player.preload();
 
+    // The weapon handler
+    this.weaponHandler = new WeaponHandler(this, this.player);
+    this.weaponHandler.preload();
+
     // The ground
     this.ground = new Ground(this);
     this.ground.preload();
-
-    // The weapon handler
-    this.weaponHandler = new WeaponHandler(this);
-    this.weaponHandler.preload();
   }
   create() {
     this.background.create();
     this.player.create();
     this.ground.create();
+
+    // Creating a test weapon
+    this.weaponHandler.create('pistol', 20, 20);
   }
   update() {
     this.player.update();
-    this.ground.update(this.player);
     this.weaponHandler.update();
+    this.ground.update(this.player, this.weaponHandler.weapons);
   }
 }
