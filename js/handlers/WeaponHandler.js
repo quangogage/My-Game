@@ -91,7 +91,7 @@ export default class WeaponHandler {
 
       // Removing it
       if (this.weapons[i].delete) {
-        console.log(this.scene);
+        this.weapons[i].sprite.destroy();
         this.weapons.splice(i, 1);
       }
     }

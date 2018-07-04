@@ -3,6 +3,7 @@ import Background from '../objects/env/Background';
 import WeaponHandler from '../handlers/WeaponHandler';
 import Player from '../objects/Player';
 import Ground from '../objects/env/Ground';
+import BulletHandler from '../handlers/BulletHandler';
 
 export default class PlayScene extends Scene {
   constructor(options) {
@@ -14,6 +15,10 @@ export default class PlayScene extends Scene {
     // The Background
     this.background = new Background(this);
     this.background.preload();
+
+    // The bullet handler
+    this.bulletHandler = new BulletHandler(this);
+    this.bulletHandler.preload();
 
     // The Player
     this.player = new Player(this);
@@ -31,6 +36,7 @@ export default class PlayScene extends Scene {
     this.background.create();
     this.player.create();
     this.ground.create();
+    this.bulletHandler.create();
 
     // Creating a test weapon
     this.weaponHandler.create('pistol', 20, 20);
@@ -38,6 +44,7 @@ export default class PlayScene extends Scene {
   update() {
     this.player.update();
     this.weaponHandler.update();
+    this.bulletHandler.update();
     this.ground.update(this.player, this.weaponHandler.weapons);
   }
 }
