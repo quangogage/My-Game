@@ -27,6 +27,7 @@ export default class Background {
         file: 'clouds_MG_1.png'
       }
     ];
+    this.yOffset = 25;
   }
 
   preload() {
@@ -47,10 +48,13 @@ export default class Background {
       var name = this.images[i].name;
       this.images[i].image = scene.add.image(
         sceneWidth / 2,
-        sceneHeight / 2,
+        sceneHeight / 2 + this.yOffset,
         name
       );
-      this.images[i].image.setDisplaySize(sceneWidth, sceneHeight);
+      this.images[i].image.setDisplaySize(
+        sceneWidth,
+        sceneHeight + this.yOffset * 2
+      );
     }
   }
 }
