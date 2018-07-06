@@ -4,6 +4,7 @@ import WeaponHandler from '../handlers/WeaponHandler';
 import Player from '../objects/Player';
 import Ground from '../objects/env/Ground';
 import BulletHandler from '../handlers/BulletHandler';
+import ParticleHandler from '../handlers/ParticleHandler';
 
 export default class PlayScene extends Scene {
   constructor(options) {
@@ -16,12 +17,23 @@ export default class PlayScene extends Scene {
     this.background = new Background(this);
     this.background.preload();
 
+    // The particle handler
+    this.particleHandler = new ParticleHandler({ scene: this });
+    this.particleHandler.preload();
+
     // The bullet handler
-    this.bulletHandler = new BulletHandler(this);
+    this.bulletHandler = new BulletHandler({
+      scene: this,
+      createParticle: this.particleHandler.create
+    });
     this.bulletHandler.preload();
 
     // The Player
-    this.player = new Player(this, this.bulletHandler.create);
+    this.player = new Player({
+      scene: this,
+      createBullet: this.bulletHandler.create,
+      createParticle: this.particleHandler.create
+    });
     this.player.preload();
 
     // The weapon handler
@@ -44,6 +56,7 @@ export default class PlayScene extends Scene {
     this.player.update();
     this.weaponHandler.update();
     this.bulletHandler.update();
+    this.particleHandler.update();
     this.ground.update(this.player, this.weaponHandler.weapons);
   }
 }

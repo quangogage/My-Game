@@ -7,6 +7,7 @@ export default class Bullet {
     this.y = options.y;
     this.dir = options.dir;
     this.speed = options.data.speed;
+    this.createFlash = options.createFlash;
 
     // Dimensions
     this.width = 32;
@@ -39,8 +40,11 @@ export default class Bullet {
 
     // Move it forward by half of it's width to account for
     // the centered origin
-    this.sprite.x += Math.cos(this.dir) * this.width;
-    this.sprite.y += Math.sin(this.dir) * this.width;
+    this.sprite.x += Math.cos(this.dir) * (this.width * 0.8);
+    this.sprite.y += Math.sin(this.dir) * (this.width * 0.8);
+
+    // Create a flash particle
+    this.createFlash(this.sprite.x, this.sprite.y);
   }
 
   // Updating the bullet

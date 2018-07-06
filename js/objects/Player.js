@@ -4,10 +4,11 @@ var GRAVITY = 0.4;
 var JUMP_HEIGHT = 8.5;
 
 export default class Player {
-  constructor(scene, createBullet) {
+  constructor(options) {
     // Store references
-    this.scene = scene;
-    this.createBullet = createBullet;
+    this.scene = options.scene;
+    this.createBullet = options.createBullet;
+    this.createParticle = options.createParticle;
 
     // Dimensions
     this.width = 48;
@@ -25,7 +26,7 @@ export default class Player {
     };
 
     // Controls
-    this.cursors = scene.input.keyboard.createCursorKeys();
+    this.cursors = this.scene.input.keyboard.createCursorKeys();
     this.spacebar = this.scene.input.keyboard.addKey(
       Phaser.Input.Keyboard.KeyCodes.SPACE
     );

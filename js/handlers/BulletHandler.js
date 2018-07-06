@@ -1,9 +1,10 @@
 import Bullet from '../objects/Bullet';
 
 export default class BulletHandler {
-  constructor(scene) {
+  constructor(options) {
     // Store values
-    this.scene = scene;
+    this.scene = options.scene;
+    this.createParticle = options.createParticle;
 
     // The bullet instances
     this.bullets = [];
@@ -46,7 +47,8 @@ export default class BulletHandler {
         y: y,
         dir: dir,
         scene: this.scene,
-        data: data
+        data: data,
+        createFlash: this.createFlash.bind(this)
       })
     );
   }
@@ -67,5 +69,10 @@ export default class BulletHandler {
         return this.bulletData[i];
       }
     }
+  }
+
+  // Create a flash
+  createFlash(x, y) {
+    this.createParticle(x, y, 'flash');
   }
 }
