@@ -44,9 +44,15 @@ export default class Player {
   }
   create() {
     var scene = this.scene;
+    var sceneWidth = this.scene.sys.canvas.width;
+    var sceneHeight = this.scene.sys.canvas.height;
 
     // The Sprite
-    this.sprite = scene.add.sprite(200, 200, 'player');
+    this.sprite = scene.add.sprite(
+      sceneWidth * 0.33,
+      sceneHeight / 2,
+      'player'
+    );
 
     // Set the dimensions of the sprite
     this.sprite.setDisplaySize(this.width, this.height);

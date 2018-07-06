@@ -5,6 +5,8 @@ import Player from '../objects/Player';
 import Ground from '../objects/env/Ground';
 import BulletHandler from '../handlers/BulletHandler';
 import ParticleHandler from '../handlers/ParticleHandler';
+import Interface from '../Interface/Interface';
+import PlayState from './PlayState';
 
 export default class PlayScene extends Scene {
   constructor(options) {
@@ -13,6 +15,12 @@ export default class PlayScene extends Scene {
     });
   }
   preload() {
+    // The Game-state
+    this.state = {
+      current: 'start',
+      timer: 0
+    };
+
     // The Background
     this.background = new Background(this);
     this.background.preload();
@@ -37,20 +45,31 @@ export default class PlayScene extends Scene {
     this.player.preload();
 
     // The weapon handler
-    this.weaponHandler = new WeaponHandler(this, this.player);
+    this.weaponHandler = new WeaponHandler({
+      scene: this,
+      player: this.player,
+      state: this.state
+    });
     this.weaponHandler.preload();
 
     // The ground
     this.ground = new Ground(this);
     this.ground.preload();
+
+    // The interface
+    this.interface = new Interface({ scene: this, state: this.state });
+    this.interface.preload();
   }
   create() {
     this.background.create();
     this.player.create();
     this.ground.create();
+    this.interface.create();
 
-    // Creating a test weapon
-    this.weaponHandler.create('pistol', 20, 20);
+    // Create a pistol at the start of the round
+    var sceneWidth = this.sys.canvas.width;
+    var sceneHeight = this.sys.canvas.height;
+    this.weaponHandler.create('pistol', sceneWidth * 0.66, sceneHeight * 0.5);
   }
   update() {
     this.player.update();
@@ -58,5 +77,12 @@ export default class PlayScene extends Scene {
     this.bulletHandler.update();
     this.particleHandler.update();
     this.ground.update(this.player, this.weaponHandler.weapons);
+    this.interface.update();
+
+    // Updating the playstate
+    PlayState({
+      state: this.state,
+      weaponHandler: this.weaponHandler
+    });
   }
 }

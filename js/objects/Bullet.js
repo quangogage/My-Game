@@ -1,3 +1,5 @@
+var CAMERA_SHAKE = 16;
+
 export default class Bullet {
   constructor(options) {
     // Store references
@@ -15,6 +17,7 @@ export default class Bullet {
 
     // Create the image
     this.createSprite();
+    this.shakeCamera();
   }
 
   // Creating the image
@@ -45,6 +48,11 @@ export default class Bullet {
 
     // Create a flash particle
     this.createFlash(this.sprite.x, this.sprite.y);
+  }
+
+  // Shake the camera
+  shakeCamera() {
+    this.scene.cameras.main.shake(CAMERA_SHAKE);
   }
 
   // Updating the bullet

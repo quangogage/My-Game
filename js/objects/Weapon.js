@@ -5,6 +5,8 @@ export default class Weapon {
     // Store references
     this.scene = options.scene;
     this.data = options.data;
+    this.state = options.state;
+    this.player = options.player;
 
     // Dimensions and positioning
     this.x = options.x;
@@ -17,11 +19,17 @@ export default class Weapon {
 
     // Create the sprite
     this.createSprite(this.x, this.y);
+
+    // Create the down arrow
+    this.createArrow();
   }
 
   /* ** Public Functions ** */
   update() {
     this.physics();
+    this.attachArrow();
+    this.animateArrow();
+    this.hideArrow();
   }
 
   /* ** Private Functions ** */
@@ -34,6 +42,20 @@ export default class Weapon {
 
     // Set the dimensions of the image
     this.sprite.setDisplaySize(this.width, this.height);
+  }
+
+  // Create the down arrow icon
+  createArrow() {
+    var scene = this.scene;
+
+    // Create the image
+    this.arrow = scene.add.image(this.sprite.x, this.sprite.y, 'down-arrow');
+
+    // Set the dimensions of the image
+    this.arrow.setDisplaySize(32, 32);
+
+    // Create the animation variables
+    this.arrowTimer = 0;
   }
 
   // Basic physics
@@ -58,5 +80,39 @@ export default class Weapon {
     var y = y || this.sprite.y;
     this.sprite.x = x;
     this.sprite.y = y;
+  }
+
+  // Make the arrow sprite constantly stay by the weapon sprite
+  attachArrow() {
+    this.arrow.x = this.sprite.x;
+    this.arrow.y =
+      this.sprite.y -
+      this.height -
+      this.arrow.height * 0.25 +
+      Math.sin(this.arrowTimer) * 4;
+  }
+
+  // Animate the arrow
+  animateArrow() {
+    this.arrowTimer += 0.15;
+  }
+
+  // Only show the arrow if the player is standing over the weapon
+  hideArrow() {
+    var player = this.player;
+    if (
+      player.sprite.x + player.width / 2 > this.sprite.x - this.width / 2 &&
+      player.sprite.x - player.width / 2 < this.sprite.x + this.width / 2 &&
+      player.sprite.y + player.height / 2 > this.sprite.y - this.height / 2 &&
+      player.sprite.y - player.height / 2 < this.sprite.y + this.height / 2
+    ) {
+      this.arrow.visible = true;
+    } else {
+      // If it's the start of the game show it at all
+      // times to help the player understand what to do.
+      if (this.state.current !== 'start') {
+        this.arrow.visible = false;
+      }
+    }
   }
 }

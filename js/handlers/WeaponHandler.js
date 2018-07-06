@@ -2,13 +2,17 @@ import Weapon from '../objects/Weapon';
 import GageLib from 'gages-library';
 
 export default class WeaponHandler {
-  constructor(scene, player) {
+  constructor(options) {
     // Store references
-    this.scene = scene;
-    this.player = player;
+    this.scene = options.scene;
+    this.player = options.player;
+    this.state = options.state;
 
     // Store all of the created weapons
     this.weapons = [];
+
+    // Binding public functions
+    this.create = this.create.bind(this);
   }
 
   /* ** Public Functions ** */
@@ -33,6 +37,12 @@ export default class WeaponHandler {
       var gunName = this.weaponData[i].name;
       this.scene.load.image(gunName, `images/guns/${gunName}.png`);
     }
+
+    // Load the down arrow image
+    this.scene.load.image(
+      'down-arrow',
+      'images/interface/keyboard/white-down.png'
+    );
 
     // Picking up weapons
     this.scene.input.keyboard.on(
@@ -67,7 +77,9 @@ export default class WeaponHandler {
         x: x,
         y: y,
         scene: this.scene,
-        data: weaponData
+        data: weaponData,
+        state: this.state,
+        player: this.player
       })
     );
   }
@@ -92,6 +104,7 @@ export default class WeaponHandler {
       // Removing it
       if (this.weapons[i].delete) {
         this.weapons[i].sprite.destroy();
+        this.weapons[i].arrow.destroy();
         this.weapons.splice(i, 1);
       }
     }
