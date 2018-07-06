@@ -240,4 +240,27 @@ export default class Player {
       this.shoot.timer++;
     }
   }
+
+  // Getting hit by an enemy
+  getHit(enemy) {
+    var knockback = enemy.knockback || 10;
+    var enemyPos = enemy.getPos();
+    var angle =
+      Math.atan2(enemyPos.y - this.sprite.y, enemyPos.x - this.sprite.x) +
+      Math.PI;
+
+    // Knockback
+    this.xvel += Math.cos(angle) * knockback;
+    this.yvel += Math.sin(angle) * knockback * 0.25;
+
+    // Flashing red
+    this.sprite.tint = 0xff0000;
+
+    // Reset to no tint
+    setTimeout(
+      function() {
+        this.sprite.tint = 0xffffff;
+      }.bind(this)
+    );
+  }
 }
