@@ -4,9 +4,10 @@ var GRAVITY = 0.4;
 var JUMP_HEIGHT = 8.5;
 
 export default class Player {
-  constructor(scene) {
+  constructor(scene, createBullet) {
     // Store references
     this.scene = scene;
+    this.createBullet = createBullet;
 
     // Dimensions
     this.width = 48;
@@ -18,8 +19,16 @@ export default class Player {
     this.speed = SPEED;
     this.friction = FRICTION;
 
+    // Shooting
+    this.shoot = {
+      timer: 0
+    };
+
     // Controls
     this.cursors = scene.input.keyboard.createCursorKeys();
+    this.spacebar = this.scene.input.keyboard.addKey(
+      Phaser.Input.Keyboard.KeyCodes.SPACE
+    );
   }
 
   /* ** Public Functions ** */
@@ -68,6 +77,7 @@ export default class Player {
     this.boundary();
     this.jump();
     this.attachGun();
+    this.shootGun();
   }
 
   // Get the player's position
@@ -160,7 +170,9 @@ export default class Player {
       y: weapon.y || 0,
       name: weapon.name,
       width: weapon.width,
-      height: weapon.height
+      height: weapon.height,
+      type: weapon.bulletType,
+      fireRate: weapon.fireRate || 5
     };
 
     // Create the image
@@ -187,6 +199,33 @@ export default class Player {
 
       // Flip it as well if the player is flipped
       this.equipped.image.flipX = this.sprite.flipX;
+    }
+  }
+
+  // Shooting
+  shootGun() {
+    // Only shoot if you have a gun
+    if (this.equipped) {
+      var fireRate = this.equipped.fireRate;
+
+      // Check if you are trying to/able to shoot
+      if (this.shoot.timer >= fireRate && this.spacebar.isDown) {
+        var dir = this.sprite.flipX == false ? 0 : Math.PI;
+        var type = this.equipped.type;
+
+        // Calculate the position of the end of the gun
+        var x = this.equipped.image.x;
+        var y = this.equipped.image.y - this.equipped.image.height;
+
+        // Create the bullet
+        this.createBullet(x, y, dir, type);
+
+        // Reset the shooting timer
+        this.shoot.timer = 0;
+      }
+
+      // Run a timer to compare with your current guns firerate
+      this.shoot.timer++;
     }
   }
 }

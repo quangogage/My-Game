@@ -9,9 +9,6 @@ export default class WeaponHandler {
 
     // Store all of the created weapons
     this.weapons = [];
-
-    // Controls
-    this.key = scene.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.DOWN);
   }
 
   /* ** Public Functions ** */
@@ -21,10 +18,12 @@ export default class WeaponHandler {
       {
         name: 'pistol',
         imageFile: 'pistol',
+        bulletType: 'basic',
         width: 27,
         height: 18,
         x: 14,
-        y: 20
+        y: 20,
+        fireRate: 15
       }
     ];
 

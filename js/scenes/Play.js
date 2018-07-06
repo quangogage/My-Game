@@ -21,7 +21,7 @@ export default class PlayScene extends Scene {
     this.bulletHandler.preload();
 
     // The Player
-    this.player = new Player(this);
+    this.player = new Player(this, this.bulletHandler.create);
     this.player.preload();
 
     // The weapon handler
@@ -36,7 +36,6 @@ export default class PlayScene extends Scene {
     this.background.create();
     this.player.create();
     this.ground.create();
-    this.bulletHandler.create();
 
     // Creating a test weapon
     this.weaponHandler.create('pistol', 20, 20);
