@@ -6,6 +6,7 @@ export default class Ground {
     this.enemies = options.enemies;
     this.player = options.player;
     this.weapons = options.weapons;
+    this.particles = options.particles;
     this.tileCount = 21;
     this.totalHeight = 5;
     this.tileWidth = 32;
@@ -58,6 +59,7 @@ export default class Ground {
     var player = this.player;
     var weapons = this.weapons;
     var enemies = this.enemies;
+    var particles = this.particles;
 
     // Handling the player landing on the ground.
     var pos = player.getPos();
@@ -87,6 +89,21 @@ export default class Ground {
       if (pos.y + dim.height / 2 > this.groundY) {
         pos.y = this.groundY - dim.height / 2;
         enemy.yvel = 0;
+      }
+    }
+
+    // Handling particles landing on the ground
+    for (var i = 0; i < particles.length; i++) {
+      var particle = particles[i];
+      var particlePos = particle.getPos();
+      var particleDim = particle.getDim();
+
+      if (particlePos.y + particleDim.height / 2 > this.groundY) {
+        particlePos.y = this.groundY - particleDim.height / 2;
+        if (particle.yvel) {
+          particle.yvel = 0;
+        }
+        particle.grounded = true;
       }
     }
   }

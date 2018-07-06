@@ -1,4 +1,5 @@
 import Flash from '../objects/Particles/Flash';
+import Blood from '../objects/Particles/Blood';
 
 export default class ParticleHandler {
   constructor(options) {
@@ -25,6 +26,16 @@ export default class ParticleHandler {
           }
         ],
         class: Flash
+      },
+      {
+        name: 'blood',
+        assets: [
+          {
+            name: 'blood',
+            fileName: 'blood'
+          }
+        ],
+        class: Blood
       }
     ];
 

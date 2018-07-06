@@ -58,7 +58,8 @@ export default class PlayScene extends Scene {
       scene: this,
       state: this.state,
       player: this.player,
-      bullets: this.bulletHandler.bullets
+      bullets: this.bulletHandler.bullets,
+      createParticle: this.particleHandler.create
     });
     this.enemyHandler.preload();
 
@@ -67,7 +68,8 @@ export default class PlayScene extends Scene {
       scene: this,
       player: this.player,
       enemies: this.enemyHandler.enemies,
-      weapons: this.weaponHandler.weapons
+      weapons: this.weaponHandler.weapons,
+      particles: this.particleHandler.particles
     });
     this.ground.preload();
 

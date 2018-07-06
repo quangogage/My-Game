@@ -1,7 +1,9 @@
+import GageLib from 'gages-library';
 var SPEED = 1;
 var FRICTION = 0.785;
 var GRAVITY = 0.4;
 var JUMP_HEIGHT = 8.5;
+var DAMAGE_FLASH_TIME = 100;
 
 export default class Player {
   constructor(options) {
@@ -256,11 +258,27 @@ export default class Player {
     // Flashing red
     this.sprite.tint = 0xff0000;
 
+    // Create blood particle
+    var bloodCount = GageLib.math.getRandom(2, 4);
+    var angle = Math.atan2(
+      this.sprite.y - enemyPos.y,
+      this.sprite.x - enemyPos.x
+    );
+    for (var i = 0; i < bloodCount; i++) {
+      this.createParticle(
+        this.sprite.x + (Math.cos(angle) * this.width) / 2,
+        this.sprite.y + (Math.sin(angle) * this.width) / 2,
+        'blood',
+        { dir: angle }
+      );
+    }
+
     // Reset to no tint
     setTimeout(
       function() {
         this.sprite.tint = 0xffffff;
-      }.bind(this)
+      }.bind(this),
+      DAMAGE_FLASH_TIME
     );
   }
 }

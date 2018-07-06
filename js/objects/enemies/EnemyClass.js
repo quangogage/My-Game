@@ -1,15 +1,18 @@
+import GageLib from 'gages-library';
+
 export default class EnemyClass {
   constructor(options) {
     // Store references
     this.scene = options.scene;
     this.data = options.data;
     this.player = options.player;
+    this.createParticle = options.createParticle;
 
     // Getting hit
     this.hit = {
       active: false,
       timer: 0,
-      flashTime: 200
+      flashTime: 100
     };
   }
 
@@ -50,6 +53,7 @@ export default class EnemyClass {
   getHit(bullet) {
     var knockback = bullet.knockback || 7;
     var bulletPos = bullet.getPos();
+    var bulletDim = bullet.getDim();
     var damage = bullet.damage || 1;
     var angle =
       Math.atan2(bulletPos.y - this.sprite.y, bulletPos.x - this.sprite.x) +
@@ -66,13 +70,25 @@ export default class EnemyClass {
     setTimeout(
       function() {
         this.sprite.tint = 0xffffff;
-      }.bind(this)
+      }.bind(this),
+      this.hit.flashTime
     );
 
     // Losing health / dying
     this.health -= damage;
     if (this.health <= 0) {
       this.die();
+    }
+
+    // Create blood particle
+    var bloodCount = GageLib.math.getRandom(2, 4);
+    for (var i = 0; i < bloodCount; i++) {
+      this.createParticle(
+        bulletPos.x + (Math.cos(bullet.dir) * bulletDim.width) / 2,
+        bulletPos.y + (Math.sin(bullet.dir) * bulletDim.width) / 2,
+        'blood',
+        { dir: bullet.dir }
+      );
     }
 
     // Delete the bullet

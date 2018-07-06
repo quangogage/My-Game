@@ -8,6 +8,7 @@ export default class EnemyHandler {
     this.state = options.state;
     this.player = options.player;
     this.bullets = options.bullets;
+    this.createParticle = options.createParticle;
 
     // All enemy instances
     this.enemies = [];
@@ -55,7 +56,8 @@ export default class EnemyHandler {
         y: y,
         scene: this.scene,
         data: enemyData,
-        player: this.player
+        player: this.player,
+        createParticle: this.createParticle
       })
     );
   }
