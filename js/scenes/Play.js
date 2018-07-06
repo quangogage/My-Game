@@ -7,6 +7,7 @@ import BulletHandler from '../handlers/BulletHandler';
 import ParticleHandler from '../handlers/ParticleHandler';
 import Interface from '../Interface/Interface';
 import PlayState from './PlayState';
+import EnemyHandler from '../handlers/EnemyHandler';
 
 export default class PlayScene extends Scene {
   constructor(options) {
@@ -52,6 +53,13 @@ export default class PlayScene extends Scene {
     });
     this.weaponHandler.preload();
 
+    // The enemy handler
+    this.enemyHandler = new EnemyHandler({
+      scene: this,
+      state: this.state
+    });
+    this.enemyHandler.preload();
+
     // The ground
     this.ground = new Ground(this);
     this.ground.preload();
@@ -70,12 +78,16 @@ export default class PlayScene extends Scene {
     var sceneWidth = this.sys.canvas.width;
     var sceneHeight = this.sys.canvas.height;
     this.weaponHandler.create('pistol', sceneWidth * 0.66, sceneHeight * 0.5);
+
+    // Create Test enemy
+    this.enemyHandler.create(200, 200, 'pig');
   }
   update() {
     this.player.update();
     this.weaponHandler.update();
     this.bulletHandler.update();
     this.particleHandler.update();
+    this.enemyHandler.update();
     this.ground.update(this.player, this.weaponHandler.weapons);
     this.interface.update();
 

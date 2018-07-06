@@ -22,7 +22,7 @@ export default class BulletHandler {
       {
         name: 'basic',
         fileName: 'basic',
-        speed: 14
+        speed: 20
       }
     ];
 
