@@ -49,7 +49,20 @@ export default class Bullet {
 
   // Updating the bullet
   update() {
+    var sceneWidth = this.scene.sys.canvas.width;
+
+    // Move
     this.sprite.x += Math.cos(this.dir) * this.speed;
     this.sprite.y += Math.sin(this.dir) * this.speed;
+
+    // Delete if offscreen
+    if (this.sprite.x <= 0 || this.sprite.x >= sceneWidth) {
+      this.delete = true;
+    }
+  }
+
+  // Removing the sprite
+  destroyAssets() {
+    this.sprite.destroy();
   }
 }

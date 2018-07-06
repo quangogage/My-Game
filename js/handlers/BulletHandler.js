@@ -58,7 +58,15 @@ export default class BulletHandler {
   updateBullets() {
     for (var i = 0; i < this.bullets.length; i++) {
       var bullet = this.bullets[i];
+
+      // Update the bullet
       bullet.update();
+
+      // Deleting the bullet
+      if (bullet.delete) {
+        bullet.destroyAssets();
+        this.bullets.splice(i, 1);
+      }
     }
   }
 
