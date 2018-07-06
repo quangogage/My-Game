@@ -50,6 +50,7 @@ export default class EnemyClass {
   getHit(bullet) {
     var knockback = bullet.knockback || 7;
     var bulletPos = bullet.getPos();
+    var damage = bullet.damage || 1;
     var angle =
       Math.atan2(bulletPos.y - this.sprite.y, bulletPos.x - this.sprite.x) +
       Math.PI;
@@ -68,7 +69,18 @@ export default class EnemyClass {
       }.bind(this)
     );
 
+    // Losing health / dying
+    this.health -= damage;
+    if (this.health <= 0) {
+      this.die();
+    }
+
     // Delete the bullet
     bullet.delete = true;
+  }
+
+  // Dying
+  die() {
+    this.delete = true;
   }
 }

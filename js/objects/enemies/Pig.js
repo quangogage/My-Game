@@ -5,6 +5,7 @@ var HEIGHT = 50;
 var FRICTION = 0.8;
 var SPEED = 0.4;
 var GRAVITY = 0.35;
+var HEALTH = 2;
 
 export default class Pig extends EnemyClass {
   constructor(options) {
@@ -23,6 +24,9 @@ export default class Pig extends EnemyClass {
     // Dimensions
     this.width = WIDTH;
     this.height = HEIGHT;
+
+    // Life
+    this.health = HEALTH;
 
     // Create the animations & sprite
     this.createAnimations();

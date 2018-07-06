@@ -1,3 +1,4 @@
+import EnemyGenerator from './EnemyGenerator';
 import Pig from '../objects/enemies/Pig';
 
 export default class EnemyHandler {
@@ -28,9 +29,19 @@ export default class EnemyHandler {
       frameWidth: 19,
       frameHeight: 20
     });
+
+    // The enemy generator class
+    this.enemyGenerator = new EnemyGenerator({
+      createEnemy: this.create.bind(this),
+      state: this.state,
+      enemyData: this.enemyData,
+      scene: this.scene,
+      enemies: this.enemies
+    });
   }
   update() {
     this.updateEnemies();
+    this.enemyGenerator.update();
   }
 
   // Creating an enemy
@@ -74,6 +85,12 @@ export default class EnemyHandler {
 
       // Collision with player
       this.hitPlayer(enemy);
+
+      // Removing the enemy
+      if (enemy.delete) {
+        enemy.sprite.destroy();
+        this.enemies.splice(i, 1);
+      }
     }
   }
 
