@@ -1,7 +1,7 @@
 import EnemyClass from './EnemyClass';
 
 var FRICTION = 0.8;
-var SPEED = 2;
+var SPEED = 0.25;
 var GRAVITY = 0.35;
 
 export default class Pig extends EnemyClass {
@@ -29,6 +29,7 @@ export default class Pig extends EnemyClass {
   update() {
     this.animate();
     this.physics();
+    this.move();
   }
 
   /* ** Private Functions ** */

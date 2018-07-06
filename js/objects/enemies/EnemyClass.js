@@ -21,4 +21,21 @@ export default class EnemyClass {
       height: this.height
     };
   }
+
+  // Default movement function
+  move() {
+    var dir = this.player.sprite.x < this.sprite.x ? false : true;
+
+    // Flip the sprite based on the direction
+    this.sprite.flipX = !dir;
+
+    // Move towards the player
+    if (dir) {
+      // Right
+      this.xvel += this.speed;
+    } else {
+      // Left
+      this.xvel -= this.speed;
+    }
+  }
 }
