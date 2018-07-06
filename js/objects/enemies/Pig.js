@@ -1,7 +1,9 @@
 import EnemyClass from './EnemyClass';
 
+var WIDTH = 48;
+var HEIGHT = 50;
 var FRICTION = 0.8;
-var SPEED = 0.25;
+var SPEED = 0.4;
 var GRAVITY = 0.35;
 
 export default class Pig extends EnemyClass {
@@ -11,14 +13,16 @@ export default class Pig extends EnemyClass {
     // Store values
     this.x = options.x;
     this.y = options.y;
-    this.width = options.data.width;
-    this.height = options.data.height;
 
     // Movement
     this.xvel = 0;
     this.yvel = 0;
     this.friction = FRICTION;
     this.speed = SPEED;
+
+    // Dimensions
+    this.width = WIDTH;
+    this.height = HEIGHT;
 
     // Create the animations & sprite
     this.createAnimations();

@@ -6,6 +6,7 @@ export default class EnemyHandler {
     this.scene = options.scene;
     this.state = options.state;
     this.player = options.player;
+    this.bullets = options.bullets;
 
     // All enemy instances
     this.enemies = [];
@@ -18,9 +19,7 @@ export default class EnemyHandler {
       {
         name: 'pig',
         fileName: 'pig',
-        class: Pig,
-        width: 48,
-        height: 50
+        class: Pig
       }
     ];
 
@@ -66,7 +65,32 @@ export default class EnemyHandler {
   updateEnemies() {
     for (var i = 0; i < this.enemies.length; i++) {
       var enemy = this.enemies[i];
+
+      // Enemy instances update function
       enemy.update();
+
+      // Collision with bullets
+      this.getHit(enemy, this.bullets);
+    }
+  }
+
+  // Getting hit by a bullet
+  getHit(enemy, bullets) {
+    for (var i = 0; i < bullets.length; i++) {
+      var bullet = bullets[i];
+      var bulletPos = bullet.getPos();
+      var bulletDim = bullet.getDim();
+      var enemyPos = enemy.getPos();
+      var enemyDim = enemy.getDim();
+
+      if (
+        bulletPos.x + bulletDim.width / 2 > enemyPos.x - enemyDim.width / 2 &&
+        bulletPos.x - bulletDim.width / 2 < enemyPos.x + enemyDim.width / 2 &&
+        bulletPos.y + bulletDim.height / 2 > enemyPos.y - enemyDim.height / 2 &&
+        bulletPos.y - bulletDim.height / 2 < enemyPos.y + enemyDim.height / 2
+      ) {
+        enemy.getHit(bullet);
+      }
     }
   }
 }

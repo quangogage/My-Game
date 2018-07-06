@@ -73,4 +73,20 @@ export default class Bullet {
   destroyAssets() {
     this.sprite.destroy();
   }
+
+  // Get the position of the bullet
+  getPos() {
+    return {
+      x: this.sprite.x,
+      y: this.sprite.y
+    };
+  }
+
+  // Get the dimensions of the bullet
+  getDim() {
+    return {
+      width: this.width,
+      height: this.height
+    };
+  }
 }

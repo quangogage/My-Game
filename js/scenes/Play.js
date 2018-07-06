@@ -57,7 +57,8 @@ export default class PlayScene extends Scene {
     this.enemyHandler = new EnemyHandler({
       scene: this,
       state: this.state,
-      player: this.player
+      player: this.player,
+      bullets: this.bulletHandler.bullets
     });
     this.enemyHandler.preload();
 
