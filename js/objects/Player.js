@@ -208,6 +208,7 @@ export default class Player {
     // Only shoot if you have a gun
     if (this.equipped) {
       var fireRate = this.equipped.fireRate;
+      var kickback = this.equipped.kickback || 5;
 
       // Check if you are trying to/able to shoot
       if (this.shoot.timer >= fireRate && this.spacebar.isDown) {
@@ -220,6 +221,10 @@ export default class Player {
 
         // Create the bullet
         this.createBullet(x, y, dir, type);
+
+        // Kick the player back
+        this.xvel += Math.cos(dir + Math.PI) * kickback;
+        this.yvel += Math.sin(dir + Math.PI) * kickback - kickback * 0.25;
 
         // Reset the shooting timer
         this.shoot.timer = 0;
