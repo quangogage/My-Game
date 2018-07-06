@@ -1,5 +1,9 @@
 import EnemyClass from './EnemyClass';
 
+var FRICTION = 0.8;
+var SPEED = 2;
+var GRAVITY = 0.35;
+
 export default class Pig extends EnemyClass {
   constructor(options) {
     super(options);
@@ -10,6 +14,12 @@ export default class Pig extends EnemyClass {
     this.width = options.data.width;
     this.height = options.data.height;
 
+    // Movement
+    this.xvel = 0;
+    this.yvel = 0;
+    this.friction = FRICTION;
+    this.speed = SPEED;
+
     // Create the animations & sprite
     this.createAnimations();
     this.createSprite();
@@ -18,6 +28,7 @@ export default class Pig extends EnemyClass {
   /* ** Public Functions ** */
   update() {
     this.animate();
+    this.physics();
   }
 
   /* ** Private Functions ** */
@@ -47,5 +58,13 @@ export default class Pig extends EnemyClass {
   // Run the animation
   animate() {
     this.sprite.anims.play('pig-run', true);
+  }
+
+  // Basic physics
+  physics() {
+    this.sprite.x += this.xvel;
+    this.sprite.y += this.yvel;
+    this.xvel *= this.friction;
+    this.yvel += GRAVITY;
   }
 }

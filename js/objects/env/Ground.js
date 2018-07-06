@@ -1,8 +1,11 @@
 import GageLib from 'gages-library';
 
 export default class Ground {
-  constructor(scene) {
-    this.scene = scene;
+  constructor(options) {
+    this.scene = options.scene;
+    this.enemies = options.enemies;
+    this.player = options.player;
+    this.weapons = options.weapons;
     this.tileCount = 21;
     this.totalHeight = 5;
     this.tileWidth = 32;
@@ -51,7 +54,11 @@ export default class Ground {
       }
     }
   }
-  update(player, weapons) {
+  update() {
+    var player = this.player;
+    var weapons = this.weapons;
+    var enemies = this.enemies;
+
     // Handling the player landing on the ground.
     var pos = player.getPos();
     var dim = player.getDim();
@@ -69,6 +76,17 @@ export default class Ground {
       if (pos.y + dim.height / 2 > this.groundY) {
         pos.y = this.groundY - dim.height / 2;
         weapon.yvel = 0;
+      }
+    }
+
+    // Handling enemies landing on the ground
+    for (var i = 0; i < enemies.length; i++) {
+      var enemy = enemies[i];
+      var pos = enemy.getPos();
+      var dim = enemy.getDim();
+      if (pos.y + dim.height / 2 > this.groundY) {
+        pos.y = this.groundY - dim.height / 2;
+        enemy.yvel = 0;
       }
     }
   }

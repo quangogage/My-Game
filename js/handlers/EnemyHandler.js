@@ -5,6 +5,7 @@ export default class EnemyHandler {
     // Store values
     this.scene = options.scene;
     this.state = options.state;
+    this.player = options.player;
 
     // All enemy instances
     this.enemies = [];
@@ -43,7 +44,8 @@ export default class EnemyHandler {
         x: x,
         y: y,
         scene: this.scene,
-        data: enemyData
+        data: enemyData,
+        player: this.player
       })
     );
   }

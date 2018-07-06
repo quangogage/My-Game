@@ -56,12 +56,18 @@ export default class PlayScene extends Scene {
     // The enemy handler
     this.enemyHandler = new EnemyHandler({
       scene: this,
-      state: this.state
+      state: this.state,
+      player: this.player
     });
     this.enemyHandler.preload();
 
     // The ground
-    this.ground = new Ground(this);
+    this.ground = new Ground({
+      scene: this,
+      player: this.player,
+      enemies: this.enemyHandler.enemies,
+      weapons: this.weaponHandler.weapons
+    });
     this.ground.preload();
 
     // The interface
