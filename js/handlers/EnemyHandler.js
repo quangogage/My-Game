@@ -23,15 +23,11 @@ export default class EnemyHandler {
       }
     ];
 
-    // Load enemy assets
-    for (var i = 0; i < this.enemyData.length; i++) {
-      var enemy = this.enemyData[i];
-      this.scene.load.spritesheet(
-        enemy.name,
-        `images/enemies/${enemy.fileName}.png`,
-        { frameWidth: 19, frameHeight: 18 }
-      );
-    }
+    // Load the spritesheets
+    this.scene.load.spritesheet('pig', `images/enemies/pig.png`, {
+      frameWidth: 19,
+      frameHeight: 20
+    });
   }
   update() {
     this.updateEnemies();

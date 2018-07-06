@@ -25,6 +25,8 @@ export default class Pig extends EnemyClass {
   // loaded in `EnemyHandler`
   createAnimations() {
     var scene = this.scene;
+
+    // Create the animatino
     scene.anims.create({
       key: 'pig-run',
       frames: scene.anims.generateFrameNumbers('pig', { start: 0, end: 3 }),
@@ -44,6 +46,6 @@ export default class Pig extends EnemyClass {
 
   // Run the animation
   animate() {
-    this.sprite.anims.play('pig-run');
+    this.sprite.anims.play('pig-run', true);
   }
 }
