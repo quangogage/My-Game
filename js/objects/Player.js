@@ -4,6 +4,7 @@ var FRICTION = 0.785;
 var GRAVITY = 0.4;
 var JUMP_HEIGHT = 8.5;
 var DAMAGE_FLASH_TIME = 100;
+var MAX_HEALTH = 4;
 
 export default class Player {
   constructor(options) {
@@ -21,6 +22,10 @@ export default class Player {
     this.yvel = 0;
     this.speed = SPEED;
     this.friction = FRICTION;
+
+    // Health
+    this.maxHealth = MAX_HEALTH;
+    this.health = MAX_HEALTH;
 
     // Shooting
     this.shoot = {
@@ -257,6 +262,9 @@ export default class Player {
 
     // Flashing red
     this.sprite.tint = 0xff0000;
+
+    // Damage
+    this.health -= 0.5;
 
     // Create blood particle
     var bloodCount = GageLib.math.getRandom(2, 4);

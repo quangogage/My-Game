@@ -74,7 +74,11 @@ export default class PlayScene extends Scene {
     this.ground.preload();
 
     // The interface
-    this.interface = new Interface({ scene: this, state: this.state });
+    this.interface = new Interface({
+      scene: this,
+      state: this.state,
+      player: this.player
+    });
     this.interface.preload();
   }
   create() {
