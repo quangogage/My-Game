@@ -10,6 +10,7 @@ export default class Player {
   constructor(options) {
     // Store references
     this.scene = options.scene;
+    this.state = options.state;
     this.createBullet = options.createBullet;
     this.createParticle = options.createParticle;
 
@@ -20,6 +21,7 @@ export default class Player {
     // Movement
     this.xvel = 0;
     this.yvel = 0;
+    this.dir = 'right';
     this.speed = SPEED;
     this.friction = FRICTION;
 
@@ -83,6 +85,12 @@ export default class Player {
       frameRate: 10,
       repeat: -1
     });
+    scene.anims.create({
+      key: 'dead',
+      frames: scene.anims.generateFrameNumbers('player', { start: 8, end: 8 }),
+      frameRate: 10,
+      repeat: -1
+    });
   }
   update() {
     var scene = this.scene;
@@ -126,26 +134,30 @@ export default class Player {
 
   // Movement
   move() {
-    if (this.cursors.right.isDown) {
-      // Look right
-      this.sprite.flipX = false;
+    if (this.state.current !== 'dead') {
+      if (this.cursors.right.isDown) {
+        // Look right
+        this.sprite.flipX = false;
 
-      // Run
-      this.sprite.anims.play('run', true);
+        // Run
+        this.sprite.anims.play('run', true);
 
-      // Move right
-      this.xvel += this.speed;
-    } else if (this.cursors.left.isDown) {
-      // Look left
-      this.sprite.flipX = true;
+        // Move right
+        this.xvel += this.speed;
+        this.dir = 'right';
+      } else if (this.cursors.left.isDown) {
+        // Look left
+        this.sprite.flipX = true;
 
-      // Run
-      this.sprite.anims.play('run', true);
+        // Run
+        this.sprite.anims.play('run', true);
 
-      // Move left
-      this.xvel -= this.speed;
-    } else {
-      this.sprite.anims.play('idle', true);
+        // Move left
+        this.xvel -= this.speed;
+        this.dir = 'left';
+      } else {
+        this.sprite.anims.play('idle', true);
+      }
     }
   }
 
@@ -163,15 +175,17 @@ export default class Player {
 
   // Jumping
   jump() {
-    // Inacting a jump
-    if (this.grounded && this.cursors.up.isDown) {
-      this.yvel = -JUMP_HEIGHT;
-      this.grounded = false;
-    }
+    if (this.state.current !== 'dead') {
+      // Inacting a jump
+      if (this.grounded && this.cursors.up.isDown) {
+        this.yvel = -JUMP_HEIGHT;
+        this.grounded = false;
+      }
 
-    // Running the 'jump' animation
-    if (!this.grounded) {
-      this.sprite.anims.play('jump', true);
+      // Running the 'jump' animation
+      if (!this.grounded) {
+        this.sprite.anims.play('jump', true);
+      }
     }
   }
 
@@ -219,7 +233,7 @@ export default class Player {
   // Shooting
   shootGun() {
     // Only shoot if you have a gun
-    if (this.equipped) {
+    if (this.equipped && this.state.current !== 'dead') {
       var fireRate = this.equipped.fireRate;
       var kickback = this.equipped.kickback || 5;
 
@@ -263,8 +277,11 @@ export default class Player {
     // Flashing red
     this.sprite.tint = 0xff0000;
 
-    // Damage
-    this.health -= 0.5;
+    // Damage / dying
+    this.health -= 1;
+    if (this.health <= 0) {
+      this.die();
+    }
 
     // Create blood particle
     var bloodCount = GageLib.math.getRandom(2, 4);
@@ -288,5 +305,21 @@ export default class Player {
       }.bind(this),
       DAMAGE_FLASH_TIME
     );
+  }
+
+  // Dying
+  die() {
+    var isFlipped = this.xvel > 0 ? true : false;
+
+    // Shoot a little farther :)
+    this.y -= 5;
+    this.friction = 0.95;
+    this.yvel = -5;
+
+    // Play Dead
+    this.sprite.anims.play('dead');
+
+    // Flip the sprite in the correct direction
+    this.sprite.flipX = isFlipped;
   }
 }

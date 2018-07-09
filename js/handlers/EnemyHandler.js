@@ -118,18 +118,20 @@ export default class EnemyHandler {
 
   // Hitting the player
   hitPlayer(enemy) {
-    var playerPos = this.player.getPos();
-    var playerDim = this.player.getDim();
-    var enemyPos = enemy.getPos();
-    var enemyDim = enemy.getDim();
+    if (this.state.current !== 'dead') {
+      var playerPos = this.player.getPos();
+      var playerDim = this.player.getDim();
+      var enemyPos = enemy.getPos();
+      var enemyDim = enemy.getDim();
 
-    if (
-      playerPos.x + playerDim.width / 2 > enemyPos.x - enemyDim.width / 2 &&
-      playerPos.x - playerDim.width / 2 < enemyPos.x + enemyDim.width / 2 &&
-      playerPos.y + playerDim.height / 2 > enemyPos.y - enemyDim.height / 2 &&
-      playerPos.y - playerDim.height / 2 < enemyPos.y + enemyDim.height / 2
-    ) {
-      this.player.getHit(enemy);
+      if (
+        playerPos.x + playerDim.width / 2 > enemyPos.x - enemyDim.width / 2 &&
+        playerPos.x - playerDim.width / 2 < enemyPos.x + enemyDim.width / 2 &&
+        playerPos.y + playerDim.height / 2 > enemyPos.y - enemyDim.height / 2 &&
+        playerPos.y - playerDim.height / 2 < enemyPos.y + enemyDim.height / 2
+      ) {
+        this.player.getHit(enemy);
+      }
     }
   }
 }

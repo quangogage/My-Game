@@ -40,6 +40,7 @@ export default class PlayScene extends Scene {
     // The Player
     this.player = new Player({
       scene: this,
+      state: this.state,
       createBullet: this.bulletHandler.create,
       createParticle: this.particleHandler.create
     });
