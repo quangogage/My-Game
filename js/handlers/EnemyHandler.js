@@ -24,14 +24,23 @@ export default class EnemyHandler {
       {
         name: 'pig',
         fileName: 'pig',
-        class: Pig
+        class: Pig,
+        spawnWeight: 10
       },
       {
         name: 'skeleton',
         fileName: 'skeleton',
-        class: Skeleton
+        class: Skeleton,
+        spawnWeight: 5
       }
     ];
+
+    // Store the total amount of spawnWeight (how likely)
+    // the enemy type is to spawn.
+    this.totalSpawnWeight = 0;
+    for (var i = 0; i < this.enemyData.length; i++) {
+      this.totalSpawnWeight += this.enemyData[i].spawnWeight;
+    }
 
     // Load the spritesheets
     this.scene.load.spritesheet('pig', `images/enemies/pig.png`, {
@@ -45,11 +54,12 @@ export default class EnemyHandler {
 
     // The enemy generator class
     this.enemyGenerator = new EnemyGenerator({
-      createEnemy: this.create.bind(this),
       state: this.state,
-      enemyData: this.enemyData,
       scene: this.scene,
-      enemies: this.enemies
+      enemies: this.enemies,
+      enemyData: this.enemyData,
+      createEnemy: this.create.bind(this),
+      totalSpawnWeight: this.totalSpawnWeight
     });
   }
   update() {

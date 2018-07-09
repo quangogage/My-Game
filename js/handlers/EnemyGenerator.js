@@ -12,6 +12,7 @@ export default class EnemyGenerator {
     this.enemies = options.enemies;
     this.enemyData = options.enemyData;
     this.createEnemy = options.createEnemy;
+    this.totalSpawnWeight = options.totalSpawnWeight;
 
     // Initial generation values
     this.spawnRate = SPAWN_RATE;
@@ -55,12 +56,24 @@ export default class EnemyGenerator {
   generateEnemy() {
     var sceneWidth = this.scene.sys.canvas.width;
     var sceneHeight = this.scene.sys.canvas.height;
-    var enemyType = this.enemyData[
-      Math.floor(GageLib.math.getRandom(0, this.enemyData.length - 1))
-    ];
     var side = GageLib.math.getRandom(0, 1);
     var x;
     var y = sceneHeight / 2;
+    var randomSpawnWeight = Math.floor(
+      GageLib.math.getRandom(1, this.totalSpawnWeight)
+    );
+    var enemyType;
+
+    // Picking an enemy type
+    for (var i = 0; i < this.enemyData.length; i++) {
+      var enemy = this.enemyData[i];
+      console.log(randomSpawnWeight);
+      randomSpawnWeight -= enemy.spawnWeight;
+      if (randomSpawnWeight <= 0) {
+        enemyType = enemy;
+        break;
+      }
+    }
 
     // Setting the x coord
     if (side >= 0.5) {
