@@ -1,11 +1,11 @@
 import GageLib from 'gages-library';
 import ParticleClass from './ParticleClass';
 
-var SIZE = [2, 3];
+var SIZE = [2, 5];
 var LIFETIME = 2000;
 var GRAVITY = 0.35;
-var LAUNCH_SPEED = [1.5, 2];
-var DIR_VARIATION = 0.3;
+var LAUNCH_SPEED = [1.5, 5];
+var DIR_VARIATION = 0.5;
 
 export default class Blood extends ParticleClass {
   constructor(options) {
@@ -25,7 +25,6 @@ export default class Blood extends ParticleClass {
     this.speed = GageLib.math.getRandom(LAUNCH_SPEED[0], LAUNCH_SPEED[1]);
     this.xvel = Math.cos(this.dir + Math.PI) * this.speed;
     this.yvel = Math.sin(this.dir + Math.PI) * this.speed;
-    this.yvel -= this.speed * 1.25;
 
     // Living and dying
     this.life = 0;
