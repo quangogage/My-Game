@@ -34,6 +34,12 @@ export default class Player {
       timer: 0
     };
 
+    // Getting hit
+    this.hit = {
+      timer: 0,
+      delay: 10
+    };
+
     // Controls
     this.cursors = this.scene.input.keyboard.createCursorKeys();
     this.spacebar = this.scene.input.keyboard.addKey(
@@ -100,6 +106,7 @@ export default class Player {
     this.jump();
     this.attachGun();
     this.shootGun();
+    this.hit.timer++;
   }
 
   // Get the player's position
@@ -264,47 +271,52 @@ export default class Player {
 
   // Getting hit by an enemy
   getHit(enemy) {
-    var knockback = enemy.knockback || 10;
-    var enemyPos = enemy.getPos();
-    var angle =
-      Math.atan2(enemyPos.y - this.sprite.y, enemyPos.x - this.sprite.x) +
-      Math.PI;
+    if (this.hit.timer >= this.hit.delay) {
+      var knockback = enemy.knockback || 10;
+      var enemyPos = enemy.getPos();
+      var angle =
+        Math.atan2(enemyPos.y - this.sprite.y, enemyPos.x - this.sprite.x) +
+        Math.PI;
 
-    // Knockback
-    this.xvel += Math.cos(angle) * knockback;
-    this.yvel += Math.sin(angle) * knockback * 0.25;
+      // Knockback
+      this.xvel += Math.cos(angle) * knockback;
+      this.yvel += Math.sin(angle) * knockback * 0.25;
 
-    // Flashing red
-    this.sprite.tint = 0xff0000;
+      // Flashing red
+      this.sprite.tint = 0xff0000;
 
-    // Damage / dying
-    this.health -= 1;
-    if (this.health <= 0) {
-      this.die();
-    }
+      // Damage / dying
+      this.health -= 1;
+      if (this.health <= 0) {
+        this.die();
+      }
 
-    // Create blood particle
-    var bloodCount = GageLib.math.getRandom(2, 4);
-    var angle = Math.atan2(
-      this.sprite.y - enemyPos.y,
-      this.sprite.x - enemyPos.x
-    );
-    for (var i = 0; i < bloodCount; i++) {
-      this.createParticle(
-        this.sprite.x + (Math.cos(angle) * this.width) / 2,
-        this.sprite.y + (Math.sin(angle) * this.width) / 2,
-        'blood',
-        { dir: angle }
+      // Create blood particle
+      var bloodCount = GageLib.math.getRandom(2, 4);
+      var angle = Math.atan2(
+        this.sprite.y - enemyPos.y,
+        this.sprite.x - enemyPos.x
       );
-    }
+      for (var i = 0; i < bloodCount; i++) {
+        this.createParticle(
+          this.sprite.x + (Math.cos(angle) * this.width) / 2,
+          this.sprite.y + (Math.sin(angle) * this.width) / 2,
+          'blood',
+          { dir: angle }
+        );
+      }
 
-    // Reset to no tint
-    setTimeout(
-      function() {
-        this.sprite.tint = 0xffffff;
-      }.bind(this),
-      DAMAGE_FLASH_TIME
-    );
+      // Reset to no tint
+      setTimeout(
+        function() {
+          this.sprite.tint = 0xffffff;
+        }.bind(this),
+        DAMAGE_FLASH_TIME
+      );
+
+      // Reset the hit delay timer
+      this.hit.timer = 0;
+    }
   }
 
   // Dying
