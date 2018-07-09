@@ -171,7 +171,16 @@ export default class EnemyHandler {
         playerPos.y + playerDim.height / 2 > enemyPos.y - enemyDim.height / 2 &&
         playerPos.y - playerDim.height / 2 < enemyPos.y + enemyDim.height / 2
       ) {
-        this.player.getHit(enemy);
+        // On hit event function
+        if (enemy.onHit) {
+          enemy.onHit();
+        }
+
+        // Only damage the player if it has not been
+        // explicitely stated not to.
+        if (!enemy.disableHit) {
+          this.player.getHit(enemy);
+        }
       }
     }
   }

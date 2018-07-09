@@ -29,6 +29,9 @@ export default class FlamingSkeleton extends EnemyClass {
     this.health = HEALTH;
     this.gibType = 'bone';
 
+    // Don't damage the player
+    this.disableHit = true;
+
     // Create the animations & sprite
     this.createAnimations();
     this.createSprite();
@@ -114,5 +117,9 @@ export default class FlamingSkeleton extends EnemyClass {
       enemies: this.enemies,
       createdBy: this
     });
+  }
+
+  onHit() {
+    this.die();
   }
 }
