@@ -1,7 +1,7 @@
 import GageLib from 'gages-library';
 import ParticleClass from './ParticleClass';
 
-var SIZE = [3, 6.4];
+var SIZE = [2, 3];
 var LIFETIME = 2000;
 var GRAVITY = 0.35;
 var LAUNCH_SPEED = [1.5, 2];
@@ -12,21 +12,20 @@ export default class Blood extends ParticleClass {
     super(options);
 
     // Dimensions
-    this.size = GageLib.math.getRandom(SIZE[0], SIZE[1]);
+    this.size = GageLib.math.getRandom(SIZE[0] * 100, SIZE[1] * 100) / 100;
 
     // Create the blood image
     this.createSprite();
 
     // Physics/movement
-    this.speed = GageLib.math.getRandom(LAUNCH_SPEED[0], LAUNCH_SPEED[1]);
-    this.xvel = Math.cos(options.flags.dir + Math.PI) * this.speed;
-    this.yvel = Math.sin(options.flags.dir + Math.PI) * this.speed;
-    this.yvel -= this.speed * 1.25;
-
-    // Randomize direction
+    this.dir = options.flags.dir;
     this.dir +=
       GageLib.math.getRandom(-DIR_VARIATION * 1000, DIR_VARIATION * 1000) /
       1000;
+    this.speed = GageLib.math.getRandom(LAUNCH_SPEED[0], LAUNCH_SPEED[1]);
+    this.xvel = Math.cos(this.dir + Math.PI) * this.speed;
+    this.yvel = Math.sin(this.dir + Math.PI) * this.speed;
+    this.yvel -= this.speed * 1.25;
 
     // Living and dying
     this.life = 0;

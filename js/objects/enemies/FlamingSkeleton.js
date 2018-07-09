@@ -27,6 +27,7 @@ export default class FlamingSkeleton extends EnemyClass {
 
     // Life
     this.health = HEALTH;
+    this.gibType = 'bone';
 
     // Create the animations & sprite
     this.createAnimations();

@@ -1,6 +1,7 @@
 import Flash from '../objects/Particles/Flash';
 import Blood from '../objects/Particles/Blood';
 import Explosion from '../objects/Particles/Explosion';
+import Gib from '../objects/Particles/Gib';
 
 export default class ParticleHandler {
   constructor(options) {
@@ -50,6 +51,26 @@ export default class ParticleHandler {
           }
         ],
         class: Explosion
+      },
+      {
+        name: 'gib',
+        class: Gib,
+        assets: [
+          {
+            name: 'meat-gib',
+            fileName: 'gibs/meat-gib',
+            type: 'spritesheet',
+            frameWidth: 8,
+            frameHeight: 8
+          },
+          {
+            name: 'bone-gib',
+            fileName: 'gibs/bone-gib',
+            type: 'spritesheet',
+            frameWidth: 8,
+            frameHeight: 8
+          }
+        ]
       }
     ];
 
@@ -60,7 +81,7 @@ export default class ParticleHandler {
         var asset = particle.assets[ia];
         if (asset.type === 'spritesheet') {
           this.scene.load.spritesheet(
-            'explosion',
+            asset.name,
             `images/particles/${asset.fileName}.png`,
             {
               frameWidth: asset.frameWidth,
@@ -89,7 +110,7 @@ export default class ParticleHandler {
       new particleObj.class({
         x: x,
         y: y,
-        flags: flags,
+        flags: flags || {},
         scene: this.scene,
         data: particleObj
       })

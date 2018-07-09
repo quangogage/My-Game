@@ -1,5 +1,7 @@
 import GageLib from 'gages-library';
 
+var GIB_COUNT = [2, 4];
+
 export default class EnemyClass {
   constructor(options) {
     // Store references
@@ -79,7 +81,7 @@ export default class EnemyClass {
     // Losing health / dying
     this.health -= damage;
     if (this.health <= 0) {
-      this.die();
+      this.die(angle);
     }
 
     // Create blood particle
@@ -100,11 +102,21 @@ export default class EnemyClass {
   }
 
   // Dying
-  die() {
+  die(angle) {
     // Execute custom death event functions
     // (if defined.)
     if (this.onDeath) {
       this.onDeath();
+    }
+
+    // Create gibs
+    var gibType = this.gibType || 'meat';
+    var gibCount = GageLib.math.getRandom(GIB_COUNT[0], GIB_COUNT[1]);
+    for (var i = 0; i < gibCount; i++) {
+      this.createParticle(this.sprite.x, this.sprite.y, 'gib', {
+        type: gibType,
+        dir: angle + Math.PI
+      });
     }
 
     // Remove it

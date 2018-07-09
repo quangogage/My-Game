@@ -25,8 +25,8 @@ export default class ParticleClass {
       width = this.size;
       height = this.size;
     } else {
-      width: this.width;
-      height: this.height;
+      width = this.width;
+      height = this.height;
     }
 
     return {
