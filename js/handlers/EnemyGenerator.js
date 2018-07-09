@@ -77,9 +77,9 @@ export default class EnemyGenerator {
 
     // Setting the x coord
     if (side >= 0.5) {
-      x = sceneWidth * 1.1;
+      x = GageLib.math.getRandom(sceneWidth * 1.05, sceneWidth * 1.2);
     } else {
-      x = -sceneWidth * 0.1;
+      x = GageLib.math.getRandom(-sceneWidth * 0.05, -sceneWidth * 0.2);
     }
 
     // Create it
