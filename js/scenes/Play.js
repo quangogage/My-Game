@@ -104,7 +104,8 @@ export default class PlayScene extends Scene {
     // Updating the playstate
     PlayState({
       state: this.state,
-      weaponHandler: this.weaponHandler
+      weaponHandler: this.weaponHandler,
+      player: this.player
     });
   }
 }

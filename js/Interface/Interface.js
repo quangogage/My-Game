@@ -1,5 +1,6 @@
 import StartPrompt from './elements/StartPrompt';
 import Hearts from './elements/Hearts';
+import DeathPrompt from './elements/DeathPrompt';
 
 export default class Interface {
   constructor(options) {
@@ -20,13 +21,20 @@ export default class Interface {
       player: this.player
     });
     this.hearts.preload();
+    this.deathPrompt = new DeathPrompt({
+      scene: this.scene,
+      state: this.state
+    });
+    this.deathPrompt.preload();
   }
   create() {
     this.startPrompt.create();
     this.hearts.create();
+    this.deathPrompt.create();
   }
   update() {
     this.startPrompt.update();
     this.hearts.update();
+    this.deathPrompt.update();
   }
 }
