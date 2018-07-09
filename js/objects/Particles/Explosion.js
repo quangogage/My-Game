@@ -1,7 +1,7 @@
 import GageLib from 'gages-library';
 import ParticleClass from './ParticleClass';
 
-var SIZE = [250, 250];
+var SIZE = [150, 150];
 var FRAMERATE = 15;
 
 export default class Explosion extends ParticleClass {
@@ -16,6 +16,7 @@ export default class Explosion extends ParticleClass {
     // Knocking back the player/enemies
     this.knockback = 35;
     this.damage = 2;
+    this.dontRemove = true;
 
     // Create the spritesheet animation
     this.createAnimation();
@@ -77,6 +78,27 @@ export default class Explosion extends ParticleClass {
       playerPos.y - playerDim.height / 2 < this.sprite.y + this.height / 2
     ) {
       this.flags.player.getHit(this);
+    }
+
+    // Enemies
+    var enemies = this.flags.enemies;
+    for (var i = 0; i < enemies.length; i++) {
+      var enemy = enemies[i];
+      var enemyPos = enemy.getPos();
+      var enemyDim = enemy.getDim();
+      if (
+        enemyPos.x + enemyDim.width / 2 > this.sprite.x - this.width / 2 &&
+        enemyPos.x - enemyDim.width / 2 < this.sprite.x + this.width / 2 &&
+        enemyPos.y + enemyDim.height / 2 > this.sprite.y - this.height / 2 &&
+        enemyPos.y - enemyDim.height / 2 < this.sprite.y + this.height / 2
+      ) {
+        // Only do damage once and don't do damage to a skeleton
+        // that created the explosion.
+        if (enemy.beenHitBy != this && enemy != this.flags.createdBy) {
+          enemy.getHit(this);
+          enemy.beenHitBy = this;
+        }
+      }
     }
   }
 }

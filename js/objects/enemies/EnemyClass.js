@@ -94,7 +94,9 @@ export default class EnemyClass {
     }
 
     // Delete the bullet
-    bullet.delete = true;
+    if (!bullet.dontRemove) {
+      bullet.delete = true;
+    }
   }
 
   // Dying
