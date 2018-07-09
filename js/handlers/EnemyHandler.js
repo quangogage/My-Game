@@ -1,6 +1,7 @@
 import EnemyGenerator from './EnemyGenerator';
 import Pig from '../objects/enemies/Pig';
 import Skeleton from '../objects/enemies/Skeleton';
+import FlamingSkeleton from '../objects/enemies/FlamingSkeleton';
 
 var PUSHBACK = 0.2;
 
@@ -32,6 +33,12 @@ export default class EnemyHandler {
         fileName: 'skeleton',
         class: Skeleton,
         spawnWeight: 5
+      },
+      {
+        name: 'flaming-skeleton',
+        fileName: 'flaming-skeleton',
+        class: FlamingSkeleton,
+        spawnWeight: 209
       }
     ];
 
@@ -51,6 +58,14 @@ export default class EnemyHandler {
       frameWidth: 19,
       frameHeight: 20
     });
+    this.scene.load.spritesheet(
+      'flaming-skeleton',
+      `images/enemies/flaming-skeleton.png`,
+      {
+        frameWidth: 19,
+        frameHeight: 20
+      }
+    );
 
     // The enemy generator class
     this.enemyGenerator = new EnemyGenerator({
