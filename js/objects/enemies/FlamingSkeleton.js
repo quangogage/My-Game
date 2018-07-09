@@ -108,6 +108,9 @@ export default class FlamingSkeleton extends EnemyClass {
   }
 
   onDeath() {
-    this.createParticle(this.sprite.x, this.sprite.y, 'explosion');
+    this.createParticle(this.sprite.x, this.sprite.y, 'explosion', {
+      player: this.player,
+      enemies: this.enemies
+    });
   }
 }

@@ -1,7 +1,7 @@
 import GageLib from 'gages-library';
 import ParticleClass from './ParticleClass';
 
-var SIZE = [50, 100];
+var SIZE = [250, 250];
 var FRAMERATE = 15;
 
 export default class Explosion extends ParticleClass {
@@ -13,6 +13,10 @@ export default class Explosion extends ParticleClass {
     this.width = this.size;
     this.height = this.size;
 
+    // Knocking back the player/enemies
+    this.knockback = 35;
+    this.damage = 2;
+
     // Create the spritesheet animation
     this.createAnimation();
 
@@ -23,6 +27,7 @@ export default class Explosion extends ParticleClass {
   /* ** Public Functions ** */
   update() {
     this.animate();
+    this.doDamage();
   }
 
   // Deleting the assets
@@ -58,5 +63,20 @@ export default class Explosion extends ParticleClass {
   // Animation complete
   animComplete() {
     this.delete = true;
+  }
+
+  // Damage anything around it
+  doDamage() {
+    // Player
+    var playerPos = this.flags.player.getPos();
+    var playerDim = this.flags.player.getDim();
+    if (
+      playerPos.x + playerDim.width / 2 > this.sprite.x - this.width / 2 &&
+      playerPos.x - playerDim.width / 2 < this.sprite.x + this.width / 2 &&
+      playerPos.y + playerDim.height / 2 > this.sprite.y - this.height / 2 &&
+      playerPos.y - playerDim.height / 2 < this.sprite.y + this.height / 2
+    ) {
+      this.flags.player.getHit(this);
+    }
   }
 }

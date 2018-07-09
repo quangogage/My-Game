@@ -94,6 +94,7 @@ export default class EnemyHandler {
         scene: this.scene,
         data: enemyData,
         player: this.player,
+        enemies: this.enemies,
         createParticle: this.createParticle
       })
     );

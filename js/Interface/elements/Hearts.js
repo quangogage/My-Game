@@ -58,7 +58,13 @@ export default class Hearts {
       var highestValue = (i + 1) * 2;
       var lowestValue = highestValue - 2;
       var newAnimation;
-      if (
+      if (this.player.health >= highestValue) {
+        newAnimation = this.anims[this.anims.length - 1];
+        heart.sprite.anims.play(newAnimation);
+      } else if (this.player.health <= lowestValue) {
+        newAnimation = this.anims[0];
+        heart.sprite.anims.play(newAnimation);
+      } else if (
         this.player.health <= highestValue &&
         this.player.health >= lowestValue
       ) {

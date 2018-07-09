@@ -5,6 +5,7 @@ export default class EnemyClass {
     // Store references
     this.scene = options.scene;
     this.player = options.player;
+    this.enemies = options.enemies;
     this.data = options.data;
     this.isExplosive = options.data.isExplosive;
     this.createParticle = options.createParticle;
