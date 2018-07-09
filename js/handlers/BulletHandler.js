@@ -37,7 +37,7 @@ export default class BulletHandler {
   }
 
   // Create a bullet
-  create(x, y, dir, type) {
+  create(x, y, dir, type, damage) {
     var data = this.getBulletObj(type);
 
     // Create a new `Bullet` instance
@@ -48,6 +48,7 @@ export default class BulletHandler {
         dir: dir,
         scene: this.scene,
         data: data,
+        damage: damage,
         createFlash: this.createFlash.bind(this)
       })
     );

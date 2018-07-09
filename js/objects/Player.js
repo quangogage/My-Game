@@ -205,6 +205,7 @@ export default class Player {
       y: weapon.y || 0,
       name: weapon.name,
       width: weapon.width,
+      damage: weapon.damage,
       height: weapon.height,
       type: weapon.bulletType,
       fireRate: weapon.fireRate || 5
@@ -243,6 +244,7 @@ export default class Player {
     if (this.equipped && this.state.current !== 'dead') {
       var fireRate = this.equipped.fireRate;
       var kickback = this.equipped.kickback || 5;
+      var damage = this.equipped.damage || 1;
 
       // Check if you are trying to/able to shoot
       if (this.shoot.timer >= fireRate && this.spacebar.isDown) {
@@ -254,7 +256,7 @@ export default class Player {
         var y = this.equipped.image.y - this.equipped.image.height;
 
         // Create the bullet
-        this.createBullet(x, y, dir, type);
+        this.createBullet(x, y, dir, type, damage);
 
         // Kick the player back
         this.xvel += Math.cos(dir + Math.PI) * kickback;

@@ -8,6 +8,7 @@ export default class Bullet {
     this.x = options.x;
     this.y = options.y;
     this.dir = options.dir;
+    this.damage = options.damage;
     this.speed = options.data.speed;
     this.createFlash = options.createFlash;
 

@@ -92,7 +92,7 @@ export default class PlayScene extends Scene {
     // Create a pistol at the start of the round
     var sceneWidth = this.sys.canvas.width;
     var sceneHeight = this.sys.canvas.height;
-    this.weaponHandler.create('pistol', sceneWidth * 0.66, sceneHeight * 0.5);
+    this.weaponHandler.create('ak', sceneWidth * 0.66, sceneHeight * 0.5);
   }
   update() {
     this.player.update();

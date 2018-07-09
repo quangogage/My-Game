@@ -29,6 +29,18 @@ export default class WeaponHandler {
         y: 20,
         fireRate: 15,
         kickback: 2.5
+      },
+      {
+        name: 'ak',
+        imageFile: 'ak',
+        bulletType: 'basic',
+        width: 40,
+        height: 18,
+        x: 14,
+        y: 20,
+        fireRate: 8,
+        kickback: 0.25,
+        damage: 0.5
       }
     ];
 
