@@ -38,7 +38,7 @@ export default class EnemyHandler {
         name: 'flaming-skeleton',
         fileName: 'flaming-skeleton',
         class: FlamingSkeleton,
-        spawnWeight: 209
+        spawnWeight: 2.75
       }
     ];
 
@@ -127,7 +127,10 @@ export default class EnemyHandler {
 
       // Removing the enemy
       if (enemy.delete) {
+        // Destroy the sprite
         enemy.sprite.destroy();
+
+        // Remove from list of enemies
         this.enemies.splice(i, 1);
       }
     }

@@ -4,8 +4,9 @@ export default class EnemyClass {
   constructor(options) {
     // Store references
     this.scene = options.scene;
-    this.data = options.data;
     this.player = options.player;
+    this.data = options.data;
+    this.isExplosive = options.data.isExplosive;
     this.createParticle = options.createParticle;
 
     // Getting hit
@@ -97,6 +98,13 @@ export default class EnemyClass {
 
   // Dying
   die() {
+    // Execute custom death event functions
+    // (if defined.)
+    if (this.onDeath) {
+      this.onDeath();
+    }
+
+    // Remove it
     this.delete = true;
   }
 }

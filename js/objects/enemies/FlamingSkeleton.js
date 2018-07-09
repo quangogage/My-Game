@@ -106,4 +106,8 @@ export default class FlamingSkeleton extends EnemyClass {
     this.xvel *= this.friction;
     this.yvel += GRAVITY;
   }
+
+  onDeath() {
+    this.createParticle(this.sprite.x, this.sprite.y, 'explosion');
+  }
 }

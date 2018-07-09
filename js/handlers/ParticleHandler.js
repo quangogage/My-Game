@@ -1,5 +1,6 @@
 import Flash from '../objects/Particles/Flash';
 import Blood from '../objects/Particles/Blood';
+import Explosion from '../objects/Particles/Explosion';
 
 export default class ParticleHandler {
   constructor(options) {
@@ -36,6 +37,19 @@ export default class ParticleHandler {
           }
         ],
         class: Blood
+      },
+      {
+        name: 'explosion',
+        assets: [
+          {
+            name: 'explosion',
+            fileName: 'explosion',
+            type: 'spritesheet',
+            frameWidth: 32,
+            frameHeight: 32
+          }
+        ],
+        class: Explosion
       }
     ];
 
@@ -44,10 +58,21 @@ export default class ParticleHandler {
       var particle = this.particleData[i];
       for (var ia = 0; ia < particle.assets.length; ia++) {
         var asset = particle.assets[ia];
-        this.scene.load.image(
-          asset.name,
-          `images/particles/${asset.fileName}.png`
-        );
+        if (asset.type === 'spritesheet') {
+          this.scene.load.spritesheet(
+            'explosion',
+            `images/particles/${asset.fileName}.png`,
+            {
+              frameWidth: asset.frameWidth,
+              frameHeight: asset.frameHeight
+            }
+          );
+        } else {
+          this.scene.load.image(
+            asset.name,
+            `images/particles/${asset.fileName}.png`
+          );
+        }
       }
     }
   }

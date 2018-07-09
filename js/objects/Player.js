@@ -272,7 +272,7 @@ export default class Player {
   // Getting hit by an enemy
   getHit(enemy) {
     if (this.hit.timer >= this.hit.delay) {
-      var knockback = enemy.knockback || 10;
+      var knockback = enemy.knockback || 20;
       var enemyPos = enemy.getPos();
       var angle =
         Math.atan2(enemyPos.y - this.sprite.y, enemyPos.x - this.sprite.x) +
@@ -280,7 +280,7 @@ export default class Player {
 
       // Knockback
       this.xvel += Math.cos(angle) * knockback;
-      this.yvel += Math.sin(angle) * knockback * 0.25;
+      this.yvel += Math.sin(angle) * knockback * 0.5;
 
       // Flashing red
       this.sprite.tint = 0xff0000;

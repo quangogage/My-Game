@@ -59,15 +59,15 @@ export default class EnemyGenerator {
     var side = GageLib.math.getRandom(0, 1);
     var x;
     var y = sceneHeight / 2;
-    var randomSpawnWeight = Math.floor(
-      GageLib.math.getRandom(1, this.totalSpawnWeight)
-    );
+    var randomSpawnWeight = GageLib.math.getRandom(1, this.totalSpawnWeight);
     var enemyType;
-
     // Picking an enemy type
+    if (randomSpawnWeight >= this.totalSpawnWeight) {
+      randomSpawnWeight = this.totalSpawnWeight;
+    }
     for (var i = 0; i < this.enemyData.length; i++) {
       var enemy = this.enemyData[i];
-      console.log(randomSpawnWeight);
+
       randomSpawnWeight -= enemy.spawnWeight;
       if (randomSpawnWeight <= 0) {
         enemyType = enemy;
