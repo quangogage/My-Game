@@ -1,7 +1,8 @@
 import GageLib from 'gages-library';
 
-var SPAWN_RATE = [150, 250];
-var MAX_ENEMIES = 3;
+var SPAWN_RATE = [150, 250]; // How quickly they spawn
+var SPAWN_COUNT = [1, 2]; // How many spawn
+var MAX_ENEMIES = 3; // How many can be alive at one time
 
 export default class EnemyGenerator {
   constructor(options) {
@@ -15,6 +16,7 @@ export default class EnemyGenerator {
     // Initial generation values
     this.spawnRate = SPAWN_RATE;
     this.maxEnemies = MAX_ENEMIES;
+    this.spawnCount = SPAWN_COUNT;
 
     // Generation values
     this.spawnTimer = 0;
@@ -34,7 +36,13 @@ export default class EnemyGenerator {
         // currently active is less than the max allowed
         // amount
         if (this.enemies.length < this.maxEnemies) {
-          this.generateEnemy();
+          var spawnCount = GageLib.math.getRandom(
+            this.spawnCount[0],
+            this.spawnCount[1]
+          );
+          for (var i = 0; i <= spawnCount; i++) {
+            this.generateEnemy();
+          }
         }
         this.resetSpawnRate();
       }
@@ -53,8 +61,6 @@ export default class EnemyGenerator {
     var side = GageLib.math.getRandom(0, 1);
     var x;
     var y = sceneHeight / 2;
-
-    console.log(enemyType);
 
     // Setting the x coord
     if (side >= 0.5) {

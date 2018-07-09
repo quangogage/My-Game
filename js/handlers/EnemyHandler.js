@@ -1,7 +1,8 @@
 import EnemyGenerator from './EnemyGenerator';
 import Pig from '../objects/enemies/Pig';
+import Skeleton from '../objects/enemies/Skeleton';
 
-var PUSHBACK = 0.45;
+var PUSHBACK = 0.2;
 
 export default class EnemyHandler {
   constructor(options) {
@@ -24,11 +25,20 @@ export default class EnemyHandler {
         name: 'pig',
         fileName: 'pig',
         class: Pig
+      },
+      {
+        name: 'skeleton',
+        fileName: 'skeleton',
+        class: Skeleton
       }
     ];
 
     // Load the spritesheets
     this.scene.load.spritesheet('pig', `images/enemies/pig.png`, {
+      frameWidth: 19,
+      frameHeight: 20
+    });
+    this.scene.load.spritesheet('skeleton', `images/enemies/skeleton.png`, {
       frameWidth: 19,
       frameHeight: 20
     });
@@ -90,9 +100,6 @@ export default class EnemyHandler {
       // Collision with player
       this.hitPlayer(enemy);
 
-      // Pushing enemies away from each other
-      this.pushBack(enemy, i);
-
       // Removing the enemy
       if (enemy.delete) {
         enemy.sprite.destroy();
@@ -136,34 +143,6 @@ export default class EnemyHandler {
         playerPos.y - playerDim.height / 2 < enemyPos.y + enemyDim.height / 2
       ) {
         this.player.getHit(enemy);
-      }
-    }
-  }
-
-  // Pushing enemies away from each other
-  pushBack(enemy, index) {
-    for (var ia = 0; ia < this.enemies.length; ia++) {
-      var enemy2 = this.enemies[ia];
-
-      // If they aren't the same enemy
-      if (ia !== index) {
-        var enemyPos = enemy.getPos();
-        var enemyDim = enemy.getDim();
-        var enemy2Pos = enemy2.getPos();
-        var enemy2Dim = enemy2.getDim();
-        if (
-          enemyPos.x + enemyDim.width / 2 > enemy2Pos.x - enemy2Dim.width / 2 &&
-          enemyPos.x - enemyDim.width / 2 < enemy2Pos.x + enemy2Dim.width / 2 &&
-          enemyPos.y + enemyDim.height / 2 >
-            enemy2Pos.y - enemy2Dim.height / 2 &&
-          enemyPos.y - enemyDim.height / 2 < enemy2Pos.y + enemy2Dim.height / 2
-        ) {
-          if (enemy2Pos.x > enemyPos.x) {
-            enemy2.xvel += PUSHBACK;
-          } else {
-            enemy2.xvel -= PUSHBACK;
-          }
-        }
       }
     }
   }

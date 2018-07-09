@@ -1,13 +1,13 @@
 import EnemyClass from './EnemyClass';
 
-var WIDTH = 48;
-var HEIGHT = 50;
+var WIDTH = 52;
+var HEIGHT = 60;
 var FRICTION = 0.8;
-var SPEED = 0.3;
+var SPEED = 0.7;
 var GRAVITY = 0.35;
-var HEALTH = 3;
+var HEALTH = 2;
 
-export default class Pig extends EnemyClass {
+export default class Skeleton extends EnemyClass {
   constructor(options) {
     super(options);
 
@@ -48,8 +48,11 @@ export default class Pig extends EnemyClass {
 
     // Create the animatino
     scene.anims.create({
-      key: 'pig-run',
-      frames: scene.anims.generateFrameNumbers('pig', { start: 0, end: 3 }),
+      key: 'skeleton-run',
+      frames: scene.anims.generateFrameNumbers('skeleton', {
+        start: 0,
+        end: 3
+      }),
       frameRate: 10,
       repeat: -1
     });
@@ -58,7 +61,7 @@ export default class Pig extends EnemyClass {
   // Create the sprite
   createSprite() {
     // Create the sprite
-    this.sprite = this.scene.add.sprite(this.x, this.y, 'pig');
+    this.sprite = this.scene.add.sprite(this.x, this.y, 'skeleton');
 
     // Set the size
     this.sprite.setDisplaySize(this.width, this.height);
@@ -66,7 +69,7 @@ export default class Pig extends EnemyClass {
 
   // Run the animation
   animate() {
-    this.sprite.anims.play('pig-run', true);
+    this.sprite.anims.play('skeleton-run', true);
   }
 
   // Basic physics
