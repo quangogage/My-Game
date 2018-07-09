@@ -19,7 +19,8 @@ export default class PlayScene extends Scene {
     // The Game-state
     this.state = {
       current: 'start',
-      timer: 0
+      timer: 0,
+      resetKey: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
     };
 
     // The Background
@@ -104,9 +105,10 @@ export default class PlayScene extends Scene {
 
     // Updating the playstate
     PlayState({
+      scene: this,
       state: this.state,
-      weaponHandler: this.weaponHandler,
-      player: this.player
+      player: this.player,
+      weaponHandler: this.weaponHandler
     });
   }
 }

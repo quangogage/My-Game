@@ -2,6 +2,7 @@ export default function PlayState(options) {
   var state = options.state;
   var weaponHandler = options.weaponHandler;
   var player = options.player;
+  var scene = options.scene;
 
   // Run a timer for some basic utility:
   // Letting things spawn, update, etc.
@@ -19,6 +20,15 @@ export default function PlayState(options) {
 
   // Dying
   if (player.health <= 0) {
-    state.current = 'dead';
+    // Go into dead state
+    if (state.current !== 'dead') {
+      state.current = 'dead';
+      state.timer = 0;
+    }
+
+    if (state.resetKey.isDown && state.timer > 10) {
+      scene.scene.restart();
+      scene.current = 'start';
+    }
   }
 }
