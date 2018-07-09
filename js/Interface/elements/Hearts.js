@@ -5,11 +5,11 @@ export default class Hearts {
     this.player = options.player;
 
     // The potential animations
-    this.anims = ['full-heart', 'half-heart', 'empty-heart'];
+    this.anims = ['empty-heart', 'half-heart', 'full-heart'];
 
     // Dimensions
-    this.width = 32;
-    this.height = 32;
+    this.width = 25;
+    this.height = 25;
     this.space = 5;
     this.padding = 10;
   }
@@ -53,6 +53,19 @@ export default class Hearts {
     // The heart animaions are stored in an array (this.anims) which can be utilized
     // somehow dividing player.health by player.maxHealth and comparing it
     // to the amount of hearts.
+    for (var i = 0; i < this.hearts.length; i++) {
+      var heart = this.hearts[i];
+      var highestValue = (i + 1) * 2;
+      var lowestValue = highestValue - 2;
+      var newAnimation;
+      if (
+        this.player.health <= highestValue &&
+        this.player.health >= lowestValue
+      ) {
+        newAnimation = this.anims[this.player.health - lowestValue];
+        heart.sprite.anims.play(newAnimation);
+      }
+    }
   }
 
   /* ** Private Functions ** */
@@ -65,7 +78,7 @@ export default class Hearts {
     this.hearts = [];
 
     // Positioning
-    var startX = sceneWidth - this.width - this.padding - this.width / 2;
+    var startX = this.padding + this.width / 2;
     var startY = this.padding + this.height / 2;
 
     // Insert data

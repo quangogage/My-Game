@@ -4,7 +4,7 @@ var FRICTION = 0.785;
 var GRAVITY = 0.4;
 var JUMP_HEIGHT = 8.5;
 var DAMAGE_FLASH_TIME = 100;
-var MAX_HEALTH = 4;
+var MAX_HEALTH = 6;
 
 export default class Player {
   constructor(options) {
