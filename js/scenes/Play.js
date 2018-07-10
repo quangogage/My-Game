@@ -29,6 +29,8 @@ export default class PlayScene extends Scene {
     var sceneWidth = this.sys.canvas.width;
     var sceneHeight = this.sys.canvas.height;
     this.weaponHandler.create('pistol', sceneWidth * 0.66, sceneHeight * 0.5);
+
+    this.platformHandler.create(50, 50, 4, 2);
   }
   update() {
     this.player.update();

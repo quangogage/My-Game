@@ -6,7 +6,7 @@ import BulletHandler from '../handlers/BulletHandler';
 import ParticleHandler from '../handlers/ParticleHandler';
 import Interface from '../Interface/Interface';
 import EnemyHandler from '../handlers/EnemyHandler';
-import Tiles from '../loaders/TileLoader';
+import Tiles from './Tiles';
 import PlatformHandler from '../handlers/PlatformHandler';
 // Loads all of the handlers/loaders/objects/etc inside of
 // the `Play.js`'s preload function to keep things clean.
@@ -77,7 +77,8 @@ export default function componentLoader(scene) {
     scene: scene,
     tileCount: scene.tiles.count,
     tileWidth: scene.tiles.width,
-    tileHeight: scene.tiles.height
+    tileHeight: scene.tiles.height,
+    createTile: scene.tiles.createImage
   });
 
   // The interface

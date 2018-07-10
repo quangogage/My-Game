@@ -1,3 +1,5 @@
+import GageLib from 'gages-library';
+
 var COUNT = 21;
 
 export default class Tiles {
@@ -13,6 +15,9 @@ export default class Tiles {
     // component utilizing tile-type thingys.
     this.width = 32;
     this.height = 32;
+
+    // Binding public functions
+    this.createImage = this.createImage.bind(this);
   }
 
   /* ** Public Functions ** */
@@ -21,5 +26,11 @@ export default class Tiles {
     for (var i = 1; i <= this.count; i++) {
       this.scene.load.image(`tile${i}`, `images/env/tiles/${i}.png`);
     }
+  }
+  createImage(x, y, index) {
+    var index = index || Math.floor(GageLib.math.getRandom(0, this.count - 1));
+
+    // Add the image
+    return this.scene.add.image(x, y, `tile${index}`);
   }
 }
