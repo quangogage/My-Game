@@ -6,6 +6,7 @@ export default class ParticleClass {
     this.flags = options.flags;
     this.data = options.data;
     this.scene = options.scene;
+    this.particles = options.particles;
   }
 
   // Get the position of the particle

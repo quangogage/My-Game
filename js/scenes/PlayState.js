@@ -26,7 +26,7 @@ export default function PlayState(options) {
       state.timer = 0;
     }
 
-    if (state.resetKey.isDown && state.timer > 10) {
+    if (state.resetKey.isDown && state.timer > 50) {
       scene.scene.restart();
       scene.current = 'start';
     }

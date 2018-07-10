@@ -36,6 +36,7 @@ export default class Gib extends ParticleClass {
     this.rotVel =
       GageLib.math.getRandom(ROT_SPEED[0] * 100, ROT_SPEED[1] * 100) / 100;
     this.rotDirection = GageLib.math.getRandom(0, 100) > 50 ? 1 : -1;
+    this.rotVel *= this.rotDirection;
 
     // Living and dying
     this.life = 0;
@@ -51,7 +52,7 @@ export default class Gib extends ParticleClass {
     this.sprite.x += this.xvel;
     this.sprite.y += this.yvel;
     this.yvel += GRAVITY;
-    this.sprite.angle += this.rotVel * this.rotDirection;
+    this.sprite.angle += this.rotVel;
     if (this.grounded) {
       this.xvel *= FRICTION;
       this.rotVel *= ROT_FRICTION;

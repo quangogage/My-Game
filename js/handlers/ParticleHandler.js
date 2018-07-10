@@ -114,7 +114,8 @@ export default class ParticleHandler {
         y: y,
         flags: flags || {},
         scene: this.scene,
-        data: particleObj
+        data: particleObj,
+        particles: this.particles
       })
     );
   }
@@ -155,7 +156,7 @@ export default class ParticleHandler {
   // Getting pushed around by the player and enemies
   // Getting pushed by the player & enemies
   getPushed(particle) {
-    var posInfluence = 0.05;
+    var posInfluence = 0.1;
     var rotInfluence = 0.5;
     var player = this.player;
     var enemies = this.enemies;

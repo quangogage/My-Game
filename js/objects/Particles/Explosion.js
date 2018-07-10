@@ -100,5 +100,35 @@ export default class Explosion extends ParticleClass {
         }
       }
     }
+
+    // Other particles
+    for (var i = 0; i < this.particles.length; i++) {
+      var particle = this.particles[i];
+      if (particle != this && particle.xvel != null) {
+        var particle = this.particles[i];
+        var particlePos = particle.getPos();
+        var particleDim = particle.getDim();
+        if (
+          particlePos.x + particleDim.width / 2 >
+            this.sprite.x - this.width / 2 &&
+          particlePos.x - particleDim.width / 2 <
+            this.sprite.x + this.width / 2 &&
+          particlePos.y + particleDim.height / 2 >
+            this.sprite.y - this.height / 2 &&
+          particlePos.y - particleDim.height / 2 <
+            this.sprite.y + this.height / 2
+        ) {
+          if (particle.beenHitBy != this) {
+            var angle = Math.atan2(
+              this.sprite.y - particlePos.y,
+              this.sprite.x - particlePos.x
+            );
+            particle.xvel += Math.cos(angle) * this.knockback;
+            particle.yvel += -Math.abs(Math.sin(angle) * this.knockback);
+            particle.beenHitBy = this;
+          }
+        }
+      }
+    }
   }
 }
