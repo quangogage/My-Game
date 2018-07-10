@@ -1,7 +1,7 @@
 import { Scene } from 'phaser';
 import Background from '../objects/env/Background';
 import WeaponHandler from '../handlers/WeaponHandler';
-import Player from '../objects/Player';
+import Player from '../objects/Player/Player';
 import Ground from '../objects/env/Ground';
 import BulletHandler from '../handlers/BulletHandler';
 import ParticleHandler from '../handlers/ParticleHandler';
@@ -100,7 +100,7 @@ export default class PlayScene extends Scene {
     // Create a pistol at the start of the round
     var sceneWidth = this.sys.canvas.width;
     var sceneHeight = this.sys.canvas.height;
-    this.weaponHandler.create('ak', sceneWidth * 0.66, sceneHeight * 0.5);
+    this.weaponHandler.create('uzi', sceneWidth * 0.66, sceneHeight * 0.5);
   }
   update() {
     this.player.update();

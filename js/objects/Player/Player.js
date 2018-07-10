@@ -1,4 +1,5 @@
 import GageLib from 'gages-library';
+import ShootHelper from './ShootHelper';
 var SPEED = 1;
 var FRICTION = 0.785;
 var GRAVITY = 0.4;
@@ -30,9 +31,7 @@ export default class Player {
     this.health = MAX_HEALTH;
 
     // Shooting
-    this.shoot = {
-      timer: 0
-    };
+    this.shootHelper = new ShootHelper(this);
 
     // Getting hit
     this.hit = {
@@ -109,7 +108,7 @@ export default class Player {
     this.boundary();
     this.jump();
     this.attachGun();
-    this.shootGun();
+    this.shootHelper.update();
     this.hit.timer++;
     this.equipTimer++;
   }
@@ -219,7 +218,8 @@ export default class Player {
         damage: weapon.damage,
         height: weapon.height,
         type: weapon.bulletType,
-        fireRate: weapon.fireRate || 5
+        fireRate: weapon.fireRate || 5,
+        fireMode: weapon.fireMode || 'auto'
       };
       this.hasEquippedWeapon = true;
 
@@ -254,39 +254,6 @@ export default class Player {
 
       // Flip it as well if the player is flipped
       this.equipped.image.flipX = this.sprite.flipX;
-    }
-  }
-
-  // Shooting
-  shootGun() {
-    // Only shoot if you have a gun
-    if (this.equipped && this.state.current !== 'dead') {
-      var fireRate = this.equipped.fireRate;
-      var kickback = this.equipped.kickback || 5;
-      var damage = this.equipped.damage || 1;
-
-      // Check if you are trying to/able to shoot
-      if (this.shoot.timer >= fireRate && this.spacebar.isDown) {
-        var dir = this.sprite.flipX == false ? 0 : Math.PI;
-        var type = this.equipped.type;
-
-        // Calculate the position of the end of the gun
-        var x = this.equipped.image.x;
-        var y = this.equipped.image.y - this.equipped.image.height;
-
-        // Create the bullet
-        this.createBullet(x, y, dir, type, damage);
-
-        // Kick the player back
-        this.xvel += Math.cos(dir + Math.PI) * kickback;
-        this.yvel += Math.sin(dir + Math.PI) * kickback - kickback * 0.25;
-
-        // Reset the shooting timer
-        this.shoot.timer = 0;
-      }
-
-      // Run a timer to compare with your current guns firerate
-      this.shoot.timer++;
     }
   }
 

@@ -29,7 +29,8 @@ export default class WeaponHandler {
         x: 14,
         y: 20,
         fireRate: 15,
-        kickback: 2.5
+        kickback: 2.5,
+        damage: 0.75
       },
       {
         name: 'ak',
@@ -42,6 +43,19 @@ export default class WeaponHandler {
         fireRate: 8,
         kickback: 0.25,
         damage: 0.5
+      },
+      {
+        name: 'uzi',
+        imageFile: 'uzi',
+        bulletType: 'basic',
+        width: 40,
+        height: 18,
+        x: 10,
+        y: 17.5,
+        fireRate: 32,
+        kickback: 0.25,
+        damage: 0.66,
+        fireMode: 'burst'
       }
     ];
 
