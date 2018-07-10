@@ -6,6 +6,7 @@ var LIFETIME = 2000;
 var GRAVITY = 0.35;
 var LAUNCH_SPEED = [1.5, 5];
 var DIR_VARIATION = 0.5;
+var FRICTION = 0.9;
 
 export default class Blood extends ParticleClass {
   constructor(options) {
@@ -13,6 +14,8 @@ export default class Blood extends ParticleClass {
 
     // Dimensions
     this.size = GageLib.math.getRandom(SIZE[0] * 100, SIZE[1] * 100) / 100;
+    this.width = this.size;
+    this.height = this.size;
 
     // Create the blood image
     this.createSprite();
@@ -29,15 +32,19 @@ export default class Blood extends ParticleClass {
     // Living and dying
     this.life = 0;
     this.lifetime = LIFETIME;
+
+    // Get pushed around when colliding
+    this.getPushed = true;
   }
 
   /* ** Public Functions ** */
   update() {
     // Moving
-    if (!this.grounded) {
-      this.sprite.x += this.xvel;
-      this.sprite.y += this.yvel;
-      this.yvel += GRAVITY;
+    this.sprite.x += this.xvel;
+    this.sprite.y += this.yvel;
+    this.yvel += GRAVITY;
+    if (this.grounded) {
+      this.xvel *= FRICTION;
     }
 
     // Dying

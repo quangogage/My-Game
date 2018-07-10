@@ -40,6 +40,9 @@ export default class Gib extends ParticleClass {
     // Living and dying
     this.life = 0;
     this.lifetime = LIFETIME;
+
+    // Get pushed around when colliding
+    this.getPushed = true;
   }
 
   /* ** Public Functions ** */

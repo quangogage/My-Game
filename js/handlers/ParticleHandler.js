@@ -7,6 +7,8 @@ export default class ParticleHandler {
   constructor(options) {
     // Store values
     this.scene = options.scene;
+    this.player = options.player;
+    this.enemies = options.enemies;
 
     // All particle instances
     this.particles = [];
@@ -137,10 +139,65 @@ export default class ParticleHandler {
         particle.update();
       }
 
+      // Get pushed if enabled
+      if (particle.getPushed) {
+        this.getPushed(particle);
+      }
+
       // Removing the particle
       if (particle.delete) {
         particle.destroyAssets();
         this.particles.splice(i, 1);
+      }
+    }
+  }
+
+  // Getting pushed around by the player and enemies
+  // Getting pushed by the player & enemies
+  getPushed(particle) {
+    var posInfluence = 0.05;
+    var rotInfluence = 0.5;
+    var player = this.player;
+    var enemies = this.enemies;
+    var playerPos = player.getPos();
+    var playerDim = player.getDim();
+
+    // Player
+    if (
+      playerPos.x + playerDim.width / 2 >
+        particle.sprite.x - particle.width / 2 &&
+      playerPos.x - playerDim.width / 2 <
+        particle.sprite.x + particle.width / 2 &&
+      playerPos.y + playerDim.height / 2 >
+        particle.sprite.y - particle.height / 2 &&
+      playerPos.y - playerDim.height / 2 <
+        particle.sprite.y + particle.height / 2
+    ) {
+      particle.xvel += player.xvel * posInfluence;
+      if (particle.rotVel) {
+        particle.rotVel += player.xvel * rotInfluence;
+      }
+    }
+
+    // Enemies
+    for (var i = 0; i < enemies.length; i++) {
+      var enemy = enemies[i];
+      var enemyPos = enemy.getPos();
+      var enemyDim = enemy.getDim();
+      if (
+        enemyPos.x + enemyDim.width / 2 >
+          particle.sprite.x - particle.width / 2 &&
+        enemyPos.x - enemyDim.width / 2 <
+          particle.sprite.x + particle.width / 2 &&
+        enemyPos.y + enemyDim.height / 2 >
+          particle.sprite.y - particle.height / 2 &&
+        enemyPos.y - enemyDim.height / 2 <
+          particle.sprite.y + particle.height / 2
+      ) {
+        particle.xvel += enemy.xvel * posInfluence;
+        if (particle.rotVel) {
+          particle.rotVel += enemy.xvel * rotInfluence;
+        }
       }
     }
   }

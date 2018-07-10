@@ -115,7 +115,9 @@ export default class EnemyClass {
     for (var i = 0; i < gibCount; i++) {
       this.createParticle(this.sprite.x, this.sprite.y, 'gib', {
         type: gibType,
-        dir: angle + Math.PI
+        dir: angle + Math.PI,
+        enemies: this.enemies,
+        player: this.player
       });
     }
 

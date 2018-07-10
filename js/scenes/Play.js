@@ -82,6 +82,10 @@ export default class PlayScene extends Scene {
       player: this.player
     });
     this.interface.preload();
+
+    // Add some more stuff into the particlehandler
+    this.particleHandler.player = this.player;
+    this.particleHandler.enemies = this.enemyHandler.enemies;
   }
   create() {
     this.background.create();
