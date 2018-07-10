@@ -8,6 +8,7 @@ import ParticleHandler from '../handlers/ParticleHandler';
 import Interface from '../Interface/Interface';
 import PlayState from './PlayState';
 import EnemyHandler from '../handlers/EnemyHandler';
+import Tiles from '../loaders/TileLoader';
 
 export default class PlayScene extends Scene {
   constructor(options) {
@@ -22,6 +23,10 @@ export default class PlayScene extends Scene {
       timer: 0,
       resetKey: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
     };
+
+    // The tile loader
+    this.tiles = new Tiles({ scene: this });
+    this.tiles.preload();
 
     // The Background
     this.background = new Background(this);
@@ -70,6 +75,7 @@ export default class PlayScene extends Scene {
     this.ground = new Ground({
       scene: this,
       player: this.player,
+      tileCount: this.tiles.count,
       enemies: this.enemyHandler.enemies,
       weapons: this.weaponHandler.weapons,
       particles: this.particleHandler.particles

@@ -6,8 +6,8 @@ export default class Ground {
     this.enemies = options.enemies;
     this.player = options.player;
     this.weapons = options.weapons;
+    this.tileCount = options.tileCount;
     this.particles = options.particles;
-    this.tileCount = 21;
     this.totalHeight = 5;
     this.tileWidth = 32;
     this.tileHeight = 32;
@@ -15,11 +15,6 @@ export default class Ground {
 
   preload() {
     var scene = this.scene;
-
-    // Load all of the tile objects/images
-    for (var i = 1; i <= this.tileCount; i++) {
-      scene.load.image(`tile${i}`, `images/env/tiles/${i}.png`);
-    }
 
     // Calculate the position of the ground
     var sceneHeight = scene.sys.canvas.height;
