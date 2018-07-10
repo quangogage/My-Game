@@ -7,6 +7,7 @@ export default class WeaponHandler {
     this.scene = options.scene;
     this.player = options.player;
     this.state = options.state;
+    this.createWeapon = options.createWeapon;
 
     // Store all of the created weapons
     this.weapons = [];
@@ -78,7 +79,7 @@ export default class WeaponHandler {
       weaponData = this.getWeaponByName(name);
     } else {
       var weaponIndex = Math.floor(
-        GageLib.math.getRandom(0, this.weaponData.length)
+        GageLib.math.getRandom(0, this.weaponData.length - 1)
       );
       weaponData = this.weaponData[weaponIndex];
     }
@@ -150,10 +151,7 @@ export default class WeaponHandler {
         playerY - playerHeight / 2 < weaponY + weaponHeight / 2
       ) {
         // Picking it up
-        player.equip(weapon.data);
-
-        // Remove the weapon object
-        weapon.delete = true;
+        player.equip(weapon.data, weapon);
       }
     }
   }

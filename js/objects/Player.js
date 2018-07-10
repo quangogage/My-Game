@@ -40,6 +40,10 @@ export default class Player {
       delay: 10
     };
 
+    // Delay equipping weapons
+    this.equipTimer = 0;
+    this.equipDelay = 100;
+
     // Controls
     this.cursors = this.scene.input.keyboard.createCursorKeys();
     this.spacebar = this.scene.input.keyboard.addKey(
@@ -107,6 +111,7 @@ export default class Player {
     this.attachGun();
     this.shootGun();
     this.hit.timer++;
+    this.equipTimer++;
   }
 
   // Get the player's position
@@ -197,32 +202,46 @@ export default class Player {
   }
 
   // Equipping a weapon
-  equip(weapon) {
-    console.log(weapon);
-    // Store the weapons info
-    this.equipped = {
-      x: weapon.x || 0,
-      y: weapon.y || 0,
-      name: weapon.name,
-      width: weapon.width,
-      damage: weapon.damage,
-      height: weapon.height,
-      type: weapon.bulletType,
-      fireRate: weapon.fireRate || 5
-    };
+  equip(weapon, weaponInstance) {
+    if (this.equipTimer >= this.equipDelay) {
+      // Remove any previously equipped weapon
+      if (this.hasEquippedWeapon) {
+        this.equipped.image.destroy();
+        this.createWeapon(this.equipped.name, this.sprite.x, this.sprite.y);
+      }
 
-    // Create the image
-    this.equipped.image = this.scene.add.image(
-      this.sprite.x + this.equipped.x,
-      this.sprite.y + this.equipped.y,
-      this.equipped.name
-    );
+      // Store the weapons info
+      this.equipped = {
+        x: weapon.x || 0,
+        y: weapon.y || 0,
+        name: weapon.name,
+        width: weapon.width,
+        damage: weapon.damage,
+        height: weapon.height,
+        type: weapon.bulletType,
+        fireRate: weapon.fireRate || 5
+      };
+      this.hasEquippedWeapon = true;
 
-    // Size the image
-    this.equipped.image.setDisplaySize(
-      this.equipped.width,
-      this.equipped.height
-    );
+      // Reset the equip-delay timer
+      this.equipTimer = 0;
+
+      // Create the image
+      this.equipped.image = this.scene.add.image(
+        this.sprite.x + this.equipped.x,
+        this.sprite.y + this.equipped.y,
+        this.equipped.name
+      );
+
+      // Size the image
+      this.equipped.image.setDisplaySize(
+        this.equipped.width,
+        this.equipped.height
+      );
+
+      // Delete the weapon
+      weaponInstance.delete = true;
+    }
   }
 
   // Keep the gun attached to the player
@@ -284,7 +303,7 @@ export default class Player {
       // Knockback
       this.xvel += Math.cos(angle) * knockback;
       this.sprite.y -= 8;
-      this.yvel -= GRAVITY + knockback * 0.45;
+      this.yvel -= GRAVITY + knockback * 0.25;
 
       // Flashing red
       this.sprite.tint = 0xff0000;

@@ -1,9 +1,11 @@
+import GageLib from 'gages-library';
 import EnemyGenerator from './EnemyGenerator';
 import Pig from '../objects/enemies/Pig';
 import Skeleton from '../objects/enemies/Skeleton';
 import FlamingSkeleton from '../objects/enemies/FlamingSkeleton';
 
 var PUSHBACK = 0.2;
+var WEAPON_CHANCE = 10;
 
 export default class EnemyHandler {
   constructor(options) {
@@ -12,6 +14,7 @@ export default class EnemyHandler {
     this.state = options.state;
     this.player = options.player;
     this.bullets = options.bullets;
+    this.createWeapon = options.createWeapon;
     this.createParticle = options.createParticle;
 
     // All enemy instances
@@ -128,8 +131,15 @@ export default class EnemyHandler {
 
       // Removing the enemy
       if (enemy.delete) {
+        var weaponRoll = GageLib.math.getRandom(0, 100);
+
         // Destroy the sprite
         enemy.sprite.destroy();
+
+        // Creating weapons
+        if (weaponRoll <= WEAPON_CHANCE) {
+          this.createWeapon(null, enemy.sprite.x, enemy.sprite.y);
+        }
 
         // Remove from list of enemies
         this.enemies.splice(i, 1);

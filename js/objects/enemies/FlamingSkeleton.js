@@ -5,7 +5,7 @@ var HEIGHT = 60;
 var FRICTION = 0.8;
 var SPEED = 0.825;
 var GRAVITY = 0.35;
-var HEALTH = 1;
+var HEALTH = 0.1;
 
 export default class FlamingSkeleton extends EnemyClass {
   constructor(options) {
