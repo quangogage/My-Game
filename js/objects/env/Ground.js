@@ -9,8 +9,8 @@ export default class Ground {
     this.tileCount = options.tileCount;
     this.particles = options.particles;
     this.totalHeight = 5;
-    this.tileWidth = 32;
-    this.tileHeight = 32;
+    this.tileWidth = options.tileWidth;
+    this.tileHeight = options.tileHeight;
   }
 
   preload() {

@@ -8,6 +8,11 @@ export default class Tiles {
     // The amount of tiles numbered for easy
     // use of the loaded images
     this.count = COUNT;
+
+    // The dimensions of tiles to be used by any
+    // component utilizing tile-type thingys.
+    this.width = 32;
+    this.height = 32;
   }
 
   /* ** Public Functions ** */

@@ -63,6 +63,8 @@ export default function componentLoader(scene) {
     scene: scene,
     player: scene.player,
     tileCount: scene.tiles.count,
+    tileWidth: scene.tiles.width,
+    tileHeight: scene.tiles.height,
     enemies: scene.enemyHandler.enemies,
     weapons: scene.weaponHandler.weapons,
     particles: scene.particleHandler.particles
