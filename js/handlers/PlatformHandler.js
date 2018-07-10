@@ -60,7 +60,7 @@ export default class PlatformHandler {
         playerPos.y + playerDim.height / 2 > platform.y &&
         playerPos.y - playerDim.height / 2 < platform.y + platform.pixelHeight
       ) {
-        var extra = 10;
+        var extra = 2;
 
         if (
           playerPos.x + playerDim.width / 2 > platform.x + extra &&

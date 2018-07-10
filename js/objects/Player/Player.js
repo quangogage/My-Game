@@ -73,9 +73,10 @@ export default class Player {
     );
 
     // Slacing / dimensions
-    this.sprite.setScale(SCALE);
+    this.sprite.setScale(this.scale);
     this.width = this.sprite.width * this.scale;
     this.height = this.sprite.height * this.scale;
+    this.sprite.setOrigin(0.5);
 
     // Create the animations of the sprite
     scene.anims.create({
