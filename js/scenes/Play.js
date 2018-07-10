@@ -1,14 +1,6 @@
 import { Scene } from 'phaser';
-import Background from '../objects/env/Background';
-import WeaponHandler from '../handlers/WeaponHandler';
-import Player from '../objects/Player/Player';
-import Ground from '../objects/env/Ground';
-import BulletHandler from '../handlers/BulletHandler';
-import ParticleHandler from '../handlers/ParticleHandler';
-import Interface from '../Interface/Interface';
 import PlayState from './PlayState';
-import EnemyHandler from '../handlers/EnemyHandler';
-import Tiles from '../loaders/TileLoader';
+import componentLoader from '../loaders/ComponentLoader';
 
 export default class PlayScene extends Scene {
   constructor(options) {
@@ -24,78 +16,8 @@ export default class PlayScene extends Scene {
       resetKey: this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE)
     };
 
-    // The tile loader
-    this.tiles = new Tiles({ scene: this });
-    this.tiles.preload();
-
-    // The Background
-    this.background = new Background(this);
-    this.background.preload();
-
-    // The particle handler
-    this.particleHandler = new ParticleHandler({ scene: this });
-    this.particleHandler.preload();
-
-    // The bullet handler
-    this.bulletHandler = new BulletHandler({
-      scene: this,
-      createParticle: this.particleHandler.create
-    });
-    this.bulletHandler.preload();
-
-    // The Player
-    this.player = new Player({
-      scene: this,
-      state: this.state,
-      createBullet: this.bulletHandler.create,
-      createParticle: this.particleHandler.create
-    });
-    this.player.preload();
-
-    // The weapon handler
-    this.weaponHandler = new WeaponHandler({
-      scene: this,
-      player: this.player,
-      state: this.state
-    });
-    this.weaponHandler.preload();
-
-    // The enemy handler
-    this.enemyHandler = new EnemyHandler({
-      scene: this,
-      state: this.state,
-      player: this.player,
-      bullets: this.bulletHandler.bullets,
-      createParticle: this.particleHandler.create,
-      createWeapon: this.weaponHandler.create
-    });
-    this.enemyHandler.preload();
-
-    // The ground
-    this.ground = new Ground({
-      scene: this,
-      player: this.player,
-      tileCount: this.tiles.count,
-      enemies: this.enemyHandler.enemies,
-      weapons: this.weaponHandler.weapons,
-      particles: this.particleHandler.particles
-    });
-    this.ground.preload();
-
-    // The interface
-    this.interface = new Interface({
-      scene: this,
-      state: this.state,
-      player: this.player
-    });
-    this.interface.preload();
-
-    // Add some more stuff into the particlehandler
-    this.particleHandler.player = this.player;
-    this.particleHandler.enemies = this.enemyHandler.enemies;
-
-    // Add some more stuff into the player instance
-    this.player.createWeapon = this.weaponHandler.create;
+    // The component loader (loads all of the components!)
+    componentLoader(this);
   }
   create() {
     this.background.create();
