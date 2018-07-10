@@ -41,7 +41,7 @@ export default class Player {
 
     // Delay equipping weapons
     this.equipTimer = 0;
-    this.equipDelay = 100;
+    this.equipDelay = 25;
 
     // Controls
     this.cursors = this.scene.input.keyboard.createCursorKeys();

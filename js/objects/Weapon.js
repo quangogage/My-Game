@@ -1,4 +1,6 @@
 var GRAVITY = 0.3;
+var LIFETIME = 500;
+var FLASH_WARNING_TIME = 130;
 
 export default class Weapon {
   constructor(options) {
@@ -17,6 +19,10 @@ export default class Weapon {
     // Movement and physics
     this.yvel = 0;
 
+    // Living / dying
+    this.lifetime = 0;
+    this.alpha = 1;
+
     // Create the sprite
     this.createSprite(this.x, this.y);
 
@@ -30,6 +36,7 @@ export default class Weapon {
     this.attachArrow();
     this.animateArrow();
     this.hideArrow();
+    this.dying();
   }
 
   /* ** Private Functions ** */
@@ -112,6 +119,25 @@ export default class Weapon {
       // times to help the player understand what to do.
       if (this.state.current !== 'start') {
         this.arrow.visible = false;
+      }
+    }
+  }
+
+  // Removing after a bit'
+  dying() {
+    // Short
+    this.lifetime++;
+
+    if (
+      this.lifetime >= LIFETIME - FLASH_WARNING_TIME &&
+      this.state.current !== 'start'
+    ) {
+      // Flashing
+      this.sprite.alpha = Math.sin(this.lifetime);
+
+      // Removing
+      if (this.lifetime >= LIFETIME) {
+        this.delete = true;
       }
     }
   }

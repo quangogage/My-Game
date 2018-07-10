@@ -20,7 +20,7 @@ export default class ShootHelper {
   /* ** Public Functions ** */
   update() {
     var player = this.player;
-    if (player.equipped) {
+    if (player.equipped && player.state.current == 'playing') {
       var weaponData = player.equipped;
       var fireMode = weaponData.fireMode || 'auto';
       this.fireModes[fireMode]();
@@ -79,8 +79,6 @@ export default class ShootHelper {
     var kickback = player.equipped.kickback || 5;
     var dir = player.sprite.flipX == false ? 0 : Math.PI;
     var type = player.equipped.type;
-
-    console.log('shot');
 
     // Calculate the position of the end of the gun
     var x = player.equipped.image.x;
