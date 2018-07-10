@@ -3,9 +3,10 @@ import ShootHelper from './ShootHelper';
 var SPEED = 1;
 var FRICTION = 0.785;
 var GRAVITY = 0.4;
-var JUMP_HEIGHT = 8.5;
+var JUMP_HEIGHT = 9.7;
 var DAMAGE_FLASH_TIME = 100;
 var MAX_HEALTH = 4;
+var SCALE = 2.5;
 
 export default class Player {
   constructor(options) {
@@ -16,8 +17,7 @@ export default class Player {
     this.createParticle = options.createParticle;
 
     // Dimensions
-    this.width = 48;
-    this.height = 50;
+    this.scale = SCALE;
 
     // Movement
     this.xvel = 0;
@@ -72,8 +72,10 @@ export default class Player {
       'player'
     );
 
-    // Set the dimensions of the sprite
-    this.sprite.setDisplaySize(this.width, this.height);
+    // Slacing / dimensions
+    this.sprite.setScale(SCALE);
+    this.width = this.sprite.width * this.scale;
+    this.height = this.sprite.height * this.scale;
 
     // Create the animations of the sprite
     scene.anims.create({

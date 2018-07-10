@@ -31,6 +31,15 @@ export default class Tiles {
     var index = index || Math.floor(GageLib.math.getRandom(0, this.count - 1));
 
     // Add the image
-    return this.scene.add.image(x, y, `tile${index}`);
+    var image = this.scene.add.image(x, y, `tile${index}`);
+
+    // Set it's dimensions
+    image.setDisplaySize(this.width, this.height);
+
+    // Set it's origin
+    image.setOrigin(0.5);
+
+    // Add the image
+    return image;
   }
 }

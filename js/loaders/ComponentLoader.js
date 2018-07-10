@@ -75,6 +75,7 @@ export default function componentLoader(scene) {
   // The Platform handler
   scene.platformHandler = new PlatformHandler({
     scene: scene,
+    player: scene.player,
     tileCount: scene.tiles.count,
     tileWidth: scene.tiles.width,
     tileHeight: scene.tiles.height,

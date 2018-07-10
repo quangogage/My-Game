@@ -30,7 +30,7 @@ export default class PlayScene extends Scene {
     var sceneHeight = this.sys.canvas.height;
     this.weaponHandler.create('pistol', sceneWidth * 0.66, sceneHeight * 0.5);
 
-    this.platformHandler.create(50, 50, 4, 2);
+    this.platformHandler.create(200, 350, 3, 1);
   }
   update() {
     this.player.update();
@@ -40,6 +40,7 @@ export default class PlayScene extends Scene {
     this.enemyHandler.update();
     this.ground.update(this.player, this.weaponHandler.weapons);
     this.interface.update();
+    this.platformHandler.update();
 
     // Updating the playstate
     PlayState({
