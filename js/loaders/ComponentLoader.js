@@ -7,6 +7,7 @@ import ParticleHandler from '../handlers/ParticleHandler';
 import Interface from '../Interface/Interface';
 import EnemyHandler from '../handlers/EnemyHandler';
 import Tiles from '../loaders/TileLoader';
+import PlatformHandler from '../handlers/PlatformHandler';
 // Loads all of the handlers/loaders/objects/etc inside of
 // the `Play.js`'s preload function to keep things clean.
 
@@ -72,6 +73,12 @@ export default function componentLoader(scene) {
   scene.ground.preload();
 
   // The Platform handler
+  scene.platformHandler = new PlatformHandler({
+    scene: scene,
+    tileCount: scene.tiles.count,
+    tileWidth: scene.tiles.width,
+    tileHeight: scene.tiles.height
+  });
 
   // The interface
   scene.interface = new Interface({
