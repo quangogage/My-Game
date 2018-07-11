@@ -65,7 +65,10 @@ export default class BulletHandler {
 
       // Deleting the bullet
       if (bullet.delete) {
+        // Destroy any bullet assets
         bullet.destroyAssets();
+
+        // Remove it from the list
         this.bullets.splice(i, 1);
       }
     }

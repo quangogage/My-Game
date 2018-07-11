@@ -86,7 +86,8 @@ export default function componentLoader(scene) {
     enemies: scene.enemyHandler.enemies,
     bullets: scene.bulletHandler.bullets,
     weapons: scene.weaponHandler.weapons,
-    particles: scene.particleHandler.particles
+    particles: scene.particleHandler.particles,
+    createParticle: scene.particleHandler.create
   });
 
   // The Enemy Spawner handler

@@ -13,6 +13,7 @@ export default class PlatformHandler {
     this.tileWidth = options.tileWidth;
     this.tileHeight = options.tileHeight;
     this.createTile = options.createTile;
+    this.createParticle = options.createParticle;
 
     // Dimensions
     this.width = options.width;
@@ -261,6 +262,19 @@ export default class PlatformHandler {
           bulletPos.y + bulletDim.height / 2 > platform.y &&
           bulletPos.y - bulletDim.height / 2 < platform.y + platform.pixelHeight
         ) {
+          var x, y;
+
+          // Calculate the position of the particle
+          if (bulletPos.x < platform.x + platform.pixelWidth / 2) {
+            x = platform.x;
+          } else {
+            x = platform.x + platform.pixelWidth;
+          }
+
+          y = bullet.y;
+          this.createParticle(x, y, 'bullet-hit', { dir: bullet.dir });
+
+          // Destroy the bullet
           bullet.delete = true;
         }
       }

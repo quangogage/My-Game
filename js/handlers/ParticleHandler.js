@@ -3,6 +3,7 @@ import Blood from '../objects/Particles/Blood';
 import Explosion from '../objects/Particles/Explosion';
 import Gib from '../objects/Particles/Gib';
 import SpawnFlash from '../objects/Particles/SpawnFlash';
+import BulletHit from '../objects/Particles/BulletHit';
 
 export default class ParticleHandler {
   constructor(options) {
@@ -85,6 +86,19 @@ export default class ParticleHandler {
             type: 'spritesheet',
             frameWidth: 16,
             frameHeight: 32
+          }
+        ]
+      },
+      {
+        name: 'bullet-hit',
+        class: BulletHit,
+        assets: [
+          {
+            name: 'bullet-hit',
+            fileName: 'bullet-hit',
+            type: 'spritesheet',
+            frameWidth: 16,
+            frameHeight: 16
           }
         ]
       }
