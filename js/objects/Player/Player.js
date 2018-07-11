@@ -7,6 +7,8 @@ var JUMP_HEIGHT = 9.7;
 var DAMAGE_FLASH_TIME = 100;
 var MAX_HEALTH = 4;
 var SCALE = 2.5;
+var WEAPON_KICK = 10;
+var WEAPON_KICK_RESET_SPEED = 1;
 
 export default class Player {
   constructor(options) {
@@ -31,6 +33,7 @@ export default class Player {
     this.health = MAX_HEALTH;
 
     // Shooting
+    this.weaponKick = WEAPON_KICK;
     this.shootHelper = new ShootHelper(this);
 
     // Getting hit
@@ -222,7 +225,8 @@ export default class Player {
         height: weapon.height,
         type: weapon.bulletType,
         fireRate: weapon.fireRate || 5,
-        fireMode: weapon.fireMode || 'auto'
+        fireMode: weapon.fireMode || 'auto',
+        kick: 0
       };
       this.hasEquippedWeapon = true;
 
@@ -252,11 +256,19 @@ export default class Player {
     var scaleX = this.sprite.flipX ? -1 : 1;
     if (this.equipped) {
       // Positioning
-      this.equipped.image.x = this.sprite.x + this.equipped.x * scaleX;
+      this.equipped.image.x =
+        this.sprite.x + (this.equipped.x - this.equipped.kick) * scaleX;
       this.equipped.image.y = this.sprite.y + this.equipped.y;
 
       // Flip it as well if the player is flipped
       this.equipped.image.flipX = this.sprite.flipX;
+
+      // Kickback
+      if (this.equipped.kick > 0) {
+        this.equipped.kick -= WEAPON_KICK_RESET_SPEED;
+      } else {
+        this.equipped.kick = 0;
+      }
     }
   }
 

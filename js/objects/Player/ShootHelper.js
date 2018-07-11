@@ -87,6 +87,9 @@ export default class ShootHelper {
     // Create the bullet
     player.createBullet(x, y, dir, type, damage);
 
+    // Kickback the gun
+    player.equipped.kick = player.weaponKick;
+
     // Kick the player back
     player.xvel += Math.cos(dir + Math.PI) * kickback;
     player.yvel += Math.sin(dir + Math.PI) * kickback - kickback * 0.25;
