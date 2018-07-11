@@ -28,7 +28,7 @@ export default class Tiles {
     }
   }
   createImage(x, y, index) {
-    var index = index || Math.floor(GageLib.math.getRandom(0, this.count - 1));
+    var index = index || Math.floor(GageLib.math.getRandom(1, this.count - 1));
 
     // Add the image
     var image = this.scene.add.image(x, y, `tile${index}`);
