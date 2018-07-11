@@ -32,31 +32,30 @@ export default class RoomHandler {
       var plat = platforms[i];
 
       // Sort through the platform data
-      plat = this.parsePlatform(plat);
+      plat = this.parseData(plat);
 
       this.createPlatform(plat.x, plat.y, plat.width, plat.height);
     }
   }
 
-  // Go through and calculate custom values in one of the rooms
-  // platform data objects.
-  parsePlatform(plat) {
+  // Go through and calculate custom values
+  parseData(data) {
     var sceneWidth = this.sceneWidth;
     var sceneHeight = this.sceneHeight;
 
-    for (var key in plat) {
-      var value = plat[key];
+    for (var key in data) {
+      var value = data[key];
 
       // Centering
       if (value == 'center') {
         // Horizontal
         if (key == 'x') {
-          plat[key] = sceneWidth / 2 - (plat.width * this.tileWidth) / 2;
+          data[key] = sceneWidth / 2 - (data.width * this.tileWidth) / 2;
         }
 
         // Vertical
         if (key == 'y') {
-          plat[key] = sceneHeight / 2 - (plat.height * this.tileHeight) / 2;
+          data[key] = sceneHeight / 2 - (data.height * this.tileHeight) / 2;
         }
       }
 
@@ -67,18 +66,18 @@ export default class RoomHandler {
 
           // Horizontal
           if (key == 'x') {
-            plat[key] =
-              sceneWidth * percentage - (plat.width * this.tileWidth) / 2;
+            data[key] =
+              sceneWidth * percentage - (data.width * this.tileWidth) / 2;
           }
 
           // Vertical
           if (key == 'y') {
-            plat[key] =
-              sceneHeight * percentage - (plat.height * this.tileHeight) / 2;
+            data[key] =
+              sceneHeight * percentage - (data.height * this.tileHeight) / 2;
           }
         }
       }
     }
-    return plat;
+    return data;
   }
 }
