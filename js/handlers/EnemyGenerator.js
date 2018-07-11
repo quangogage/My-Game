@@ -4,6 +4,14 @@ var SPAWN_RATE = [150, 250]; // How quickly they spawn
 var SPAWN_COUNT = [1, 2]; // How many spawn
 var MAX_ENEMIES = 3; // How many can be alive at one time
 
+/*
+  ***********************************
+  ***********************************
+  ******** OUT OF COMMISSION ********
+  ***********************************
+  ***********************************
+*/
+
 export default class EnemyGenerator {
   constructor(options) {
     // Store values

@@ -1,6 +1,7 @@
 import GageLib from 'gages-library';
 
 var COUNT = 21;
+var DEPTH = 1000;
 
 export default class Tiles {
   constructor(options) {
@@ -38,6 +39,9 @@ export default class Tiles {
 
     // Set it's origin
     image.setOrigin(0.5);
+
+    // Set it's z-index
+    image.setDepth(DEPTH);
 
     // Add the image
     return image;

@@ -8,6 +8,8 @@ import Interface from '../Interface/Interface';
 import EnemyHandler from '../handlers/EnemyHandler';
 import Tiles from './Tiles';
 import PlatformHandler from '../handlers/PlatformHandler';
+import RoomHandler from '../handlers/RoomHandler';
+
 // Loads all of the handlers/loaders/objects/etc inside of
 // the `Play.js`'s preload function to keep things clean.
 
@@ -80,6 +82,13 @@ export default function componentLoader(scene) {
     tileWidth: scene.tiles.width,
     tileHeight: scene.tiles.height,
     createTile: scene.tiles.createImage
+  });
+
+  // The Room handler
+  scene.roomHandler = new RoomHandler({
+    scene: scene,
+    createEnemy: scene.enemyHandler.create,
+    createPlatform: scene.platformHandler.create
   });
 
   // The interface

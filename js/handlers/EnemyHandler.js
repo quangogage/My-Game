@@ -1,5 +1,4 @@
 import GageLib from 'gages-library';
-import EnemyGenerator from './EnemyGenerator';
 import Pig from '../objects/enemies/Pig';
 import Skeleton from '../objects/enemies/Skeleton';
 import FlamingSkeleton from '../objects/enemies/FlamingSkeleton';
@@ -69,20 +68,9 @@ export default class EnemyHandler {
         frameHeight: 20
       }
     );
-
-    // The enemy generator class
-    this.enemyGenerator = new EnemyGenerator({
-      state: this.state,
-      scene: this.scene,
-      enemies: this.enemies,
-      enemyData: this.enemyData,
-      createEnemy: this.create.bind(this),
-      totalSpawnWeight: this.totalSpawnWeight
-    });
   }
   update() {
     this.updateEnemies();
-    this.enemyGenerator.update();
   }
 
   // Creating an enemy
