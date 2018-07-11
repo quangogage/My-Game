@@ -84,6 +84,7 @@ export default function componentLoader(scene) {
     tileHeight: scene.tiles.height,
     createTile: scene.tiles.createImage,
     enemies: scene.enemyHandler.enemies,
+    weapons: scene.weaponHandler.weapons,
     particles: scene.particleHandler.particles
   });
 

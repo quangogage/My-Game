@@ -79,7 +79,7 @@ export default class Explosion extends ParticleClass {
       playerPos.y + playerDim.height / 2 > this.sprite.y - this.height / 2 &&
       playerPos.y - playerDim.height / 2 < this.sprite.y + this.height / 2
     ) {
-      if (this.flags.player.beenHitBy == this) {
+      if (this.flags.player.beenHitBy != this) {
         this.flags.player.getHit(this);
         this.flags.player.beenHitBy = this;
       }

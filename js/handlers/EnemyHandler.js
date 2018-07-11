@@ -26,6 +26,8 @@ export default class EnemyHandler {
   /* ** Public Functions ** */
   preload() {
     // All enemy types
+    // Should go in order from first revealed to last revealed.
+    // (More are allowed to be spawned one after the other.)
     this.enemyData = [
       {
         name: 'pig',

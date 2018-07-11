@@ -6,6 +6,7 @@ export default class PlatformHandler {
     this.scene = options.scene;
     this.player = options.player;
     this.enemies = options.enemies;
+    this.weapons = options.weapons;
     this.particles = options.particles;
     this.tileCount = options.tileCount;
     this.tileWidth = options.tileWidth;
@@ -191,6 +192,56 @@ export default class PlatformHandler {
               );
               particle.dir = 1;
               particle.xvel = 0;
+            }
+          }
+        }
+      }
+
+      // Weapons
+      for (var ia = 0; ia < this.weapons.length; ia++) {
+        var weapon = this.weapons[ia];
+        var weaponPos = weapon.getPos();
+        var weaponDim = weapon.getDim();
+
+        if (
+          weaponPos.x + weaponDim.width / 2 > platform.x &&
+          weaponPos.x - weaponDim.width / 2 <
+            platform.x + platform.pixelWidth &&
+          weaponPos.y + weaponDim.height / 2 > platform.y &&
+          weaponPos.y - weaponDim.height / 2 < platform.y + platform.pixelHeight
+        ) {
+          var extra = 5;
+
+          if (
+            weaponPos.x + weaponDim.width / 2 > platform.x + extra &&
+            weaponPos.x - weaponDim.width / 2 <
+              platform.x + platform.pixelWidth - extra
+          ) {
+            if (weaponPos.y < platform.y + platform.pixelHeight / 2) {
+              weapon.setPos(null, platform.y - weaponDim.height / 2);
+              weapon.yvel = 0;
+              weapon.grounded = true;
+            }
+            if (weaponPos.y > platform.y + platform.pixelHeight / 2) {
+              weapon.setPos(
+                null,
+                platform.y + platform.pixelHeight + weaponDim.height / 2 + 1
+              );
+              weapon.yvel *= -0.1;
+            }
+          } else {
+            if (weaponPos.x < platform.x + platform.pixelWidth / 2) {
+              weapon.setPos(platform.x - weaponDim.width / 2, null);
+              weapon.dir = -1;
+              weapon.xvel = 0;
+            }
+            if (weaponPos.x > platform.x + platform.pixelWidth / 2) {
+              weapon.setPos(
+                platform.x + platform.pixelWidth + weaponDim.width / 2,
+                null
+              );
+              weapon.dir = 1;
+              weapon.xvel = 0;
             }
           }
         }
