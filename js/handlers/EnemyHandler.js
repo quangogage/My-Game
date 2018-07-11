@@ -31,7 +31,7 @@ export default class EnemyHandler {
         name: 'pig',
         fileName: 'pig',
         class: Pig,
-        weight: 8
+        weight: 10
       },
       {
         name: 'skeleton',
