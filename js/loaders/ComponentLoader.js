@@ -87,6 +87,8 @@ export default function componentLoader(scene) {
   // The Room handler
   scene.roomHandler = new RoomHandler({
     scene: scene,
+    tileWidth: scene.tiles.width,
+    tileHeight: scene.tiles.height,
     createEnemy: scene.enemyHandler.create,
     createPlatform: scene.platformHandler.create
   });

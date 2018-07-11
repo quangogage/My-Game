@@ -29,6 +29,9 @@ export default class StartPrompt {
 
     // Center it
     this.text.setOrigin(0.5);
+
+    // Bring it to front
+    this.text.setDepth(4999);
   }
   update() {
     // Scale animation
