@@ -336,6 +336,8 @@ export default class Player {
     // Play Dead
     this.sprite.anims.play('dead');
 
+    this.equipped.image.destroy();
+
     // Flip the sprite in the correct direction
     this.sprite.flipX = isFlipped;
   }

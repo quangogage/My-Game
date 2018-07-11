@@ -55,6 +55,7 @@ export default class Explosion extends ParticleClass {
     this.sprite.setDisplaySize(this.width, this.height);
     this.sprite.on('animationcomplete', this.animComplete.bind(this), this);
     this.sprite.setDepth(4999);
+    this.sprite.rot = GageLib.math.getRandom(0, 360);
   }
 
   // Run the animation
@@ -78,7 +79,10 @@ export default class Explosion extends ParticleClass {
       playerPos.y + playerDim.height / 2 > this.sprite.y - this.height / 2 &&
       playerPos.y - playerDim.height / 2 < this.sprite.y + this.height / 2
     ) {
-      this.flags.player.getHit(this);
+      if (this.flags.player.beenHitBy == this) {
+        this.flags.player.getHit(this);
+        this.flags.player.beenHitBy = this;
+      }
     }
 
     // Enemies
