@@ -5,6 +5,7 @@ export default class PlatformHandler {
     // Store values
     this.scene = options.scene;
     this.player = options.player;
+    this.bullets = options.bullets;
     this.enemies = options.enemies;
     this.weapons = options.weapons;
     this.particles = options.particles;
@@ -244,6 +245,23 @@ export default class PlatformHandler {
               weapon.xvel = 0;
             }
           }
+        }
+      }
+
+      // Bullets
+      for (var ia = 0; ia < this.bullets.length; ia++) {
+        var bullet = this.bullets[ia];
+        var bulletPos = bullet.getPos();
+        var bulletDim = bullet.getDim();
+
+        if (
+          bulletPos.x + bulletDim.width / 2 > platform.x &&
+          bulletPos.x - bulletDim.width / 2 <
+            platform.x + platform.pixelWidth &&
+          bulletPos.y + bulletDim.height / 2 > platform.y &&
+          bulletPos.y - bulletDim.height / 2 < platform.y + platform.pixelHeight
+        ) {
+          bullet.delete = true;
         }
       }
     }

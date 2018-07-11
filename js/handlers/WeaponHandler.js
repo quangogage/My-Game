@@ -27,7 +27,7 @@ export default class WeaponHandler {
         width: 27,
         height: 18,
         x: 14,
-        y: 20,
+        y: 18,
         fireRate: 20,
         kickback: 2.5,
         damage: 0.75
