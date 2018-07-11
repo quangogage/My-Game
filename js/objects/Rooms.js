@@ -3,7 +3,7 @@ var Rooms = [
   {
     playerSpawn: {
       x: '40%',
-      y: '75%'
+      y: '85%'
     },
     weaponSpawn: {
       x: '60%',

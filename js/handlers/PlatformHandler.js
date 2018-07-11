@@ -61,7 +61,7 @@ export default class PlatformHandler {
         playerPos.x + playerDim.width / 2 > platform.x &&
         playerPos.x - playerDim.width / 2 < platform.x + platform.pixelWidth &&
         playerPos.y + playerDim.height / 2 > platform.y &&
-        playerPos.y - playerDim.height / 2 < platform.y + platform.pixelHeight
+        playerPos.y - playerDim.height * 0.3 < platform.y + platform.pixelHeight
       ) {
         var extra = 5;
 
@@ -78,7 +78,7 @@ export default class PlatformHandler {
           if (playerPos.y > platform.y + platform.pixelHeight / 2) {
             player.setPos(
               null,
-              platform.y + platform.pixelHeight + playerDim.height / 2 + 1
+              platform.y + platform.pixelHeight + playerDim.height * 0.3 + 1
             );
             player.yvel *= -0.1;
           }
