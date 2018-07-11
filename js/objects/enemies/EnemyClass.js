@@ -126,6 +126,13 @@ export default class EnemyClass {
       );
     }
 
+    // Create a bullet-hit particle
+    var x =
+      bullet.x > this.sprite.x
+        ? this.sprite.x + this.width / 2
+        : this.sprite.x - this.width / 2;
+    this.createParticle(x, bullet.y, 'bullet-hit', { dir: bullet.dir });
+
     // Delete the bullet
     if (!bullet.dontRemove) {
       bullet.delete = true;
