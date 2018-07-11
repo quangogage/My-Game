@@ -2,7 +2,7 @@ import GageLib from 'gages-library';
 import ParticleClass from './ParticleClass';
 
 var SIZE = [2, 5];
-var LIFETIME = 2000;
+var LIFETIME = 5000;
 var GRAVITY = 0.35;
 var LAUNCH_SPEED = [1.5, 5];
 var DIR_VARIATION = 0.5;
@@ -35,6 +35,9 @@ export default class Blood extends ParticleClass {
 
     // Get pushed around when colliding
     this.getPushed = true;
+
+    // Enable collision
+    this.collision = true;
   }
 
   /* ** Public Functions ** */

@@ -9,6 +9,8 @@ export default class RoomHandler {
     this.tileWidth = options.tileWidth;
     this.tileHeight = options.tileHeight;
     this.createEnemy = options.createEnemy;
+    this.createWeapon = options.createWeapon;
+    this.createSpawner = options.createSpawner;
     this.createParticle = options.createParticle;
     this.createPlatform = options.createPlatform;
 
@@ -26,8 +28,9 @@ export default class RoomHandler {
     var room = Rooms[roomNumber];
 
     this.generatePlatforms(room.platforms);
-    this.generateEnemies(room.enemies);
+    this.generateSpawners(room.enemySpawns);
     this.spawnPlayer(room.playerSpawn);
+    this.spawnWeapon(room.weaponSpawn);
   }
 
   // Generate a room's platforms
@@ -42,27 +45,31 @@ export default class RoomHandler {
     }
   }
 
-  // Generate a room's enemies
-  generateEnemies(enemies) {
-    for (var i = 0; i < enemies.length; i++) {
-      var enemy = enemies[i];
+  // Generate the room's spawners
+  generateSpawners(spawners) {
+    for (var i = 0; i < spawners.length; i++) {
+      var spawner = spawners[i];
 
-      // Sort through the enemy data
-      enemy = this.parseEnemy(enemy);
+      // Sort through the spawnerform data
+      spawner = this.parseObj(spawner);
 
-      // Move up a lil
-      enemy.y -= this.tileHeight * 2.5;
-
-      this.createEnemy(enemy.x, enemy.y);
+      this.createSpawner(spawner.x, spawner.y - this.tileHeight);
     }
   }
 
   // Spawning the player
   spawnPlayer(playerSpawn) {
-    playerSpawn = this.parseEnemy(playerSpawn);
+    playerSpawn = this.parseObj(playerSpawn);
 
     this.player.setPos(playerSpawn.x, playerSpawn.y);
     this.createParticle(playerSpawn.x, playerSpawn.y, 'spawn-flash');
+  }
+
+  // Spawning the first weapon
+  spawnWeapon(weaponSpawn) {
+    weaponSpawn = this.parseObj(weaponSpawn);
+
+    this.createWeapon('pistol', weaponSpawn.x, weaponSpawn.y);
   }
 
   // Go through and calculate custom values for platforms
@@ -108,8 +115,8 @@ export default class RoomHandler {
     return data;
   }
 
-  // Go through and calculate custom values for enemies
-  parseEnemy(data) {
+  // Go through and calculate custom values for objects (with no width or height).
+  parseObj(data) {
     var sceneWidth = this.sceneWidth;
     var sceneHeight = this.sceneHeight;
 

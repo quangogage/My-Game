@@ -14,7 +14,7 @@ export default class Explosion extends ParticleClass {
     this.height = this.size;
 
     // Knocking back the player/enemies
-    this.knockback = 35;
+    this.knockback = 15;
     this.damage = 2;
     this.dontRemove = true;
 
@@ -54,6 +54,7 @@ export default class Explosion extends ParticleClass {
     this.sprite = this.scene.add.sprite(this.x, this.y, 'explosion');
     this.sprite.setDisplaySize(this.width, this.height);
     this.sprite.on('animationcomplete', this.animComplete.bind(this), this);
+    this.sprite.setDepth(4999);
   }
 
   // Run the animation

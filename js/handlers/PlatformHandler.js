@@ -6,6 +6,7 @@ export default class PlatformHandler {
     this.scene = options.scene;
     this.player = options.player;
     this.enemies = options.enemies;
+    this.particles = options.particles;
     this.tileCount = options.tileCount;
     this.tileWidth = options.tileWidth;
     this.tileHeight = options.tileHeight;
@@ -128,14 +129,68 @@ export default class PlatformHandler {
           } else {
             if (enemyPos.x < platform.x + platform.pixelWidth / 2) {
               enemy.setPos(platform.x - enemyDim.width / 2, null);
-              enemy.xvel = 0;
+              enemy.dir = -1;
+              enemy.xvel *= -1;
             }
             if (enemyPos.x > platform.x + platform.pixelWidth / 2) {
               enemy.setPos(
                 platform.x + platform.pixelWidth + enemyDim.width / 2,
                 null
               );
-              enemy.xvel = 0;
+              enemy.dir = 1;
+              enemy.xvel *= -1;
+            }
+          }
+        }
+      }
+
+      // Particles
+      for (var ia = 0; ia < this.particles.length; ia++) {
+        var particle = this.particles[ia];
+        var particlePos = particle.getPos();
+        var particleDim = particle.getDim();
+
+        if (
+          particlePos.x + particleDim.width / 2 > platform.x &&
+          particlePos.x - particleDim.width / 2 <
+            platform.x + platform.pixelWidth &&
+          particlePos.y + particleDim.height / 2 > platform.y &&
+          particlePos.y - particleDim.height / 2 <
+            platform.y + platform.pixelHeight &&
+          particle.collision
+        ) {
+          var extra = 5;
+
+          if (
+            particlePos.x + particleDim.width / 2 > platform.x + extra &&
+            particlePos.x - particleDim.width / 2 <
+              platform.x + platform.pixelWidth - extra
+          ) {
+            if (particlePos.y < platform.y + platform.pixelHeight / 2) {
+              particle.setPos(null, platform.y - particleDim.height / 2);
+              particle.yvel = 0;
+              particle.grounded = true;
+            }
+            if (particlePos.y > platform.y + platform.pixelHeight / 2) {
+              particle.setPos(
+                null,
+                platform.y + platform.pixelHeight + particleDim.height / 2 + 1
+              );
+              particle.yvel *= -0.1;
+            }
+          } else {
+            if (particlePos.x < platform.x + platform.pixelWidth / 2) {
+              particle.setPos(platform.x - particleDim.width / 2, null);
+              particle.dir = -1;
+              particle.xvel = 0;
+            }
+            if (particlePos.x > platform.x + platform.pixelWidth / 2) {
+              particle.setPos(
+                platform.x + platform.pixelWidth + particleDim.width / 2,
+                null
+              );
+              particle.dir = 1;
+              particle.xvel = 0;
             }
           }
         }

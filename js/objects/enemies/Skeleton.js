@@ -39,6 +39,7 @@ export default class Skeleton extends EnemyClass {
     this.animate();
     this.physics();
     this.move();
+    this.resetAtSpawn();
   }
 
   /* ** Private Functions ** */

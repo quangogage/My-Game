@@ -9,6 +9,7 @@ import EnemyHandler from '../handlers/EnemyHandler';
 import Tiles from './Tiles';
 import PlatformHandler from '../handlers/PlatformHandler';
 import RoomHandler from '../handlers/RoomHandler';
+import EnemySpawnerHandler from '../handlers/EnemySpawnerHandler';
 
 // Loads all of the handlers/loaders/objects/etc inside of
 // the `Play.js`'s preload function to keep things clean.
@@ -81,8 +82,17 @@ export default function componentLoader(scene) {
     tileCount: scene.tiles.count,
     tileWidth: scene.tiles.width,
     tileHeight: scene.tiles.height,
+    createTile: scene.tiles.createImage,
     enemies: scene.enemyHandler.enemies,
-    createTile: scene.tiles.createImage
+    particles: scene.particleHandler.particles
+  });
+
+  // The Enemy Spawner handler
+  scene.enemySpawnerHandler = new EnemySpawnerHandler({
+    scene: scene,
+    state: scene.state,
+    enemies: scene.enemyHandler.enemies,
+    createEnemy: scene.enemyHandler.create
   });
 
   // The Room handler
@@ -92,8 +102,10 @@ export default function componentLoader(scene) {
     tileWidth: scene.tiles.width,
     tileHeight: scene.tiles.height,
     createEnemy: scene.enemyHandler.create,
+    createWeapon: scene.weaponHandler.create,
     createParticle: scene.particleHandler.create,
-    createPlatform: scene.platformHandler.create
+    createPlatform: scene.platformHandler.create,
+    createSpawner: scene.enemySpawnerHandler.create
   });
 
   // The interface

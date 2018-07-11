@@ -4,7 +4,7 @@ import Skeleton from '../objects/enemies/Skeleton';
 import FlamingSkeleton from '../objects/enemies/FlamingSkeleton';
 
 var PUSHBACK = 0.2;
-var WEAPON_CHANCE = 10;
+var WEAPON_CHANCE = 20;
 
 export default class EnemyHandler {
   constructor(options) {
@@ -31,19 +31,19 @@ export default class EnemyHandler {
         name: 'pig',
         fileName: 'pig',
         class: Pig,
-        spawnWeight: 10
+        weight: 1
       },
       {
         name: 'skeleton',
         fileName: 'skeleton',
         class: Skeleton,
-        spawnWeight: 5
+        weight: 5
       },
       {
         name: 'flaming-skeleton',
         fileName: 'flaming-skeleton',
         class: FlamingSkeleton,
-        spawnWeight: 2.75
+        weight: 2.75
       }
     ];
 
@@ -80,9 +80,7 @@ export default class EnemyHandler {
   create(x, y, type) {
     var enemyData;
     if (type == null) {
-      enemyData = this.enemyData[
-        Math.floor(GageLib.math.getRandom(0, this.enemyData.length - 1))
-      ];
+      enemyData = GageLib.math.getWeightedFrom(this.enemyData);
     } else {
       enemyData = this.getEnemyObj(type);
     }
@@ -91,17 +89,19 @@ export default class EnemyHandler {
     this.createParticle(x, y, 'spawn-flash');
 
     // Add to the list of enemy instances
-    this.enemies.push(
-      new enemyData.class({
-        x: x,
-        y: y,
-        scene: this.scene,
-        data: enemyData,
-        player: this.player,
-        enemies: this.enemies,
-        createParticle: this.createParticle
-      })
-    );
+    var enemyClass = new enemyData.class({
+      x: x,
+      y: y,
+      scene: this.scene,
+      data: enemyData,
+      player: this.player,
+      enemies: this.enemies,
+      createParticle: this.createParticle
+    });
+    this.enemies.push(enemyClass);
+
+    // Return if needed
+    return enemyClass;
   }
 
   /* ** Private Functions ** */

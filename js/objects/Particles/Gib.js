@@ -3,7 +3,7 @@ import ParticleClass from './ParticleClass';
 import { runInThisContext } from 'vm';
 
 var SCALING = [1.5, 2.5];
-var LIFETIME = 2000;
+var LIFETIME = 5000;
 var GRAVITY = 0.3;
 var LAUNCH_SPEED = [1.5, 5.5];
 var FRICTION = 0.85;
@@ -44,6 +44,9 @@ export default class Gib extends ParticleClass {
 
     // Get pushed around when colliding
     this.getPushed = true;
+
+    // Enable collision
+    this.collision = true;
   }
 
   /* ** Public Functions ** */

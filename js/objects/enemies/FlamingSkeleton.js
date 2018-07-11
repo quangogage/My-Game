@@ -42,6 +42,7 @@ export default class FlamingSkeleton extends EnemyClass {
     this.animate();
     this.physics();
     this.move();
+    this.resetAtSpawn();
   }
 
   /* ** Private Functions ** */
@@ -74,33 +75,6 @@ export default class FlamingSkeleton extends EnemyClass {
   // Run the animation
   animate() {
     this.sprite.anims.play('flaming-skeleton-run', true);
-  }
-
-  // Moving
-  move() {
-    var sceneWidth = this.scene.sys.canvas.width;
-
-    // Set the running direction (once)
-    if (this.dir == null) {
-      if (this.player.sprite.x < this.sprite.x) {
-        this.dir = -1;
-        this.sprite.flipX = true;
-      } else {
-        this.dir = 1;
-        this.sprite.flipX = false;
-      }
-    }
-
-    // Move
-    this.xvel += this.speed * this.dir;
-
-    // Dying when you go off screen
-    if (
-      (this.dir == -1 && this.sprite.x < 0) ||
-      (this.dir == 1 && this.sprite.x > sceneWidth)
-    ) {
-      this.delete = true;
-    }
   }
 
   // Basic physics

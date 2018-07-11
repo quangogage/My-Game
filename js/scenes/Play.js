@@ -25,11 +25,6 @@ export default class PlayScene extends Scene {
     this.ground.create();
     this.interface.create();
 
-    // Create a pistol at the start of the round
-    var sceneWidth = this.sys.canvas.width;
-    var sceneHeight = this.sys.canvas.height;
-    this.weaponHandler.create('pistol', sceneWidth * 0.66, sceneHeight * 0.5);
-
     // Load the first room
     this.roomHandler.loadRoom(0);
   }
@@ -42,6 +37,7 @@ export default class PlayScene extends Scene {
     this.ground.update(this.player, this.weaponHandler.weapons);
     this.interface.update();
     this.platformHandler.update();
+    this.enemySpawnerHandler.update();
 
     // Updating the playstate
     PlayState({

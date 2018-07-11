@@ -38,6 +38,7 @@ export default class Pig extends EnemyClass {
     this.animate();
     this.physics();
     this.move();
+    this.resetAtSpawn();
   }
 
   /* ** Private Functions ** */

@@ -1,7 +1,7 @@
 import ParticleClass from './ParticleClass';
 
 var SIZE = 24;
-var FRAMERATE = 25;
+var FRAMERATE = 32;
 var SCALE = 2;
 
 export default class SpawnFlash extends ParticleClass {
@@ -30,7 +30,7 @@ export default class SpawnFlash extends ParticleClass {
   // Create the spawn-flash animation
   createAnimation() {
     this.scene.anims.create({
-      key: 'explode',
+      key: 'spawn-flash',
       frames: this.scene.anims.generateFrameNumbers('spawn-flash', {
         start: 0,
         end: 10
@@ -41,7 +41,7 @@ export default class SpawnFlash extends ParticleClass {
 
   // Run the animation
   animate() {
-    this.sprite.anims.play('explode', true);
+    this.sprite.anims.play('spawn-flash', true);
   }
 
   // Create the spawn-flash sprite

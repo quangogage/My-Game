@@ -8,7 +8,7 @@ export default class Ground {
     this.weapons = options.weapons;
     this.tileCount = options.tileCount;
     this.particles = options.particles;
-    this.totalHeight = 5;
+    this.totalHeight = 3;
     this.tileWidth = options.tileWidth;
     this.tileHeight = options.tileHeight;
   }

@@ -9,6 +9,7 @@ export default class EnemyClass {
     this.player = options.player;
     this.enemies = options.enemies;
     this.data = options.data;
+    this.type = this.data.name;
     this.isExplosive = options.data.isExplosive;
     this.createParticle = options.createParticle;
 
@@ -18,6 +19,14 @@ export default class EnemyClass {
       timer: 0,
       flashTime: 100
     };
+
+    // Default movement
+    var sceneWidth = this.scene.sys.canvas.width;
+    if (options.x > sceneWidth / 2) {
+      this.dir = -1;
+    } else {
+      this.dir = 1;
+    }
   }
 
   // Set the enemy's position
@@ -44,21 +53,35 @@ export default class EnemyClass {
     };
   }
 
+  // Resetting at the spawn point
+  resetAtSpawn() {
+    var sceneWidth = this.scene.sys.canvas.width;
+
+    if (
+      this.sprite.x + this.width / 2 < 0 ||
+      this.sprite.x - this.width / 2 > sceneWidth
+    ) {
+      // Face the right way
+      var sceneWidth = this.scene.sys.canvas.width;
+      if (this.x > sceneWidth / 2) {
+        this.dir = -1;
+      } else {
+        this.dir = 1;
+      }
+
+      // Set position
+      this.sprite.x = this.x;
+      this.sprite.y = this.y;
+
+      this.createParticle(this.x, this.y, 'spawn-flash');
+    }
+  }
+
   // Default movement function
   move() {
-    var dir = this.player.sprite.x < this.sprite.x ? false : true;
+    this.xvel += this.speed * this.dir;
 
-    // Flip the sprite based on the direction
-    this.sprite.flipX = !dir;
-
-    // Move towards the player
-    if (dir) {
-      // Right
-      this.xvel += this.speed;
-    } else {
-      // Left
-      this.xvel -= this.speed;
-    }
+    this.sprite.flipX = this.dir == 1 ? false : true;
   }
 
   // Getting hit
