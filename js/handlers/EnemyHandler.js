@@ -18,6 +18,9 @@ export default class EnemyHandler {
 
     // All enemy instances
     this.enemies = [];
+
+    // Binding public functions
+    this.create = this.create.bind(this);
   }
 
   /* ** Public Functions ** */
@@ -75,7 +78,17 @@ export default class EnemyHandler {
 
   // Creating an enemy
   create(x, y, type) {
-    var enemyData = this.getEnemyObj(type);
+    var enemyData;
+    if (type == null) {
+      enemyData = this.enemyData[
+        Math.floor(GageLib.math.getRandom(0, this.enemyData.length - 1))
+      ];
+    } else {
+      enemyData = this.getEnemyObj(type);
+    }
+
+    // Flash over the enemy
+    this.createParticle(x, y, 'spawn-flash');
 
     // Add to the list of enemy instances
     this.enemies.push(

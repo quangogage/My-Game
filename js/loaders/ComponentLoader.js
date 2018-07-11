@@ -81,15 +81,18 @@ export default function componentLoader(scene) {
     tileCount: scene.tiles.count,
     tileWidth: scene.tiles.width,
     tileHeight: scene.tiles.height,
+    enemies: scene.enemyHandler.enemies,
     createTile: scene.tiles.createImage
   });
 
   // The Room handler
   scene.roomHandler = new RoomHandler({
     scene: scene,
+    player: scene.player,
     tileWidth: scene.tiles.width,
     tileHeight: scene.tiles.height,
     createEnemy: scene.enemyHandler.create,
+    createParticle: scene.particleHandler.create,
     createPlatform: scene.platformHandler.create
   });
 

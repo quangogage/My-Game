@@ -5,6 +5,7 @@ export default class PlatformHandler {
     // Store values
     this.scene = options.scene;
     this.player = options.player;
+    this.enemies = options.enemies;
     this.tileCount = options.tileCount;
     this.tileWidth = options.tileWidth;
     this.tileHeight = options.tileHeight;
@@ -53,7 +54,6 @@ export default class PlatformHandler {
       var platform = this.platforms[i];
 
       // Player
-
       if (
         playerPos.x + playerDim.width / 2 > platform.x &&
         playerPos.x - playerDim.width / 2 < platform.x + platform.pixelWidth &&
@@ -90,6 +90,53 @@ export default class PlatformHandler {
               null
             );
             player.xvel = 0;
+          }
+        }
+      }
+
+      // Enemies
+      for (var ia = 0; ia < this.enemies.length; ia++) {
+        var enemy = this.enemies[ia];
+        var enemyPos = enemy.getPos();
+        var enemyDim = enemy.getDim();
+
+        if (
+          enemyPos.x + enemyDim.width / 2 > platform.x &&
+          enemyPos.x - enemyDim.width / 2 < platform.x + platform.pixelWidth &&
+          enemyPos.y + enemyDim.height / 2 > platform.y &&
+          enemyPos.y - enemyDim.height / 2 < platform.y + platform.pixelHeight
+        ) {
+          var extra = 5;
+
+          if (
+            enemyPos.x + enemyDim.width / 2 > platform.x + extra &&
+            enemyPos.x - enemyDim.width / 2 <
+              platform.x + platform.pixelWidth - extra
+          ) {
+            if (enemyPos.y < platform.y + platform.pixelHeight / 2) {
+              enemy.setPos(null, platform.y - enemyDim.height / 2);
+              enemy.yvel = 0;
+              enemy.grounded = true;
+            }
+            if (enemyPos.y > platform.y + platform.pixelHeight / 2) {
+              enemy.setPos(
+                null,
+                platform.y + platform.pixelHeight + enemyDim.height / 2 + 1
+              );
+              enemy.yvel *= -0.1;
+            }
+          } else {
+            if (enemyPos.x < platform.x + platform.pixelWidth / 2) {
+              enemy.setPos(platform.x - enemyDim.width / 2, null);
+              enemy.xvel = 0;
+            }
+            if (enemyPos.x > platform.x + platform.pixelWidth / 2) {
+              enemy.setPos(
+                platform.x + platform.pixelWidth + enemyDim.width / 2,
+                null
+              );
+              enemy.xvel = 0;
+            }
           }
         }
       }

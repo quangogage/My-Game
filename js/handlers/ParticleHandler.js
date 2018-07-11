@@ -2,6 +2,7 @@ import Flash from '../objects/Particles/Flash';
 import Blood from '../objects/Particles/Blood';
 import Explosion from '../objects/Particles/Explosion';
 import Gib from '../objects/Particles/Gib';
+import SpawnFlash from '../objects/Particles/SpawnFlash';
 
 export default class ParticleHandler {
   constructor(options) {
@@ -71,6 +72,19 @@ export default class ParticleHandler {
             type: 'spritesheet',
             frameWidth: 8,
             frameHeight: 8
+          }
+        ]
+      },
+      {
+        name: 'spawn-flash',
+        class: SpawnFlash,
+        assets: [
+          {
+            name: 'spawn-flash',
+            fileName: 'spawn-flash',
+            type: 'spritesheet',
+            frameWidth: 16,
+            frameHeight: 32
           }
         ]
       }

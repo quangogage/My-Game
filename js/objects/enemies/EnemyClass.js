@@ -20,6 +20,14 @@ export default class EnemyClass {
     };
   }
 
+  // Set the enemy's position
+  setPos(x, y) {
+    var x = x || this.sprite.x;
+    var y = y || this.sprite.y;
+    this.sprite.x = x;
+    this.sprite.y = y;
+  }
+
   // Get the position of the enemy
   getPos() {
     return {
