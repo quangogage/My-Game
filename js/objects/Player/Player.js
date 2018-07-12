@@ -39,7 +39,7 @@ export default class Player {
     // Getting hit
     this.hit = {
       timer: 0,
-      delay: 10
+      delay: 30
     };
 
     // Delay equipping weapons
