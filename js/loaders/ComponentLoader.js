@@ -71,6 +71,7 @@ export default function componentLoader(scene) {
     tileHeight: scene.tiles.height,
     enemies: scene.enemyHandler.enemies,
     weapons: scene.weaponHandler.weapons,
+    bullets: scene.bulletHandler.bullets,
     particles: scene.particleHandler.particles
   });
   scene.ground.preload();

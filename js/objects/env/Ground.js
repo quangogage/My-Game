@@ -6,6 +6,7 @@ export default class Ground {
     this.enemies = options.enemies;
     this.player = options.player;
     this.weapons = options.weapons;
+    this.bullets = options.bullets;
     this.tileCount = options.tileCount;
     this.particles = options.particles;
     this.totalHeight = 3;
@@ -54,6 +55,7 @@ export default class Ground {
     var player = this.player;
     var weapons = this.weapons;
     var enemies = this.enemies;
+    var bullets = this.bullets;
     var particles = this.particles;
 
     // Handling the player landing on the ground.
@@ -99,6 +101,15 @@ export default class Ground {
           particle.yvel = 0;
         }
         particle.grounded = true;
+      }
+    }
+
+    // Removing bullets when they hit the ground
+    for (var i = 0; i < bullets.length; i++) {
+      var bullet = bullets[i];
+      var bulletPos = bullet.getPos();
+      if (bulletPos.y >= this.groundY) {
+        bullet.delete = true;
       }
     }
   }
