@@ -241,6 +241,7 @@ export default class Player {
         type: weapon.bulletType,
         fireRate: weapon.fireRate || 5,
         fireMode: weapon.fireMode || 'auto',
+        kickback: weapon.kickback,
         accuracy: weapon.accuracy,
         kick: 0
       };
