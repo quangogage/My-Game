@@ -29,7 +29,7 @@ export default class WeaponHandler {
         x: 14,
         y: 18,
         fireRate: 20,
-        kickback: 5,
+        kickback: 2.5,
         damage: 0.75,
         accuracy: 80
       },
@@ -42,8 +42,8 @@ export default class WeaponHandler {
         x: 8,
         y: 16,
         fireRate: 8,
-        kickback: 5,
-        damage: 0.5,
+        kickback: 7,
+        damage: 0.6,
         accuracy: 50
       },
       {
@@ -70,7 +70,7 @@ export default class WeaponHandler {
         y: 17.5,
         fireRate: 36,
         kickback: 15,
-        damage: 0.5,
+        damage: 0.6,
         fireMode: 'shotgun',
         accuracy: 95
       }
