@@ -5,7 +5,7 @@ var HEIGHT = 60;
 var FRICTION = 0.8;
 var SPEED = 0.7;
 var GRAVITY = 0.35;
-var HEALTH = 2;
+var HEALTH = 1.25;
 
 export default class Skeleton extends EnemyClass {
   constructor(options) {
