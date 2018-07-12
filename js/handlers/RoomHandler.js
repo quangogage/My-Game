@@ -69,7 +69,7 @@ export default class RoomHandler {
   spawnWeapon(weaponSpawn) {
     weaponSpawn = this.parseObj(weaponSpawn);
 
-    this.createWeapon('shotgun', weaponSpawn.x, weaponSpawn.y);
+    this.createWeapon('pistol', weaponSpawn.x, weaponSpawn.y);
   }
 
   // Go through and calculate custom values for platforms
