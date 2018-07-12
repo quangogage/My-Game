@@ -1,0 +1,114 @@
+Difficulty curve log.
+
+
+
+------------------------------------------
+Test 001:
+------
+Max Enemies:
+
+  - Rate: 0.07
+  - Max: 10
+
+Spawn Rate:
+
+  - Rate: 6
+  - Min: 50 / 100
+
+
+Conclusion:
+
+  The way the new values are calculated is exponential. Which is not intended.
+  It should be a kind-of-similar-to linear curve.
+
+  Need to think of a better way to increase the values.
+
+------------------------------------------
+
+
+
+------------------------------------------
+Test 002:
+------
+  Notes:
+  I have made the way difficulty increases linear. There is a timer that is
+  continuously incrementing. Once it gets past a certain value, "Trigger Rate,"
+  all of the values are increased once by there "Rate" property, and the
+  timer is reset to zero.
+------
+  Max Enemies:
+
+  - Rate: 0.1
+  - Max: 10
+
+  Spawn Rate:
+
+    - Rate: 0.25
+    - Min: 50 / 100
+
+
+  Conclusion:
+
+    Overall, the progression was too slow.
+
+    The Spawn Rate increased *FAR* too slowly. It probably would have taken 5
+    minutes to get it below 290 (it starts at 300.)
+
+    The Max Enemies was better, but still just a little slow..Maybe?
+
+------------------------------------------
+
+
+------------------------------------------
+Test 003:
+------
+  Max Enemies:
+
+  - Rate: 0.12
+  - Max: 10
+
+  Spawn Rate:
+
+    - Rate: 0.75
+    - Min: 50 / 100
+
+
+  Conclusion:
+
+    The Spawn Rate couldn't keep up with the Max Enemies.
+
+    Either need to decrease the Max enemies rate, or increase the 
+    Spawn Rate.
+
+------------------------------------------
+
+
+
+------------------------------------------
+Test 004:
+------
+
+  Decreased Max Enemies,
+  Increased Spawn Rate
+
+  Max Enemies:
+
+  - Rate: 0.085
+  - Max: 10
+
+  Spawn Rate:
+
+    - Rate: 1.2
+    - Min: 50 / 100
+
+
+  Conclusion:
+  Max Enemy and Spawn Rate increasing difficulty felt better matched,
+  but overall it felt far too slow. Need to increase both while mainting
+  a good balance.
+
+
+------------------------------------------
+
+
+

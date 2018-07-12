@@ -123,14 +123,14 @@ export default class Explosion extends ParticleClass {
           particlePos.y - particleDim.height / 2 <
             this.sprite.y + this.height / 2
         ) {
-          if (particle.beenHitBy != this) {
+          if (particle.beenHitBy != this.size) {
             var angle = Math.atan2(
               this.sprite.y - particlePos.y,
               this.sprite.x - particlePos.x
             );
-            particle.xvel += Math.cos(angle) * this.knockback;
-            particle.yvel += -Math.abs(Math.sin(angle) * this.knockback);
-            particle.beenHitBy = this;
+            particle.xvel = Math.cos(angle) * this.knockback;
+            particle.yvel = -Math.abs(Math.sin(angle) * this.knockback);
+            particle.beenHitBy = this.size; // Arbitrary random number that is unlikely to be matched
           }
         }
       }

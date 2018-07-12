@@ -1,10 +1,10 @@
 import GageLib from 'gages-library';
 
 // Variable values
-var SPAWN_RATE = { value: [300, 450], rate: 5, min1: 50, min2: 100 };
+var SPAWN_RATE = { value: [300, 450], rate: 1.2, min1: 50, min2: 100 };
 var MAX_ENEMIES = {
   value: 3,
-  rate: 0.1,
+  rate: 0.085,
   totalMax: 10
 };
 
@@ -32,6 +32,7 @@ export default class EnemySpawner {
 
     // Increasing difficulty timer
     this.difficultyTimer = 0;
+    this.difficultyRate = 500;
 
     // Logging stats
     this.log = {
@@ -79,30 +80,39 @@ export default class EnemySpawner {
   // Increasing the difficulty over time
   increaseDifficulty() {
     // Run the timer that it all depends on
-    this.difficultyTimer += 0.000001;
+    this.difficultyTimer += 1;
 
-    // Max enemies
-    this.maxEnemies.value += this.difficultyTimer * this.maxEnemies.rate;
-    if (this.maxEnemies.value >= this.maxEnemies.totalMax) {
-      this.maxEnemies.value = this.maxEnemies.totalMax;
+    if (this.difficultyTimer >= this.difficultyRate) {
+      // Max enemies
+      this.maxEnemies.value += this.maxEnemies.rate;
+      if (this.maxEnemies.value >= this.maxEnemies.totalMax) {
+        this.maxEnemies.value = this.maxEnemies.totalMax;
+      }
+
+      // Spawn rate
+      this.spawnRate.value[0] -= this.spawnRate.rate;
+      this.spawnRate.value[1] -= this.spawnRate.rate;
+      if (this.spawnRate.value[0] <= this.spawnRate.min1) {
+        this.spawnRate.value[0] = this.spawnRate.min1;
+      }
+      if (this.spawnRate.value[1] <= this.spawnRate.min2) {
+        this.spawnRate.value[1] = this.spawnRate.min2;
+      }
+      this.difficultyTimer = 0;
     }
-
-    // Spawn rate
-    this.spawnRate.value[0] -= this.difficultyTimer * this.spawnRate.rate;
-    this.spawnRate.value[1] -= this.difficultyTimer * this.spawnRate.rate;
 
     // Logging the new stats
     this.log.timer++;
     if (this.log.timer >= this.log.time) {
       console.clear();
       console.log(
-        '%c---------------------------\n---------------------------',
+        '\n%c---------------------------\n---------------------------\n',
         'color:white;'
       );
 
       console.log(
         '%c Max Enemies ' + ' %c- ' + Math.floor(this.maxEnemies.value),
-        'color:green;font-size:15px;',
+        'color:green;font-size:20px;',
         'color:white;font-size:13px;'
       );
 
@@ -114,12 +124,12 @@ export default class EnemySpawner {
           Math.floor(this.spawnRate.value[0]) +
           ' / ' +
           Math.floor(this.spawnRate.value[1]),
-        'color:green;font-size:15px;',
+        'color:green;font-size:20px;',
         'color:white;font-size:13px;'
       );
 
       console.log(
-        '%c---------------------------\n---------------------------',
+        '\n%c---------------------------\n---------------------------\n',
         'color:white;'
       );
       this.log.timer = 0;
