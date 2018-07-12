@@ -54,7 +54,7 @@ export default class WeaponHandler {
         y: 17.5,
         fireRate: 32,
         kickback: 0.25,
-        damage: 0.66,
+        damage: 0.7,
         fireMode: 'burst'
       }
     ];
