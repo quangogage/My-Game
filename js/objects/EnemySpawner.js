@@ -18,8 +18,17 @@ export default class EnemySpawner {
     this.y = options.y;
 
     // Initial values
-    this.spawnRate = SPAWN_RATE;
-    this.maxEnemies = MAX_ENEMIES;
+    this.spawnRate = {
+      value: [SPAWN_RATE.value[0], SPAWN_RATE.value[1]],
+      rate: SPAWN_RATE.rate,
+      min1: SPAWN_RATE.min1,
+      min2: SPAWN_RATE.min2
+    };
+    this.maxEnemies = {
+      value: MAX_ENEMIES.value,
+      rate: MAX_ENEMIES.rate,
+      totalMax: MAX_ENEMIES.totalMax
+    };
 
     // Spawning timer
     this.timer =
