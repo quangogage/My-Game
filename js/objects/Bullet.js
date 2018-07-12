@@ -1,3 +1,5 @@
+import GageLib from 'gages-library';
+
 var CAMERA_SHAKE = 16;
 
 export default class Bullet {
@@ -10,7 +12,11 @@ export default class Bullet {
     this.dir = options.dir;
     this.damage = options.damage;
     this.speed = options.data.speed;
+    this.accuracy = options.accuracy;
     this.createFlash = options.createFlash;
+
+    // Calculate the direction of the bullet
+    this.calculateDir();
 
     // Dimensions
     this.width = 32;
@@ -89,5 +95,12 @@ export default class Bullet {
       width: this.width,
       height: this.height
     };
+  }
+
+  // Calculate the direction with accuracy in mind
+  calculateDir() {
+    var accuracy = this.accuracy / 100;
+    var range = 0.3 * (1 - accuracy);
+    this.dir += GageLib.math.getRandom(-range * 1000, range * 1000) / 1000;
   }
 }

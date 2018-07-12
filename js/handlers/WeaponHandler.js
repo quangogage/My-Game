@@ -30,7 +30,8 @@ export default class WeaponHandler {
         y: 18,
         fireRate: 20,
         kickback: 2.5,
-        damage: 0.75
+        damage: 0.75,
+        accuracy: 80
       },
       {
         name: 'ak',
@@ -42,7 +43,8 @@ export default class WeaponHandler {
         y: 20,
         fireRate: 8,
         kickback: 0.25,
-        damage: 0.5
+        damage: 0.5,
+        accuracy: 50
       },
       {
         name: 'uzi',
@@ -55,7 +57,8 @@ export default class WeaponHandler {
         fireRate: 32,
         kickback: 0.25,
         damage: 0.7,
-        fireMode: 'burst'
+        fireMode: 'burst',
+        accuracy: 80
       },
       {
         name: 'shotgun',
@@ -68,7 +71,8 @@ export default class WeaponHandler {
         fireRate: 36,
         kickback: 0.5,
         damage: 1,
-        fireMode: 'shotgun'
+        fireMode: 'shotgun',
+        accuracy: 95
       }
     ];
 

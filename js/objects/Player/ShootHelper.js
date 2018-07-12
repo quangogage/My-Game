@@ -94,14 +94,16 @@ export default class ShootHelper {
         y,
         dir - Math.PI * 0.05,
         this.player.equipped.type,
-        this.player.equipped.damage
+        this.player.equipped.damage,
+        player.equipped.accuracy
       );
       this.player.createBullet(
         x,
         y,
         dir + Math.PI * 0.05,
         this.player.equipped.type,
-        this.player.equipped.damage
+        this.player.equipped.damage,
+        player.equipped.accuracy
       );
 
       // Reset the shooting timer
@@ -122,7 +124,7 @@ export default class ShootHelper {
     var y = player.equipped.image.y - player.equipped.image.height;
 
     // Create the bullet
-    player.createBullet(x, y, dir, type, damage);
+    player.createBullet(x, y, dir, type, damage, player.equipped.accuracy);
 
     // Kickback the gun
     player.equipped.kick = player.weaponKick;
