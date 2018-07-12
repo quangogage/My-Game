@@ -34,13 +34,13 @@ var Rooms = [
       },
       {
         x: '14%',
-        y: '69%',
+        y: '70%',
         width: 7,
         height: 1
       },
       {
         x: '86%',
-        y: '69%',
+        y: '70%',
         width: 7,
         height: 1
       },
