@@ -12,6 +12,7 @@ export default class ShootHelper {
     this.fireModes = [];
     this.fireModes['auto'] = this.auto.bind(this);
     this.fireModes['burst'] = this.burst.bind(this);
+    this.fireModes['shotgun'] = this.shotgun.bind(this);
 
     // Binding public functions
     this.update = this.update.bind(this);
@@ -68,6 +69,42 @@ export default class ShootHelper {
       }
 
       // Reset the firing timer
+      this.fireTimer = 0;
+    }
+  }
+
+  // Shotgun firing
+  shotgun() {
+    var player = this.player;
+    var firerate = player.equipped.fireRate;
+
+    // Run the firing timer
+    this.fireTimer++;
+
+    if (this.fireTimer >= firerate && player.spacebar.isDown) {
+      // Shoot the bullet
+      this.shoot();
+
+      // Shoot two more
+      var x = player.equipped.image.x;
+      var y = player.equipped.image.y - player.equipped.image.height;
+      var dir = player.sprite.flipX == false ? 0 : Math.PI;
+      this.player.createBullet(
+        x,
+        y,
+        dir - Math.PI * 0.05,
+        this.player.equipped.type,
+        this.player.equipped.damage
+      );
+      this.player.createBullet(
+        x,
+        y,
+        dir + Math.PI * 0.05,
+        this.player.equipped.type,
+        this.player.equipped.damage
+      );
+
+      // Reset the shooting timer
       this.fireTimer = 0;
     }
   }

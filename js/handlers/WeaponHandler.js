@@ -56,6 +56,19 @@ export default class WeaponHandler {
         kickback: 0.25,
         damage: 0.7,
         fireMode: 'burst'
+      },
+      {
+        name: 'shotgun',
+        imageFile: 'shotgun',
+        bulletType: 'basic',
+        width: 40,
+        height: 17,
+        x: 10,
+        y: 17.5,
+        fireRate: 36,
+        kickback: 0.5,
+        damage: 1,
+        fireMode: 'shotgun'
       }
     ];
 
