@@ -2,6 +2,7 @@ import GageLib from 'gages-library';
 import Pig from '../objects/enemies/Pig';
 import Skeleton from '../objects/enemies/Skeleton';
 import FlamingSkeleton from '../objects/enemies/FlamingSkeleton';
+import Troll from '../objects/enemies/Troll';
 
 var PUSHBACK = 0.2;
 var WEAPON_CHANCE = 20;
@@ -46,6 +47,12 @@ export default class EnemyHandler {
         fileName: 'flaming-skeleton',
         class: FlamingSkeleton,
         weight: 2.75
+      },
+      {
+        name: 'troll',
+        fileName: 'troll',
+        class: Troll,
+        weight: 0.5
       }
     ];
 
@@ -73,6 +80,10 @@ export default class EnemyHandler {
         frameHeight: 20
       }
     );
+    this.scene.load.spritesheet('troll', `images/enemies/troll.png`, {
+      frameWidth: 19,
+      frameHeight: 18.5
+    });
   }
   update() {
     this.updateEnemies();
