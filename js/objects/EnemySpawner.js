@@ -1,8 +1,12 @@
 import GageLib from 'gages-library';
 
-// Initial Values
-var SPAWN_RATE = [300, 450]; // How quickly they spawn
-var MAX_ENEMIES = 3; // How many can be alive at one time
+// Variable values
+var SPAWN_RATE = { value: [300, 450], rate: 5, min1: 50, min2: 100 };
+var MAX_ENEMIES = {
+  value: 3,
+  rate: 0.1,
+  totalMax: 10
+};
 
 export default class EnemySpawner {
   constructor(options) {
@@ -19,16 +23,27 @@ export default class EnemySpawner {
 
     // Spawning timer
     this.timer =
-      (this.spawnRate[0] * GageLib.math.getRandom(0.7 * 100, 0.8 * 100)) / 100;
+      (this.spawnRate.value[0] * GageLib.math.getRandom(0.7 * 100, 0.8 * 100)) /
+      100;
     this.spawnDelay = GageLib.math.getRandom(
-      this.spawnRate[0],
-      this.spawnRate[1]
+      this.spawnRate.value[0],
+      this.spawnRate.value[1]
     );
+
+    // Increasing difficulty timer
+    this.difficultyTimer = 0;
+
+    // Logging stats
+    this.log = {
+      timer: 500,
+      time: 500
+    };
   }
 
   /* ** Public Functions ** */
   update() {
     this.generateEnemies();
+    this.increaseDifficulty();
   }
 
   /* ** Private Functions ** */
@@ -43,7 +58,10 @@ export default class EnemySpawner {
       this.timer += 1;
     }
 
-    if (this.timer >= this.spawnDelay && this.enemies.length < MAX_ENEMIES) {
+    if (
+      this.timer >= this.spawnDelay &&
+      this.enemies.length < MAX_ENEMIES.value
+    ) {
       this.createEnemy(this.x, this.y);
       this.resetTimer();
     }
@@ -53,8 +71,58 @@ export default class EnemySpawner {
   resetTimer() {
     this.timer = 0;
     this.spawnDelay = GageLib.math.getRandom(
-      this.spawnRate[0],
-      this.spawnRate[1]
+      this.spawnRate.value[0],
+      this.spawnRate.value[1]
     );
+  }
+
+  // Increasing the difficulty over time
+  increaseDifficulty() {
+    // Run the timer that it all depends on
+    this.difficultyTimer += 0.000001;
+
+    // Max enemies
+    this.maxEnemies.value += this.difficultyTimer * this.maxEnemies.rate;
+    if (this.maxEnemies.value >= this.maxEnemies.totalMax) {
+      this.maxEnemies.value = this.maxEnemies.totalMax;
+    }
+
+    // Spawn rate
+    this.spawnRate.value[0] -= this.difficultyTimer * this.spawnRate.rate;
+    this.spawnRate.value[1] -= this.difficultyTimer * this.spawnRate.rate;
+
+    // Logging the new stats
+    this.log.timer++;
+    if (this.log.timer >= this.log.time) {
+      console.clear();
+      console.log(
+        '%c---------------------------\n---------------------------',
+        'color:white;'
+      );
+
+      console.log(
+        '%c Max Enemies ' + ' %c- ' + Math.floor(this.maxEnemies.value),
+        'color:green;font-size:15px;',
+        'color:white;font-size:13px;'
+      );
+
+      console.log('%c-----', 'color:grey;');
+
+      console.log(
+        '%c Spawn Rate ' +
+          '%c- ' +
+          Math.floor(this.spawnRate.value[0]) +
+          ' / ' +
+          Math.floor(this.spawnRate.value[1]),
+        'color:green;font-size:15px;',
+        'color:white;font-size:13px;'
+      );
+
+      console.log(
+        '%c---------------------------\n---------------------------',
+        'color:white;'
+      );
+      this.log.timer = 0;
+    }
   }
 }

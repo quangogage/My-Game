@@ -9,7 +9,7 @@ export default function PlayState(options) {
   options.state.timer++;
 
   // Special attributes
-  state.GOD_MODE = true;
+  state.GOD_MODE = false;
 
   // Picking up the first weapon at the start
   // of the game.
