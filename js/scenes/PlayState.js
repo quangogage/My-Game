@@ -8,6 +8,9 @@ export default function PlayState(options) {
   // Letting things spawn, update, etc.
   options.state.timer++;
 
+  // Special attributes
+  state.GOD_MODE = true;
+
   // Picking up the first weapon at the start
   // of the game.
   if (options.state.timer > 5) {

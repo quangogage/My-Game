@@ -4,6 +4,7 @@ export default class PlatformHandler {
   constructor(options) {
     // Store values
     this.scene = options.scene;
+    this.state = options.state;
     this.player = options.player;
     this.bullets = options.bullets;
     this.enemies = options.enemies;
@@ -62,7 +63,9 @@ export default class PlatformHandler {
         playerPos.x + playerDim.width / 2 > platform.x &&
         playerPos.x - playerDim.width / 2 < platform.x + platform.pixelWidth &&
         playerPos.y + playerDim.height / 2 > platform.y &&
-        playerPos.y - playerDim.height * 0.3 < platform.y + platform.pixelHeight
+        playerPos.y - playerDim.height * 0.3 <
+          platform.y + platform.pixelHeight &&
+        this.state.GOD_MODE == false
       ) {
         var extra = 5;
 

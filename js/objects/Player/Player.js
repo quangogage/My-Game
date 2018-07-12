@@ -146,7 +146,11 @@ export default class Player {
     this.sprite.x += this.xvel;
     this.sprite.y += this.yvel;
     this.xvel *= this.friction;
-    this.yvel += GRAVITY;
+    if (!this.state.GOD_MODE) {
+      this.yvel += GRAVITY;
+    } else {
+      this.yvel *= this.friction;
+    }
   }
 
   // Movement
@@ -175,6 +179,17 @@ export default class Player {
       } else {
         this.sprite.anims.play('idle', true);
       }
+
+      // Flying around
+      if (this.state.GOD_MODE) {
+        if (this.cursors.up.isDown) {
+          this.yvel -= this.speed;
+          this.sprite.anims.play('run');
+        } else if (this.cursors.down.isDown) {
+          this.yvel += this.speed;
+          this.sprite.anims.play('run');
+        }
+      }
     }
   }
 
@@ -192,7 +207,7 @@ export default class Player {
 
   // Jumping
   jump() {
-    if (this.state.current !== 'dead') {
+    if (this.state.current !== 'dead' && this.state.GOD_MODE == false) {
       // Inacting a jump
       if (this.grounded && this.cursors.up.isDown) {
         this.yvel = -JUMP_HEIGHT;
@@ -275,7 +290,7 @@ export default class Player {
 
   // Getting hit by an enemy
   getHit(enemy) {
-    if (this.hit.timer >= this.hit.delay) {
+    if (this.hit.timer >= this.hit.delay && !this.state.GOD_MODE) {
       var knockback = enemy.knockback || 20;
       var enemyPos = enemy.getPos();
       var damage = enemy.damage || 1;
