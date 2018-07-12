@@ -319,12 +319,12 @@ export default class Player {
         this.sprite.x - enemyPos.x
       );
       for (var i = 0; i < bloodCount; i++) {
-        this.createParticle(
-          this.sprite.x + (Math.cos(angle) * this.width) / 2,
-          this.sprite.y + (Math.sin(angle) * this.width) / 2,
-          'blood',
-          { dir: angle }
+        var x = GageLib.math.getRandom(
+          this.sprite.x - this.width / 2,
+          this.sprite.x + this.width / 2
         );
+
+        this.createParticle(x, enemyPos.y, 'blood', { dir: angle });
       }
 
       // Reset to no tint

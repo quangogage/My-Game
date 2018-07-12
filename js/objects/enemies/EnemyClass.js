@@ -118,12 +118,11 @@ export default class EnemyClass {
     // Create blood particle
     var bloodCount = GageLib.math.getRandom(2, 4);
     for (var i = 0; i < bloodCount; i++) {
-      this.createParticle(
-        bulletPos.x + (Math.cos(bullet.dir) * bulletDim.width) / 2,
-        bulletPos.y + (Math.sin(bullet.dir) * bulletDim.width) / 2,
-        'blood',
-        { dir: bullet.dir }
+      var x = GageLib.math.getRandom(
+        this.sprite.x - this.width / 2,
+        this.sprite.x + this.width / 2
       );
+      this.createParticle(x, bulletPos.y, 'blood', { dir: bullet.dir });
     }
 
     // Create a bullet-hit particle
@@ -151,7 +150,15 @@ export default class EnemyClass {
     var gibType = this.gibType || 'meat';
     var gibCount = GageLib.math.getRandom(GIB_COUNT[0], GIB_COUNT[1]);
     for (var i = 0; i < gibCount; i++) {
-      this.createParticle(this.sprite.x, this.sprite.y, 'gib', {
+      var x = GageLib.math.getRandom(
+        this.sprite.x - this.width / 2,
+        this.sprite.x + this.width / 2
+      );
+      var y = GageLib.math.getRandom(
+        this.sprite.y - this.height / 2,
+        this.sprite.y + this.height / 2
+      );
+      this.createParticle(x, y, 'gib', {
         type: gibType,
         dir: angle + Math.PI,
         enemies: this.enemies,
