@@ -27,6 +27,8 @@ export default class Player {
     this.dir = 'right';
     this.speed = SPEED;
     this.friction = FRICTION;
+    this.createdDust1 = false;
+    this.createdDust2 = false;
 
     // Health
     this.maxHealth = MAX_HEALTH;
@@ -114,6 +116,7 @@ export default class Player {
     this.boundary();
     this.jump();
     this.attachGun();
+    this.createDust();
     this.shootHelper.update();
     this.hit.timer++;
     this.equipTimer++;
@@ -357,5 +360,31 @@ export default class Player {
 
     // Flip the sprite in the correct direction
     this.sprite.flipX = isFlipped;
+  }
+
+  // Create dust when walking
+  createDust() {
+    var currentFrame = this.sprite.anims.currentFrame.index;
+
+    // The creation
+    var createDust = function(x, _self) {
+      _self.createParticle(x, _self.sprite.y + _self.height / 2, 'footstep', {
+        flipX: !_self.sprite.flipX
+      });
+    };
+
+    // Frame 2
+    if (currentFrame == 2 && this.createdDust1 == false) {
+      createDust(this.sprite.x - this.width * 0.33, this);
+      this.createdDust1 = true;
+      this.createdDust2 = false;
+    }
+
+    // Frame 4
+    if (currentFrame == 4 && this.createdDust2 == false) {
+      createDust(this.sprite.x + this.width * 0.33, this);
+      this.createdDust2 = true;
+      this.createdDust1 = false;
+    }
   }
 }

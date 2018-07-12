@@ -4,6 +4,7 @@ import Explosion from '../objects/Particles/Explosion';
 import Gib from '../objects/Particles/Gib';
 import SpawnFlash from '../objects/Particles/SpawnFlash';
 import BulletHit from '../objects/Particles/BulletHit';
+import FootStep from '../objects/Particles/FootStep';
 
 export default class ParticleHandler {
   constructor(options) {
@@ -99,6 +100,19 @@ export default class ParticleHandler {
             type: 'spritesheet',
             frameWidth: 16,
             frameHeight: 16
+          }
+        ]
+      },
+      {
+        name: 'footstep',
+        class: FootStep,
+        assets: [
+          {
+            name: 'footstep',
+            fileName: 'footstep',
+            type: 'spritesheet',
+            frameWidth: 6,
+            frameHeight: 8
           }
         ]
       }
