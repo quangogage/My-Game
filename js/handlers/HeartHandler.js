@@ -9,6 +9,9 @@ export default class HeartHandler {
 
     // The hearts
     this.hearts = [];
+
+    // Binding public functions
+    this.create = this.create.bind(this);
   }
 
   /* ** Public Functions ** */
@@ -23,7 +26,15 @@ export default class HeartHandler {
     // Update them all
     for (var i = 0; i < this.hearts.length; i++) {
       var heart = this.hearts[i];
+
+      // Update the instance
       heart.update();
+
+      // Destroying the instance
+      if (heart.delete) {
+        heart.destroyAssets();
+        this.hearts.splice(i, 1);
+      }
     }
   }
   create(x, y) {

@@ -27,8 +27,6 @@ export default class PlayScene extends Scene {
 
     // Load the first room
     this.roomHandler.loadRoom(0);
-
-    this.heartHandler.create(200, 200);
   }
   update() {
     this.player.update();

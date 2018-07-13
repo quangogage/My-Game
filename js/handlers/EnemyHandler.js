@@ -6,6 +6,7 @@ import Troll from '../objects/enemies/Troll';
 
 var PUSHBACK = 0.2;
 var WEAPON_CHANCE = 20;
+var HEALTH_CHANCE = 10;
 
 export default class EnemyHandler {
   constructor(options) {
@@ -14,6 +15,7 @@ export default class EnemyHandler {
     this.state = options.state;
     this.player = options.player;
     this.bullets = options.bullets;
+    this.createHeart = options.createHeart;
     this.createWeapon = options.createWeapon;
     this.createParticle = options.createParticle;
 
@@ -146,6 +148,7 @@ export default class EnemyHandler {
       // Removing the enemy
       if (enemy.delete) {
         var weaponRoll = GageLib.math.getRandom(0, 100);
+        var heartRoll = GageLib.math.getRandom(0, 100);
 
         // Destroy the sprite
         enemy.sprite.destroy();
@@ -153,6 +156,11 @@ export default class EnemyHandler {
         // Creating weapons
         if (weaponRoll <= WEAPON_CHANCE) {
           this.createWeapon(null, enemy.sprite.x, enemy.sprite.y);
+        }
+
+        // Creating hearts
+        if (heartRoll <= HEALTH_CHANCE) {
+          this.createHeart(enemy.sprite.x, enemy.sprite.y);
         }
 
         // Remove from list of enemies

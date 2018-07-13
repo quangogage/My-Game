@@ -6,6 +6,7 @@ export default class PlatformHandler {
     this.scene = options.scene;
     this.state = options.state;
     this.player = options.player;
+    this.hearts = options.hearts;
     this.bullets = options.bullets;
     this.enemies = options.enemies;
     this.weapons = options.weapons;
@@ -279,6 +280,34 @@ export default class PlatformHandler {
 
           // Destroy the bullet
           bullet.delete = true;
+        }
+      }
+
+      // Hearts
+      for (var ia = 0; ia < this.hearts.length; ia++) {
+        var heart = this.hearts[ia];
+        var heartPos = heart.getPos();
+        var heartDim = heart.getDim();
+
+        if (
+          heartPos.x + heartDim.width / 2 > platform.x &&
+          heartPos.x - heartDim.width / 2 < platform.x + platform.pixelWidth &&
+          heartPos.y + heartDim.height / 2 > platform.y &&
+          heartPos.y - heartDim.height / 2 < platform.y + platform.pixelHeight
+        ) {
+          var extra = 5;
+
+          if (
+            heartPos.x + heartDim.width / 2 > platform.x + extra &&
+            heartPos.x - heartDim.width / 2 <
+              platform.x + platform.pixelWidth - extra
+          ) {
+            if (heartPos.y < platform.y + platform.pixelHeight / 2) {
+              heart.setPos(null, platform.y - heartDim.height / 2);
+              heart.yvel = 0;
+              heart.grounded = true;
+            }
+          }
         }
       }
     }

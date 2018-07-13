@@ -52,17 +52,6 @@ export default function componentLoader(scene) {
   });
   scene.weaponHandler.preload();
 
-  // The enemy handler
-  scene.enemyHandler = new EnemyHandler({
-    scene: scene,
-    state: scene.state,
-    player: scene.player,
-    bullets: scene.bulletHandler.bullets,
-    createParticle: scene.particleHandler.create,
-    createWeapon: scene.weaponHandler.create
-  });
-  scene.enemyHandler.preload();
-
   // The Heart handler
   scene.heartHandler = new HeartHandler({
     scene: scene,
@@ -71,6 +60,18 @@ export default function componentLoader(scene) {
   });
   scene.heartHandler.preload();
 
+  // The enemy handler
+  scene.enemyHandler = new EnemyHandler({
+    scene: scene,
+    state: scene.state,
+    player: scene.player,
+    bullets: scene.bulletHandler.bullets,
+    createHeart: scene.heartHandler.create,
+    createParticle: scene.particleHandler.create,
+    createWeapon: scene.weaponHandler.create
+  });
+  scene.enemyHandler.preload();
+
   // The ground
   scene.ground = new Ground({
     scene: scene,
@@ -78,6 +79,7 @@ export default function componentLoader(scene) {
     tileCount: scene.tiles.count,
     tileWidth: scene.tiles.width,
     tileHeight: scene.tiles.height,
+    hearts: scene.heartHandler.hearts,
     enemies: scene.enemyHandler.enemies,
     weapons: scene.weaponHandler.weapons,
     bullets: scene.bulletHandler.bullets,
@@ -93,6 +95,7 @@ export default function componentLoader(scene) {
     tileCount: scene.tiles.count,
     tileWidth: scene.tiles.width,
     tileHeight: scene.tiles.height,
+    hearts: scene.heartHandler.hearts,
     createTile: scene.tiles.createImage,
     enemies: scene.enemyHandler.enemies,
     bullets: scene.bulletHandler.bullets,

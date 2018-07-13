@@ -387,4 +387,12 @@ export default class Player {
       this.createdDust1 = false;
     }
   }
+
+  // Receiving health
+  addHealth(amount) {
+    this.health += amount;
+    if (this.health > this.maxHealth) {
+      this.maxHealth = this.health;
+    }
+  }
 }

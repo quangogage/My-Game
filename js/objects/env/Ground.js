@@ -5,6 +5,7 @@ export default class Ground {
     this.scene = options.scene;
     this.enemies = options.enemies;
     this.player = options.player;
+    this.hearts = options.hearts;
     this.weapons = options.weapons;
     this.bullets = options.bullets;
     this.tileCount = options.tileCount;
@@ -53,6 +54,7 @@ export default class Ground {
   }
   update() {
     var player = this.player;
+    var hearts = this.hearts;
     var weapons = this.weapons;
     var enemies = this.enemies;
     var bullets = this.bullets;
@@ -110,6 +112,19 @@ export default class Ground {
       var bulletPos = bullet.getPos();
       if (bulletPos.y >= this.groundY) {
         bullet.delete = true;
+      }
+    }
+
+    // Handling hearts landing on the ground
+    for (var i = 0; i < hearts.length; i++) {
+      var heart = hearts[i];
+      var heartPos = heart.getPos();
+      var heartDim = heart.getDim();
+
+      if (heartPos.y + heartDim.height / 2 >= this.groundY) {
+        heart.setPos(null, this.groundY - heartDim.height / 2);
+        heart.yvel = 0;
+        heart.grounded = true;
       }
     }
   }

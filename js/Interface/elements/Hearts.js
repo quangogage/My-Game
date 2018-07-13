@@ -12,6 +12,9 @@ export default class Hearts {
     this.height = 25;
     this.space = 5;
     this.padding = 10;
+
+    // Max health when loaded
+    this.maxHealth = this.player.maxHealth;
   }
 
   /* ** Public Functions ** */
@@ -71,6 +74,12 @@ export default class Hearts {
         newAnimation = this.anims[this.player.health - lowestValue];
         heart.sprite.anims.play(newAnimation);
       }
+    }
+
+    // If the player's max health ever changes
+    if (this.player.maxHealth !== this.maxHealth) {
+      this.createHearts();
+      this.maxHealth = this.player.maxHealth;
     }
   }
 
