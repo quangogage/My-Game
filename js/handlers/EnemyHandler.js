@@ -6,7 +6,7 @@ import Troll from '../objects/enemies/Troll';
 
 var PUSHBACK = 0.2;
 var WEAPON_CHANCE = 20;
-var HEALTH_CHANCE = 10;
+var HEALTH_CHANCE = 5;
 
 export default class EnemyHandler {
   constructor(options) {
