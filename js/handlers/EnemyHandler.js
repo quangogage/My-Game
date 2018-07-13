@@ -54,7 +54,7 @@ export default class EnemyHandler {
         name: 'troll',
         fileName: 'troll',
         class: Troll,
-        weight: 0.5
+        weight: 0.125
       }
     ];
 

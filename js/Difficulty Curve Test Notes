@@ -103,12 +103,59 @@ Test 004:
 
 
   Conclusion:
-  Max Enemy and Spawn Rate increasing difficulty felt better matched,
-  but overall it felt far too slow. Need to increase both while mainting
-  a good balance.
+    Max Enemy and Spawn Rate increasing difficulty felt better matched,
+    but overall it felt far too slow. Need to increase both while mainting
+    a good balance.
 
 
 ------------------------------------------
 
 
+------------------------------------------
+Test 005:
+------
+
+  Increased Max Enemies,
+  Increased Spawn Rate
+
+  Max Enemies:
+
+  - Rate: 0.095
+  - Max: 10
+
+  Spawn Rate:
+
+    - Rate: 1.4
+    - Min: 50 / 100
+
+
+  Conclusion:
+    Still. Slow.
+
+------------------------------------------
+
+
+
+------------------------------------------
+Test 006:
+------
+
+  Increased Max Enemies,
+  Increased Spawn Rate
+
+  Max Enemies:
+
+  - Rate: 0.1
+  - Max: 10
+
+  Spawn Rate:
+
+    - Rate: 1.8
+    - Min: 50 / 100
+
+
+  Conclusion:
+    Still. Slow.
+
+------------------------------------------
 

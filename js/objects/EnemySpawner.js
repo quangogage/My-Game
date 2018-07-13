@@ -1,10 +1,10 @@
 import GageLib from 'gages-library';
 
 // Variable values
-var SPAWN_RATE = { value: [300, 450], rate: 1.2, min1: 50, min2: 100 };
+var SPAWN_RATE = { value: [300, 450], rate: 4.5, min1: 50, min2: 100 };
 var MAX_ENEMIES = {
   value: 3,
-  rate: 0.085,
+  rate: 0.1,
   totalMax: 10
 };
 
