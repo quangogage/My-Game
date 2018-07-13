@@ -9,6 +9,7 @@ var MAX_HEALTH = 4;
 var SCALE = 2.5;
 var WEAPON_KICK = 10;
 var WEAPON_KICK_RESET_SPEED = 1;
+var WEAPON_FOLLOW_SPEED = 0.66;
 
 export default class Player {
   constructor(options) {
@@ -237,6 +238,8 @@ export default class Player {
       this.equipped = {
         x: weapon.x || 0,
         y: weapon.y || 0,
+        spriteX: this.sprite.x,
+        spriteY: this.sprite.y,
         name: weapon.name,
         width: weapon.width,
         damage: weapon.damage,
@@ -276,9 +279,17 @@ export default class Player {
     var scaleX = this.sprite.flipX ? -1 : 1;
     if (this.equipped) {
       // Positioning
-      this.equipped.image.x =
+      this.equipped.spriteX =
         this.sprite.x + (this.equipped.x - this.equipped.kick) * scaleX;
-      this.equipped.image.y = this.sprite.y + this.equipped.y;
+      this.equipped.spriteY = this.sprite.y + this.equipped.y;
+
+      // Following with a slight delay.tween
+      this.equipped.image.x =
+        this.equipped.image.x -
+        (this.equipped.image.x - this.equipped.spriteX) * WEAPON_FOLLOW_SPEED;
+      this.equipped.image.y =
+        this.equipped.image.y -
+        (this.equipped.image.y - this.equipped.spriteY) * WEAPON_FOLLOW_SPEED;
 
       // Flip it as well if the player is flipped
       this.equipped.image.flipX = this.sprite.flipX;
