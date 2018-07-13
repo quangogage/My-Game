@@ -10,6 +10,7 @@ import Tiles from './Tiles';
 import PlatformHandler from '../handlers/PlatformHandler';
 import RoomHandler from '../handlers/RoomHandler';
 import EnemySpawnerHandler from '../handlers/EnemySpawnerHandler';
+import HeartHandler from '../handlers/HeartHandler';
 
 // Loads all of the handlers/loaders/objects/etc inside of
 // the `Play.js`'s preload function to keep things clean.
@@ -61,6 +62,14 @@ export default function componentLoader(scene) {
     createWeapon: scene.weaponHandler.create
   });
   scene.enemyHandler.preload();
+
+  // The Heart handler
+  scene.heartHandler = new HeartHandler({
+    scene: scene,
+    state: scene.state,
+    player: scene.player
+  });
+  scene.heartHandler.preload();
 
   // The ground
   scene.ground = new Ground({
