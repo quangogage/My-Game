@@ -5,7 +5,7 @@ var HEIGHT = 50;
 var FRICTION = 0.8;
 var SPEED = 0.3;
 var GRAVITY = 0.35;
-var HEALTH = 3;
+var HEALTH = 2.2;
 
 export default class Pig extends EnemyClass {
   constructor(options) {
