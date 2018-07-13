@@ -35,6 +35,6 @@
   },
   "dependencies": {
     "gages-library": "git+https://github.com/quangogage/Gages-Library.git",
-    "phaser": "^3.10.1"
+    "phaser": "^3.11.0"
   }
 }
