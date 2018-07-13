@@ -13,6 +13,7 @@ export default class Ground {
     this.totalHeight = 3;
     this.tileWidth = options.tileWidth;
     this.tileHeight = options.tileHeight;
+    this.createParticle = options.createParticle;
   }
 
   preload() {
@@ -65,8 +66,14 @@ export default class Ground {
     var dim = player.getDim();
     if (pos.y + dim.height / 2 > this.groundY) {
       player.setPos(null, this.groundY - dim.height / 2);
-      player.yvel = 0;
       player.grounded = true;
+
+      // Land burst dust effect
+      if (Math.abs(player.yvel) >= 10) {
+        this.createParticle(pos.x, pos.y + dim.height / 2, 'land-burst');
+      }
+
+      player.yvel = 0;
     }
 
     // Handling weapons landing on the ground.

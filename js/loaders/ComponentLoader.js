@@ -83,7 +83,8 @@ export default function componentLoader(scene) {
     enemies: scene.enemyHandler.enemies,
     weapons: scene.weaponHandler.weapons,
     bullets: scene.bulletHandler.bullets,
-    particles: scene.particleHandler.particles
+    particles: scene.particleHandler.particles,
+    createParticle: scene.particleHandler.create
   });
   scene.ground.preload();
 

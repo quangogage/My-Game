@@ -5,6 +5,7 @@ import Gib from '../objects/Particles/Gib';
 import SpawnFlash from '../objects/Particles/SpawnFlash';
 import BulletHit from '../objects/Particles/BulletHit';
 import FootStep from '../objects/Particles/FootStep';
+import LandBurst from '../objects/Particles/LandBurst';
 
 export default class ParticleHandler {
   constructor(options) {
@@ -113,6 +114,19 @@ export default class ParticleHandler {
             type: 'spritesheet',
             frameWidth: 6,
             frameHeight: 8
+          }
+        ]
+      },
+      {
+        name: 'land-burst',
+        class: LandBurst,
+        assets: [
+          {
+            name: 'land-burst',
+            fileName: 'land-burst',
+            type: 'spritesheet',
+            frameWidth: 16,
+            frameHeight: 16
           }
         ]
       }

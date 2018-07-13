@@ -77,6 +77,16 @@ export default class PlatformHandler {
         ) {
           if (playerPos.y < platform.y + platform.pixelHeight / 2) {
             player.setPos(null, platform.y - playerDim.height / 2);
+
+            // Land-burst dust-effect
+            if (Math.abs(player.yvel) >= 10) {
+              this.createParticle(
+                playerPos.x,
+                playerPos.y + playerDim.height / 2,
+                'land-burst'
+              );
+            }
+
             player.yvel = 0;
             player.grounded = true;
           }
